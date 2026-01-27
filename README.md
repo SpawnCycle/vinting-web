@@ -16,3 +16,6 @@ ProductDetals (popup) page... -> ProductPage: routing megvan, productot kiolvass
 
 JS-»TS
 Laci repojába»»
+
+Megcsináltam a Jsont megint xd és hogy backend/json->szűrés->kész adatot vissza stb (saját verziómban)
+»»Majd MINDENT bemásoltam ide, működik ugyan úgy
