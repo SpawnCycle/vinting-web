@@ -7,8 +7,8 @@
   --text-color-secondary: #4f4f4f;
   --text-color-third: #666;
 
-  --nav-icon-color: #494949;
-  --nav-icon-active: #000;
+  --nav-icon-color: #595959;
+  --nav-icon-color-active: #000;
 
   --button-bg-main: #222429;
   --button-text-main: #fff;
@@ -24,8 +24,8 @@
   --text-color-secondary: #7c7c7c;
   --text-color-third: #302f2c;
 
-  --nav-icon-color: #8da7ad;
-  --nav-icon-active: #6d8085;
+  --nav-icon-color: #3c3c3c;
+  --nav-icon-color-active: #8a969a;
   
   --button-bg-main: #ccc;
   --button-text-main: #000;
