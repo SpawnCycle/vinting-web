@@ -20,6 +20,8 @@ Laci repojába»»
 Megcsináltam a Jsont megint xd és hogy backend/json->szűrés->kész adatot vissza stb (saját verziómban)
 »»Majd MINDENT bemásoltam ide, működik ugyan úgy
 
-FONTOS, CSINÁLD MEG:
-  telón osszecsúszik két sorba a cím, eltérő méretű kártyák
-  navbár nagyképernyős elrendezését is
+CSINÁLD MEG:
+  telón osszecsúszik két sorba a cím, eltérő méretű kártyák - kész
+  navbár nagyképernyős elrendezését is -alakul, szinte jó
+  tableten nagyobb legyen a navbar
+  product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk ha saját

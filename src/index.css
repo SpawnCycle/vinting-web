@@ -1,7 +1,11 @@
 @import "tailwindcss";
+*{
+  transition: ease 0.3s all;
+}
 :root {
   --bg-color-main: #fff;
   --bg-color-secondary: #f6f6f6;
+  --bg-color-third: #eeeeee;
 
   --text-color-main: #000;
   --text-color-secondary: #4f4f4f;
@@ -19,13 +23,14 @@
 [data-theme="dark"] {
   --bg-color-main: #111;
   --bg-color-secondary: #222429;
+  --bg-color-third: #eeeeee;
 
   --text-color-main: #fff;
   --text-color-secondary: #7c7c7c;
   --text-color-third: #302f2c;
 
-  --nav-icon-color: #3c3c3c;
-  --nav-icon-color-active: #8a969a;
+  --nav-icon-color: #333;
+  --nav-icon-color-active: #ccc;
   
   --button-bg-main: #ccc;
   --button-text-main: #000;
@@ -64,4 +69,19 @@ body {
 @font-face {
   font-family: 'UbuntuCondensed';
   src: url('./assets/fonts/UbuntuCondensed-Regular.ttf') format('truetype');
+}
+
+@media (min-width: 1024px) {
+  .app-layout {
+    display: flex;
+  }
+
+  .content {
+    margin-left: 75px;
+    transition: margin-left 0.3s ease;
+  }
+
+  .app-layout.no-navbar .content {
+    margin-left: 0;
+  }
 }

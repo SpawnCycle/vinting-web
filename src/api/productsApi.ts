@@ -4,6 +4,7 @@ const BASE_URL = import.meta.env.VITE_API_URL ?? "";
 const USE_BACKEND = Boolean(BASE_URL);
 
 export type ProductFilters = {
+    id?: number;   
     sellerId?: number;
     search?: string;
     brand?: string;
@@ -19,6 +20,10 @@ export async function getProducts( filters?: ProductFilters ): Promise<Product[]
         let data: Product[] = await res.json();
 
         // szűrés (mint backendnél majd)
+        if (filters?.id !== undefined) {
+        data = data.filter(p => p.id === filters.id);
+        }
+
         if (filters?.sellerId !== undefined) {
         data = data.filter(p => p.sellerId === filters.sellerId);
         }
@@ -49,7 +54,7 @@ export async function getProducts( filters?: ProductFilters ): Promise<Product[]
         return data;
     }
 
-    // majd h lesz backend
+    // majd h lesz backend -»»» Sima id még nincs ellenőrizve
     const params = new URLSearchParams();
 
     if (filters?.sellerId !== undefined)

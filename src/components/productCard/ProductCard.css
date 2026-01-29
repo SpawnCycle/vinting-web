@@ -8,6 +8,7 @@
   position: relative; /* A kedvenc gomb miatt */
   background-color: var(--bg-color-secondary);
   border: 1px solid rgba(166, 201, 205, 0.14);
+  min-width: 0;
 }
 
 .product-card:hover{
@@ -62,6 +63,11 @@
 .product-info h2 {
   font-size: 1.2rem;
   font-family: "Arial", sans-serif;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .favorite-btn {
@@ -88,4 +94,15 @@
 .favorite-btn.active {
   background: white;
   color: #e60023;
+}
+@media (max-width: 600px) {
+    .product-brand{
+      font-size: 1.1rem;
+    }
+    .product-info h2 {
+      font-size: 1.1rem;
+    }
+    .product-extra{
+      font-size: 0.8rem;
+    }
 }

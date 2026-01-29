@@ -1,6 +1,8 @@
 .nav-icon {
   color: var(--nav-icon-color);
   font-size: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .nav-icon.active {
@@ -46,14 +48,18 @@
 /* desktop */
 @media (min-width: 1024px) {
   .navbar {
-    top: 50%;
-    left: 20px;
-    bottom: auto;
-    transform: translateY(-50%);
+    top: 0;
+    left: 0;
+    height: 100vh;
     flex-direction: column;
-    width: auto;
-    padding: 12px;
-    border-radius: 24px;
+    justify-content: start;
+    align-items: center;
+    padding: 20px 12px;
+    gap: 20px;
+    transition: width 0.3s ease;
+    transform: translateX(0);
+    border-radius: 0;
+    width: 60px;
     transition: width 0.3s ease;
   }
 
@@ -62,8 +68,7 @@
   }
 
   .navbar.open {
-    width: 180px;
-    align-items: flex-start;
+    width: 200px;
   }
 
   .nav-item {
@@ -104,5 +109,7 @@
     right: 0;
     transform: translateX(+50%);
     z-index: 1001;
+    background-color: var(--button-bg-main);
+    color: var(--button-text-main);
   }
 }

@@ -7,44 +7,78 @@ import {
   CgChevronLeft,
   CgChevronRight,
 } from "react-icons/cg";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
 
 export default function Navbar() {
-   const location = useLocation();
-   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const navbarRef = useRef<HTMLElement | null>(null);
 
-   if ( location.pathname === "/welcome" || location.pathname === "/profile/my-listings" )
-      return null;
+  if ( 
+    location.pathname === "/welcome" || 
+    location.pathname === "/profile/my-listings" ||
+    location.pathname.startsWith("/product/")
+  ) {
+    return null;
+  }
 
-   const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path;
 
-   return (
-      <nav className={`navbar ${isOpen ? "open" : "closed"}`}>
-         <Link to="/" className="nav-item">
-            <CgCalendarTwo className={`nav-icon ${isActive("/") ? "active" : ""}`} />
-            <span className={`nav-text ${isActive("/") ? "active" : ""}`}>Home page</span>
-         </Link>
+  useEffect(() => {
+    function handleOutsideClick(e: MouseEvent) {
+      if ( isOpen && navbarRef.current && !navbarRef.current.contains(e.target as Node) ) {
+        setIsOpen(false);
+      }
+    }
 
-         <Link to="/upload" className="nav-item">
-            <CgAdd className={`nav-icon ${isActive("/upload") ? "active" : ""}`} />
-            <span className={`nav-text ${isActive("/upload") ? "active" : ""}`}>Upload</span>
-         </Link>
+    document.addEventListener("mousedown", handleOutsideClick);
 
-         <Link to="/favorites" className="nav-item">
-            <CgHeart className={`nav-icon ${isActive("/favorites") ? "active" : ""}`} />
-            <span className={`nav-text ${isActive("/favorites") ? "active" : ""}`}>Favorites</span>
-         </Link>
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isOpen]);
 
-         <Link to="/profile" className="nav-item">
-            <CgProfile className={`nav-icon ${isActive("/profile") ? "active" : ""}`} />
-            <span className={`nav-text ${isActive("/profile") ? "active" : ""}`}>Profile</span>
-         </Link>
+  return (
+    <nav ref={navbarRef} className={`navbar ${isOpen ? "open" : "closed"}`}>
+      <Link to="/" className="nav-item" onClick={() => setIsOpen(false)}>
+        <CgCalendarTwo className={`nav-icon ${isActive("/") ? "active" : ""}`}/>
+        <span className={`nav-text ${isActive("/") ? "active" : ""}`}>
+          Home page
+        </span>
+      </Link>
 
-         {/* toggle btn majd csak desktopon */}
-         <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <CgChevronLeft /> : <CgChevronRight />}
-         </button>
-      </nav>
+      <Link to="/upload" className="nav-item" onClick={() => setIsOpen(false)}>
+        <CgAdd className={`nav-icon ${isActive("/upload") ? "active" : ""}`}/>
+        <span className={`nav-text ${isActive("/upload") ? "active" : ""}`}>
+          Upload
+        </span>
+      </Link>
+
+      <Link to="/favorites" className="nav-item" onClick={() => setIsOpen(false)}>
+        <CgHeart className={`nav-icon ${isActive("/favorites") ? "active" : ""}`}/>
+        <span className={`nav-text ${isActive("/favorites") ? "active" : ""}`}>
+          Favorites
+        </span>
+      </Link>
+
+      <Link to="/profile" className="nav-item" onClick={() => setIsOpen(false)}>
+        <CgProfile className={`nav-icon ${isActive("/profile") ? "active" : ""}`}/>
+        <span className={`nav-text ${isActive("/profile") ? "active" : ""}`}>
+          Profile
+        </span>
+      </Link>
+
+      <button 
+        className="toggle-btn"
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(prev => !prev);
+        }}
+        aria-label="Toggle sidebar"
+      >
+        {isOpen ? <CgChevronLeft /> : <CgChevronRight />}
+      </button>
+    </nav>
   );
 }
