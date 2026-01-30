@@ -1,5 +1,8 @@
 @import "tailwindcss";
-*{
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+* {
   transition: ease 0.3s all;
 }
 :root {
@@ -31,7 +34,7 @@
 
   --nav-icon-color: #333;
   --nav-icon-color-active: #ccc;
-  
+
   --button-bg-main: #ccc;
   --button-text-main: #000;
   --button-bg-secondary: #222429;
@@ -43,32 +46,35 @@ body {
   padding: 0;
   background-color: var(--bg-color-main);
   color: var(--text-color-main);
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 @font-face {
-  font-family: 'Agdasima-Regular';
-  src: url('./assets/fonts/Agdasima-Regular.ttf') format('truetype');
+  font-family: "Agdasima-Regular";
+  src: url("./assets/fonts/Agdasima-Regular.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'AlumniSansPinstripe-Regular';
-  src: url('./assets/fonts/AlumniSansPinstripe-Regular.ttf') format('truetype');
+  font-family: "AlumniSansPinstripe-Regular";
+  src: url("./assets/fonts/AlumniSansPinstripe-Regular.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Geologica';
-  src: url('./assets/fonts/Geologica-VariableFont_CRSV\,SHRP\,slnt\,wght.ttf') format('truetype');
+  font-family: "Geologica";
+  src: url("./assets/fonts/Geologica-VariableFont_CRSV\,SHRP\,slnt\,wght.ttf")
+    format("truetype");
 }
 @font-face {
-  font-family: 'LexendGiga';
-  src: url('./assets/fonts/LexendGiga-VariableFont_wght.ttf') format('truetype');
+  font-family: "LexendGiga";
+  src: url("./assets/fonts/LexendGiga-VariableFont_wght.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'LexendGiga-ExtraLight';
-  src: url("./assets/fonts/LexendGiga-ExtraLight.ttf") format('truetype');
+  font-family: "LexendGiga-ExtraLight";
+  src: url("./assets/fonts/LexendGiga-ExtraLight.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'UbuntuCondensed';
-  src: url('./assets/fonts/UbuntuCondensed-Regular.ttf') format('truetype');
+  font-family: "UbuntuCondensed";
+  src: url("./assets/fonts/UbuntuCondensed-Regular.ttf") format("truetype");
 }
 
 @media (min-width: 1024px) {
