@@ -1,0 +1,58 @@
+.header-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    z-index: 2000;
+    height: 60px;
+    border-bottom: 1px solid #ccc;
+    font-family: "AlumniSansPinstripe-Regular", sans-serif;
+    font-size: 2rem;
+    color: var(--text-color-main);
+    font-weight: 550;
+}
+[data-theme="dark"] .header-div{
+    background: rgba(17, 17, 17, 0.6);
+    border-bottom: 1px solid #444;
+}
+.header-div button{
+    padding: 5px;
+    border-radius: 50%;
+    color: var(--text-color-main);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 20px;
+    transition: all 0.3s ease;
+}
+.header-div button:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+[data-theme="dark"] .header-div button:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.status-buttons{
+    margin-top: 80px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.status-buttons button{
+    padding: 6px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: "Arial", sans-serif;
+    font-size: 1rem;
+}
+.favorite-btn button{
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .status-buttons{ gap: 80px;}
+}
