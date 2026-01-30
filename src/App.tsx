@@ -1,7 +1,12 @@
-import { ComponentExample } from "@/components/component-example";
+import AppRouter from "./Router.jsx";
+import { ThemeProvider } from "./context/ThemeContext.js";
 
-export function App() {
-return <ComponentExample />;
+function App() {
+  return (
+    <ThemeProvider>
+      <AppRouter />
+    </ThemeProvider>
+  );
 }
 
 export default App;

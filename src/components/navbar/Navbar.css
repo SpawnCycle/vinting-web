@@ -1,0 +1,115 @@
+.nav-icon {
+  color: var(--nav-icon-color);
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+.nav-icon.active {
+  color: var(--nav-icon-color-active);
+}
+
+/* mobil+tablet (alap) */
+.navbar {
+  width: 90vw;
+  max-width: 300px;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 1000;
+
+  background: rgba(193, 211, 213, 0.35);
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(7.3px);
+  border: 1px solid rgba(166, 201, 205, 0.24);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.nav-text {
+  display: none;
+}
+
+.toggle-btn{
+  display: none;
+}
+
+/* desktop */
+@media (min-width: 1024px) {
+  .navbar {
+    top: 0;
+    left: 0;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 20px 12px;
+    gap: 20px;
+    transition: width 0.3s ease;
+    transform: translateX(0);
+    border-radius: 0;
+    width: 60px;
+    transition: width 0.3s ease;
+  }
+
+  .navbar.closed {
+    width: 64px;
+  }
+
+  .navbar.open {
+    width: 200px;
+  }
+
+  .nav-item {
+    width: 100%;
+    padding: 8px;
+    border-radius: 12px;
+  }
+
+  .nav-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--nav-icon-color-active);
+  }
+
+  .navbar.open .nav-text {
+    display: inline;
+    font-size: 14px;
+    white-space: nowrap;
+    color: var(--nav-icon-color);
+  }
+
+  .navbar.open .nav-text.active{
+    color: var(--nav-icon-color-active);
+  }
+
+  .toggle-btn {
+    position: absolute;
+    display: flex;
+    margin-top: 10px;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);*/
+    right: 0;
+    transform: translateX(+50%);
+    z-index: 1001;
+    background-color: var(--button-bg-main);
+    color: var(--button-text-main);
+  }
+}
