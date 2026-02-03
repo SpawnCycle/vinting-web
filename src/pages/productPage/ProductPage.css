@@ -165,6 +165,9 @@
 }
 
 @media (max-width: 900px) {
+  .product-page{
+    padding: 0;
+  }
   .product-page .product-card {
     grid-template-columns: 1fr;
   }

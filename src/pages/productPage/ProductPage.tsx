@@ -6,6 +6,8 @@ import { getProducts } from "../../api/productsApi";
 import type { Product } from "../../types/Product";
 import "./ProductPage.css";
 
+import ImageCarousel from "../../components/imageCarousel/ImageCarousel";
+
 export default function ProductPage() {
    const navigate = useNavigate();
    const { id } = useParams<{ id: string }>();
@@ -58,7 +60,9 @@ export default function ProductPage() {
          {/* product card */}
          <div className="product-card">
             {/* image */}
-            <div className="product-image-placeholder" />
+            <div className="product-image-placeholder">
+               <ImageCarousel images={product.images} />
+            </div>
 
             {/* info */}
             <div className="product-info">

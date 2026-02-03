@@ -1,3 +1,3 @@
 export default function Upload() {
-  return <h1>Új termék feltöltés</h1>;
+  return <h1>Upload new product</h1>;
 }
