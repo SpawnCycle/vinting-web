@@ -16,11 +16,13 @@ export interface Product {
   title: string;
   category: ProductCategory;
   color: string;
-  condition: ProductCondition;
+  condition: string;
   price: number;
   brand: string;
   description: string;
   images: string[];
   status: ProductStatus;
   sellerId: number;
+
+  isFavorite?: boolean; // backendből jövő kedvencekhez
 }

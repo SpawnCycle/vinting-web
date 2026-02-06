@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { CgArrowLeft } from "react-icons/cg";
+import { useLocation } from "react-router-dom";
 
 import ProductGrid from "../../components/productGrid/ProductGrid";
+import BackButton from "@/components/backButton/BackButton";
 import { getProducts } from "../../api/productsApi";
 import type { Product, ProductStatus } from "../../types/Product";
 
@@ -16,6 +16,9 @@ export default function MyListings() {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [filterStatus, setFilterStatus] = useState<ProductStatus>("active");
 	const [loading, setLoading] = useState(true);
+	//const location = useLocation();
+	const location = useLocation();
+	const returnTo = location.state?.returnTo;
 
 	useEffect(() => {
 		async function loadMyListings() {
@@ -31,17 +34,6 @@ export default function MyListings() {
 		p => p.status === filterStatus
 	);
 
-	//visszalépéshez
-	const navigate = useNavigate();
-
-	const navigateBack = () => {
-		if (window.history.length > 1) {
-			navigate(-1);
-		} else {
-			navigate("/");
-		}
-	};
-
 	//biztos ami tuti
 	if (loading) {
 		return <p>Betöltés...</p>;
@@ -50,9 +42,7 @@ export default function MyListings() {
 	return (
 		<div>
 			<div className="header-div">
-				<button onClick={navigateBack}>
-					<CgArrowLeft />
-				</button>
+				<BackButton />
 				<h1>My Listings</h1>
 			</div>
 
@@ -85,6 +75,8 @@ export default function MyListings() {
 			<ProductGrid
 				products={myProducts}
 				showFavoriteButton={false}
+				returnTo="/profile/my-listings"  //{returnTo ?? "/profile"}
+				parentReturnTo={location.state?.returnTo}
 			/>
 		</div>
 	);

@@ -1,0 +1,27 @@
+.favorite-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+
+}
+
+.favorite-btn.active {
+  background: white;
+  color: #e60023;
+}

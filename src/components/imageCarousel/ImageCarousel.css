@@ -58,7 +58,7 @@
 }
 
 /* =========================
-   FULLSCREEN OVERLAY
+         FULLSCREEN 
 ========================= */
 
 .carousel-overlay {
@@ -113,7 +113,7 @@
   right: 24px;
 }
 
-/* CLOSE */
+/* X */
 .overlay-close {
   position: absolute;
   top: 24px;

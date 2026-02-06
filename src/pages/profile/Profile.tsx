@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
 export default function Profile() {
@@ -13,7 +14,11 @@ export default function Profile() {
 
       <br />
 
-      <a href="/profile/my-listings">My listings</a>
+      <Link
+        to="/profile/my-listings"
+        state={{ returnTo: "/profile" }}
+      > MyListings
+      </Link>
     </div>
   );
 }

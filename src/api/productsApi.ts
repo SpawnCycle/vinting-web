@@ -80,3 +80,25 @@ export async function getProducts( filters?: ProductFilters ): Promise<Product[]
     const res = await fetch(url);
     return res.json();
 }
+
+export async function updateProduct(
+  productId: number,
+  data: Partial<Product>
+): Promise<Product> {
+  if (!USE_BACKEND) {
+    return {
+      ...(data as Product),
+      id: productId,
+    };
+  }
+
+  const res = await fetch(`${BASE_URL}/products/${productId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res.json();
+}

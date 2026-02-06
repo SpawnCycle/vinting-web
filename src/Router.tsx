@@ -8,6 +8,7 @@ import Favorites from "./pages/favorites/Favorites";
 import Profile from "./pages/profile/Profile";
 import MyListings from "./pages/myListings/MyListings";
 import ProductPage from "./pages/productPage/ProductPage";
+import EditProductPage from "./pages/editProduct/EditProduct";
 
 export default function AppRouter() {
   return (
@@ -21,6 +22,7 @@ export default function AppRouter() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/my-listings" element={<MyListings />} />
           <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/product/:id/edit" element={<EditProductPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
