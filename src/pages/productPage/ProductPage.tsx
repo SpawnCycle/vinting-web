@@ -21,18 +21,15 @@ const MY_USER_ID = 101;
 export default function ProductPage() {
   const location = useLocation() as { state?: LocationState };
   const { id } = useParams<{ id: string }>();
-
   const productId = Number(id);
 
   const [product, setProduct] = useState<Product | null>(null);
   const [sellerProducts, setSellerProducts] = useState<Product[]>([]);
 
   const returnTo = location.state?.returnTo;
-  const parentReturnTo = location.state?.parentReturnTo;
 
   useEffect(() => {
     async function loadProduct() {
-      // adott termék by ID
       const productResult = await getProducts({ id: productId });
       const foundProduct = productResult[0] ?? null;
 
@@ -43,7 +40,6 @@ export default function ProductPage() {
 
       setProduct(foundProduct);
 
-      // eladó további termékei
       const related = await getProducts({
         sellerId: foundProduct.sellerId,
       });
@@ -58,10 +54,8 @@ export default function ProductPage() {
 
   return (
     <div className="product-page">
-      {/* back */}
       <BackButton />
 
-      {/* product card */}
       <div className="product-card">
         {/* image */}
         <div className="product-image-placeholder">
@@ -71,7 +65,7 @@ export default function ProductPage() {
         {/* info */}
         <div className="product-info">
           {product.sellerId === MY_USER_ID ? (
-            product.status === "active" ? (
+            product.status === "Active" ? (
               <EditButton productId={product.id} returnTo={returnTo} />
             ) : null
           ) : (
@@ -89,18 +83,27 @@ export default function ProductPage() {
             {product.price.toLocaleString()} Ft
           </div>
 
+          {/* TAGS */}
           <div className="product-tags">
-            <span className="tag">Size: XX</span>
+            <span className="tag">Size: {product.size}</span>
             <span className="tag">Condition: {product.condition}</span>
-            <span className="tag">Color: {product.color}</span>
             <span className="tag">Category: {product.category}</span>
+            <span className="tag">Gender: {product.gender}</span>
+
+            {product.colors.map((color) => (
+              <span key={color} className="tag color-tag">
+                {color}
+              </span>
+            ))}
           </div>
 
+          {/* DESCRIPTION */}
           <div className="product-description">
             <h3>Description</h3>
             <p>{product.description}</p>
           </div>
 
+          {/* SELLER */}
           {product.sellerId !== MY_USER_ID && (
             <div className="product-seller">
               <span className="seller-icon">
@@ -115,7 +118,7 @@ export default function ProductPage() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
-                {product.sellerId}
+                Seller #{product.sellerId}
               </button>
             </div>
           )}
@@ -131,9 +134,7 @@ export default function ProductPage() {
               <h3>Products from the same user</h3>
             </>
           ) : (
-            <>
-              <h2>Your other listings</h2>
-            </>
+            <h2>Your other listings</h2>
           )}
 
           <div className="related-grid">

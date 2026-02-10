@@ -14,7 +14,7 @@ const MY_USER_ID = 101;
 
 export default function MyListings() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [filterStatus, setFilterStatus] = useState<ProductStatus>("active");
+  const [filterStatus, setFilterStatus] = useState<ProductStatus>("Active");
   const [loading, setLoading] = useState(true);
   //const location = useLocation();
   const location = useLocation();
@@ -48,15 +48,15 @@ export default function MyListings() {
         <button
           style={{
             backgroundColor:
-              filterStatus === "active"
+              filterStatus === "Active"
                 ? "var(--button-bg-main)"
                 : "var(--button-bg-secondary)",
             color:
-              filterStatus === "active"
+              filterStatus === "Active"
                 ? "var(--button-text-main)"
                 : "var(--button-text-secondary)",
           }}
-          onClick={() => setFilterStatus("active")}
+          onClick={() => setFilterStatus("Active")}
         >
           Active
         </button>
@@ -64,15 +64,15 @@ export default function MyListings() {
         <button
           style={{
             backgroundColor:
-              filterStatus === "sold"
+              filterStatus === "Sold"
                 ? "var(--button-bg-main)"
                 : "var(--button-bg-secondary)",
             color:
-              filterStatus === "sold"
+              filterStatus === "Sold"
                 ? "var(--button-text-main)"
                 : "var(--button-text-secondary)",
           }}
-          onClick={() => setFilterStatus("sold")}
+          onClick={() => setFilterStatus("Sold")}
         >
           Sold
         </button>
