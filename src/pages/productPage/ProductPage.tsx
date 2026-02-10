@@ -9,6 +9,7 @@ import ImageCarousel from "@/components/imageCarousel/ImageCarousel";
 import FavoriteButton from "@/components/favoriteButton/FavoriteButton";
 import EditButton from "@/components/editProduct/EditButton";
 import BackButton from "@/components/backButton/BackButton";
+import { CgProfile } from "react-icons/cg";
 
 type LocationState = {
   returnTo?: string;
@@ -26,9 +27,8 @@ export default function ProductPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [sellerProducts, setSellerProducts] = useState<Product[]>([]);
 
-   const returnTo = location.state?.returnTo;
-   const parentReturnTo = location.state?.parentReturnTo;
-
+  const returnTo = location.state?.returnTo;
+  const parentReturnTo = location.state?.parentReturnTo;
 
   useEffect(() => {
     async function loadProduct() {
@@ -48,9 +48,7 @@ export default function ProductPage() {
         sellerId: foundProduct.sellerId,
       });
 
-      setSellerProducts(
-        related.filter((p) => p.id !== foundProduct.id)
-      );
+      setSellerProducts(related.filter((p) => p.id !== foundProduct.id));
     }
 
     loadProduct();
@@ -102,12 +100,31 @@ export default function ProductPage() {
             <h3>Description</h3>
             <p>{product.description}</p>
           </div>
+
+          {product.sellerId !== MY_USER_ID && (
+            <div className="product-seller">
+              <span className="seller-icon">
+                <CgProfile />
+              </span>
+
+              <button
+                className="seller-link"
+                onClick={() => {
+                  document
+                    .getElementById("related-section")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                {product.sellerId}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
       {/* other products by seller */}
       {sellerProducts.length > 0 && (
-        <div className="related-section">
+        <div className="related-section" id="related-section">
           {product.sellerId !== MY_USER_ID ? (
             <>
               <h2>You may also like</h2>

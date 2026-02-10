@@ -19,9 +19,7 @@ export default function BackButton({
 
     if (returnTo) {
       navigate(returnTo, {
-        state: parentReturnTo
-          ? { returnTo: parentReturnTo }
-          : undefined,
+        state: parentReturnTo ? { returnTo: parentReturnTo } : undefined,
         replace: true,
       });
     } else {
@@ -30,7 +28,7 @@ export default function BackButton({
   };
 
   return (
-    <button onClick={navigateBack}>
+    <button onClick={navigateBack} className="back-button">
       {variant === "close" ? <CgClose /> : <CgArrowLeft />}
     </button>
   );
