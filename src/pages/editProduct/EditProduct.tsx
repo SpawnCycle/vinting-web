@@ -179,12 +179,15 @@ export default function EditProduct() {
         {/* colors */}
         <div className="form-group">
           <label>Colors</label>
-          <div className="color-grid">
+          <div className="color-dropdown">
             {PRODUCT_COLORS.map((color) => {
               const selected = form.colors?.includes(color) ?? false;
 
               return (
-                <label key={color} className="color-item">
+                <label
+                  key={color}
+                  className={`color-option ${selected ? "selected" : ""}`}
+                >
                   <input
                     type="checkbox"
                     checked={selected}
@@ -198,6 +201,12 @@ export default function EditProduct() {
                       );
                     }}
                   />
+
+                  <span
+                    className="color-dot"
+                    style={{ backgroundColor: color.toLowerCase() }}
+                  />
+
                   {color}
                 </label>
               );
