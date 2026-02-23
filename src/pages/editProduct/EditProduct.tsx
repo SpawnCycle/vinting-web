@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { CgClose } from "react-icons/cg";
+import { useEffect, useRef, useState } from "react";
+import { CgAdd, CgClose } from "react-icons/cg";
 
 import { getProducts, updateProduct } from "@/api/productsApi";
 import {
@@ -28,6 +28,7 @@ export default function EditProduct() {
   const [product, setProduct] = useState<Product | null>(null);
   const [form, setForm] = useState<Partial<Product>>({});
   const [saving, setSaving] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -240,6 +241,59 @@ export default function EditProduct() {
               ))}
             </select>
           </div>
+        </div>
+
+        {/* images */}
+        <div className="form-group">
+          <label>Images</label>
+
+          <div className="image-scroll">
+            {form.images?.map((img, index) => (
+              <div key={img + index} className="image-thumb">
+                <img src={img} alt="product" />
+
+                <button
+                  type="button"
+                  className="image-remove"
+                  onClick={() =>
+                    updateField(
+                      "images",
+                      form.images!.filter((_, i) => i !== index),
+                    )
+                  }
+                >
+                  <CgClose />
+                </button>
+              </div>
+            ))}
+
+            {/* add image */}
+            <div
+              className="image-add"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <CgAdd size={28} />
+            </div>
+          </div>
+
+          {/* File input */}
+          <input
+            type="file"
+            accept="image/*"
+            hidden
+            ref={fileInputRef}
+            onChange={(e) => {
+              if (!e.target.files) return;
+
+              const file = e.target.files[0];
+
+              const previewUrl = URL.createObjectURL(file);
+
+              updateField("images", [...(form.images ?? []), previewUrl]);
+
+              e.target.value = "";
+            }}
+          />
         </div>
       </div>
 

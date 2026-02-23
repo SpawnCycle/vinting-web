@@ -1,12 +1,63 @@
+## Állapot, stuktúra
+
+** Pages **
+
+- [ ] Welcome
+- [ ] Home
+- [ ] Upload
+- [ ] Search
+- [ ] Favorites
+- [ ] Profile
+- [x] My listings
+- [x] ProductPage
+- [x] Edit Page
+
+** Components **
+
+- [x] Navbar
+- [x] Product Card
+- [x] Product Grid
+- [x] Favorite Button
+- [x] Edit Button
+- [x] Delete Button
+- [x] Back button
+- [x] Image Carousel
+- [ ] Filters ??
+- [ ] Login PopUp
+- [ ] Reg popUp
+
+** Type: Product **
+
+```
+{
+  id: number;
+  title: string;
+  description: string;
+  category: ProductCategory;
+  condition: ProductCondition;
+  gender: ProductGender;
+  colors: ProductColor[];
+  size: ProductSize;
+  brand: string;
+  price: number;
+  images: string[];
+  status: ProductStatus;
+  sellerId: number;
+  isFavorite?: boolean;
+}
+```
+
+## Jegyzetek
+
 ProductCard - kész
 ProductGrid - kész
-  A productGrid kapja meg a terméket mint paraméter, majd az Map-pel végig járja és átadja az 1-1 terméket a produtCardnak.
+A productGrid kapja meg a terméket mint paraméter, majd az Map-pel végig járja és átadja az 1-1 terméket a produtCardnak.
 
 MyListings-page - //alakulóban. Vissza nyíl, felső design hátra -> Kész
 
 Navbar működik, design kell:
-  Szín változtatás
-  Nagy képernyős nézet!!!
+Szín változtatás
+Nagy képernyős nézet!!!
 
 Szűrők komponense...
 Welcome page...
@@ -14,14 +65,15 @@ Home page...
 New listing (popup) page...
 ProductDetals (popup) page... -> ProductPage: routing megvan, productot kiolvassa, csak fel kell építeni -> Elkezdve
 
-JS-»TS
-Laci repojába»»
+** JS-»TS
+Laci repojába»» **
 
 Megcsináltam a Jsont megint xd és hogy backend/json->szűrés->kész adatot vissza stb (saját verziómban)
 »»Majd MINDENT bemásoltam ide, működik ugyan úgy
 
 CSINÁLD MEG:
-  telón osszecsúszik két sorba a cím, eltérő méretű kártyák - kész
-  navbár nagyképernyős elrendezését is -alakul, szinte jó
-  tableten nagyobb legyen a navbar
-  product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk ha saját
+
+- [x] telón osszecsúszik két sorba a cím, eltérő méretű kártyák
+- [x] navbár nagyképernyős elrendezését is -alakul, szinte jó
+- [x] tableten nagyobb legyen a navbar
+- [x] product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk+törl ha saját

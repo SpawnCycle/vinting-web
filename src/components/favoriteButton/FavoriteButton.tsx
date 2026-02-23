@@ -22,15 +22,12 @@ export default function FavoriteButton({
     setIsFavorite(initialFavorite);
   }, [initialFavorite]);
 
-  const toggleFavorite = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
     const newValue = !isFavorite;
     setIsFavorite(newValue);
-
 
     //  KÉSŐBB IDE JÖN AZ API HÍVÁS
     /*
@@ -44,11 +41,7 @@ export default function FavoriteButton({
       onClick={toggleFavorite}
       aria-label="Favorite"
     >
-      {isFavorite ? (
-        <AiFillHeart size={20} />
-      ) : (
-        <AiOutlineHeart size={20} />
-      )}
+      {isFavorite ? <AiFillHeart size={20} /> : <AiOutlineHeart size={20} />}
     </button>
   );
 }

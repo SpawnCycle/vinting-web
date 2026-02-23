@@ -7,9 +7,10 @@ import "./ProductPage.css";
 
 import ImageCarousel from "@/components/imageCarousel/ImageCarousel";
 import FavoriteButton from "@/components/favoriteButton/FavoriteButton";
-import EditButton from "@/components/editProduct/EditButton";
+import EditButton from "@/components/editButton/EditButton";
 import BackButton from "@/components/backButton/BackButton";
 import { CgProfile } from "react-icons/cg";
+import DeleteButton from "@/components/deleteButton/DeleteButton";
 
 type LocationState = {
   returnTo?: string;
@@ -66,7 +67,10 @@ export default function ProductPage() {
         <div className="product-info">
           {product.sellerId === MY_USER_ID ? (
             product.status === "Active" ? (
-              <EditButton productId={product.id} returnTo={returnTo} />
+              <div className="action-buttons">
+                <EditButton productId={product.id} returnTo={returnTo} />
+                <DeleteButton productId={product.id} />
+              </div>
             ) : null
           ) : (
             <FavoriteButton

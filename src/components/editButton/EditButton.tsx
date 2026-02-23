@@ -6,7 +6,6 @@ type EditButtonProps = {
   returnTo?: string;
 };
 
-
 export default function EditButton({ productId, returnTo }: EditButtonProps) {
   const navigate = useNavigate();
 
@@ -22,6 +21,7 @@ export default function EditButton({ productId, returnTo }: EditButtonProps) {
         });
       }}
       aria-label="Edit product"
+      style={{ position: "relative" }}
     >
       <AiOutlineEdit size={18} />
     </button>

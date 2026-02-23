@@ -128,3 +128,8 @@ export async function updateProduct(
 
   return res.json();
 }
+
+export async function deleteProduct(productId: number) {
+  console.log("delete: ", productId);
+  return null;
+}
