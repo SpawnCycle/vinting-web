@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
 export default function Profile() {
@@ -5,15 +6,19 @@ export default function Profile() {
 
   return (
     <div>
-      <h1>Profil</h1>
+      <h1>Profile</h1>
 
       <button onClick={toggleTheme}>
-        {theme === "light" ? "Sötét mód" : "Világos mód"}
+        {theme === "light" ? "Dark mode" : "Light mode"}
       </button>
 
       <br />
 
-      <a href="/profile/my-listings">Saját hirdetéseim</a>
+      <Link
+        to="/profile/my-listings"
+        state={{ returnTo: "/profile" }}
+      > MyListings
+      </Link>
     </div>
   );
 }

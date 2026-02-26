@@ -1,3 +1,3 @@
 export default function Favorites() {
-  return <h1>Kedvencek</h1>;
+  return <h1>My favorites</h1>;
 }
