@@ -1,8 +1,8 @@
 ## Állapot, stuktúra
 
-** Pages **
+**Pages**
 
-- [ ] Welcome
+- [x] Welcome
 - [ ] Home
 - [ ] Upload
 - [ ] Search
@@ -12,7 +12,7 @@
 - [x] ProductPage
 - [x] Edit Page
 
-** Components **
+**Components**
 
 - [x] Navbar
 - [x] Product Card
@@ -23,10 +23,10 @@
 - [x] Back button
 - [x] Image Carousel
 - [ ] Filters ??
-- [ ] Login PopUp
-- [ ] Reg popUp
+- [x] Login PopUp
+- [x] Reg popUp
 
-** Type: Product **
+**Type: Product**
 
 ```
 {
@@ -65,8 +65,8 @@ Home page...
 New listing (popup) page...
 ProductDetals (popup) page... -> ProductPage: routing megvan, productot kiolvassa, csak fel kell építeni -> Elkezdve
 
-** JS-»TS
-Laci repojába»» **
+**JS-»TS**
+**Laci repojába»»**
 
 Megcsináltam a Jsont megint xd és hogy backend/json->szűrés->kész adatot vissza stb (saját verziómban)
 »»Majd MINDENT bemásoltam ide, működik ugyan úgy
@@ -77,3 +77,4 @@ CSINÁLD MEG:
 - [x] navbár nagyképernyős elrendezését is -alakul, szinte jó
 - [x] tableten nagyobb legyen a navbar
 - [x] product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk+törl ha saját
+- [ ] be/kijelentkezés lekezelése
