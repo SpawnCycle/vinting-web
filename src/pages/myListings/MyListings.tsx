@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { CgArrowLeft } from "react-icons/cg";
+import { useLocation } from "react-router-dom";
 
 import ProductGrid from "../../components/productGrid/ProductGrid";
+import BackButton from "@/components/backButton/BackButton";
 import { getProducts } from "../../api/productsApi";
 import type { Product, ProductStatus } from "../../types/Product";
 
@@ -11,81 +11,79 @@ import "./MyListings.css";
 //code
 
 const MY_USER_ID = 101;
-    
+
 export default function MyListings() {
-	const [products, setProducts] = useState<Product[]>([]);
-	const [filterStatus, setFilterStatus] = useState<ProductStatus>("active");
-	const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filterStatus, setFilterStatus] = useState<ProductStatus>("Active");
+  const [loading, setLoading] = useState(true);
+  //const location = useLocation();
+  const location = useLocation();
+  const returnTo = location.state?.returnTo;
 
-	useEffect(() => {
-		async function loadMyListings() {
-			const data = await getProducts({ sellerId: MY_USER_ID });
-			setProducts(data);
-			setLoading(false);
-		}
+  useEffect(() => {
+    async function loadMyListings() {
+      const data = await getProducts({ sellerId: MY_USER_ID });
+      setProducts(data);
+      setLoading(false);
+    }
 
-		loadMyListings();
-	}, []);
+    loadMyListings();
+  }, []);
 
-	const myProducts = products.filter(
-		p => p.status === filterStatus
-	);
+  const myProducts = products.filter((p) => p.status === filterStatus);
 
-	//visszalépéshez
-	const navigate = useNavigate();
+  //biztos ami tuti
+  if (loading) {
+    return <p>Betöltés...</p>;
+  }
 
-	const navigateBack = () => {
-		if (window.history.length > 1) {
-			navigate(-1);
-		} else {
-			navigate("/");
-		}
-	};
+  return (
+    <div>
+      <div className="header-div">
+        <BackButton />
+        <h1>My Listings</h1>
+      </div>
 
-	//biztos ami tuti
-	if (loading) {
-		return <p>Betöltés...</p>;
-	}
+      <div className="status-buttons">
+        <button
+          style={{
+            backgroundColor:
+              filterStatus === "Active"
+                ? "var(--button-bg-main)"
+                : "var(--button-bg-secondary)",
+            color:
+              filterStatus === "Active"
+                ? "var(--button-text-main)"
+                : "var(--button-text-secondary)",
+          }}
+          onClick={() => setFilterStatus("Active")}
+        >
+          Active
+        </button>
 
-	return (
-		<div>
-			<div className="header-div">
-				<button onClick={navigateBack}>
-					<CgArrowLeft />
-				</button>
-				<h1>My Listings</h1>
-			</div>
+        <button
+          style={{
+            backgroundColor:
+              filterStatus === "Sold"
+                ? "var(--button-bg-main)"
+                : "var(--button-bg-secondary)",
+            color:
+              filterStatus === "Sold"
+                ? "var(--button-text-main)"
+                : "var(--button-text-secondary)",
+          }}
+          onClick={() => setFilterStatus("Sold")}
+        >
+          Sold
+        </button>
+      </div>
 
-			<div className="status-buttons">
-				<button
-					style={{
-						backgroundColor:
-							filterStatus === "active" ? "var(--button-bg-main)" : "var(--button-bg-secondary)",
-						color:
-							filterStatus === "active" ? "var(--button-text-main)" : "var(--button-text-secondary)",
-					}}
-					onClick={() => setFilterStatus("active")}
-				>
-					Active
-				</button>
-
-				<button
-					style={{
-						backgroundColor:
-							filterStatus === "sold" ? "var(--button-bg-main)" : "var(--button-bg-secondary)",
-						color:
-							filterStatus === "sold" ? "var(--button-text-main)" : "var(--button-text-secondary)",
-					}}
-					onClick={() => setFilterStatus("sold")}
-				>
-					Sold
-				</button>
-			</div>
-
-			<ProductGrid
-				products={myProducts}
-				showFavoriteButton={false}
-			/>
-		</div>
-	);
+      <ProductGrid
+        products={myProducts}
+        showFavoriteButton={false}
+        returnTo="/profile/my-listings" //{returnTo ?? "/profile"}
+        parentReturnTo={location.state?.returnTo}
+      />
+    </div>
+  );
 }

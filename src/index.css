@@ -13,6 +13,7 @@
   --text-color-main: #000;
   --text-color-secondary: #4f4f4f;
   --text-color-third: #666;
+  --text-color-fourth: #444;
 
   --nav-icon-color: #595959;
   --nav-icon-color-active: #000;
@@ -26,11 +27,12 @@
 [data-theme="dark"] {
   --bg-color-main: #111;
   --bg-color-secondary: #222429;
-  --bg-color-third: #eeeeee;
+  --bg-color-third: #1e1f22;
 
   --text-color-main: #fff;
   --text-color-secondary: #7c7c7c;
-  --text-color-third: #302f2c;
+  --text-color-third: #26272b;
+  --text-color-fourth: #b8b8b8;
 
   --nav-icon-color: #333;
   --nav-icon-color-active: #ccc;

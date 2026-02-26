@@ -24,8 +24,9 @@ export default function Home() {
 
    return (
       <div>
-         <h1>Főoldal</h1>
-         <ProductGrid products={products} />
+         <h1>Home page</h1>
+         <h3>All products...</h3>
+         <ProductGrid products={products} returnTo="/"/>
       </div>
   );
 }
