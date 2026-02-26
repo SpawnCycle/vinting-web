@@ -1,5 +1,10 @@
 @import "tailwindcss";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
 
+* {
+  transition: ease 0.3s all;
+}
 :root {
   --bg-color-main: #fff;
   --bg-color-secondary: #f6f6f6;
