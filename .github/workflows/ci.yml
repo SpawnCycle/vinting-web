@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-with-web:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout submodule
