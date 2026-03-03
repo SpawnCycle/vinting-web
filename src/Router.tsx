@@ -9,6 +9,7 @@ import Profile from "./pages/profile/Profile";
 import MyListings from "./pages/myListings/MyListings";
 import ProductPage from "./pages/productPage/ProductPage";
 import EditProductPage from "./pages/editProduct/EditProduct";
+import Search from "./pages/searchPage/SearchPage";
 
 export default function AppRouter() {
   return (
@@ -17,6 +18,7 @@ export default function AppRouter() {
         <Route element={<Layout />}>
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
