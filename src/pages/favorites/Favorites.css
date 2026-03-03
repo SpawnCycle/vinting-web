@@ -1,0 +1,151 @@
+/* header */
+.favorites-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+
+  height: 60px;
+  border-bottom: 0.7px solid var(--bg-color-third);
+
+  font-family: "AlumniSansPinstripe-Regular";
+  font-size: 2.5rem;
+  font-weight: 550;
+  color: var(--text-color-main);
+}
+
+[data-theme="dark"] .favorites-header {
+  background: rgba(17, 17, 17, 0.6);
+  border-bottom: 0.7px solid var(--bg-color-third);
+}
+
+/* .header-div .back-button {
+  padding: 5px;
+  border-radius: 50%;
+  color: var(--text-color-main);
+  font-size: 1.5rem;
+  position: absolute;
+  left: 20px;
+  transition: all 0.3s ease;
+}
+
+.header-div .back-button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .header-div .back-button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+} */
+
+/* filter bar */
+.favorites-filters-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.favorites-filters {
+  display: flex;
+  gap: 16px;
+  border-radius: 50px;
+  background: var(--bg-color-third);
+  color: var(--text-color-secondary);
+}
+
+.favorites-filters button {
+  padding: 8px 22px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+
+  font-family: "Geologica";
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  transition: all 0.25s ease;
+}
+
+.favorites-filters button:hover {
+  background: var(--bg-color-secondary);
+}
+
+.favorites-filters button.active {
+  background: var(--button-bg-main);
+  color: var(--button-text-main);
+}
+
+.favorites-grid-wrapper {
+  padding: 40px 80px 80px 80px;
+}
+
+.favorites-empty {
+  margin-top: 160px;
+  text-align: center;
+}
+
+.favorites-empty h2 {
+  font-family: "Geologica";
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: var(--text-color-main);
+}
+
+.favorites-empty p {
+  font-family: "Geologica";
+  color: var(--text-color-secondary);
+  margin-bottom: 25px;
+}
+
+.favorites-empty a {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 12px;
+  text-decoration: none;
+
+  background: var(--button-bg-main);
+  color: var(--button-text-main);
+
+  font-family: "Geologica";
+  font-weight: 500;
+
+  transition: all 0.3s ease;
+}
+
+.favorites-empty a:hover {
+  opacity: 0.85;
+}
+
+@media (min-width: 1024px) {
+  .favorites-grid-wrapper {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+/* mobil filter scroll */
+
+@media (max-width: 768px) {
+  .favorites-filters-container {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .favorites-filters {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 12px;
+
+    scrollbar-width: none; /* firefox */
+  }
+
+  .favorites-filters::-webkit-scrollbar {
+    display: none; /* chrome */
+  }
+
+  .favorites-filters button {
+    flex: 0 0 auto;
+  }
+}

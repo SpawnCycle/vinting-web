@@ -34,7 +34,8 @@
       "/images/product_6.jpg"
     ],
     "status": "Active",
-    "sellerId": 202
+    "sellerId": 202,
+    "isFavorite": true
   },
   {
     "id": 3,
@@ -70,7 +71,8 @@
       "/images/product_9.jpg"
     ],
     "status": "Active",
-    "sellerId": 404
+    "sellerId": 404,
+    "isFavorite": true
   },
   {
     "id": 5,
@@ -145,7 +147,8 @@
       "/images/product_9.jpg"
     ],
     "status": "Active",
-    "sellerId": 202
+    "sellerId": 202,
+    "isFavorite": true
   },
   {
     "id": 9,
@@ -220,7 +223,8 @@
       "/images/product_2.jpg"
     ],
     "status": "Active",
-    "sellerId": 202
+    "sellerId": 202,
+    "isFavorite": true
   },
   {
     "id": 13,
@@ -238,7 +242,8 @@
       "/images/product_1.jpg"
     ],
     "status": "Active",
-    "sellerId": 303
+    "sellerId": 303,
+    "isFavorite": true
   },
   {
     "id": 14,
@@ -293,7 +298,8 @@
       "/images/product_9.jpg"
     ],
     "status": "Active",
-    "sellerId": 808
+    "sellerId": 808,
+    "isFavorite": true
   },
   {
     "id": 17,
@@ -311,7 +317,8 @@
       "/images/product_1.jpg"
     ],
     "status": "Active",
-    "sellerId": 1001
+    "sellerId": 1001,
+    "isFavorite": true
   },
   {
     "id": 18,

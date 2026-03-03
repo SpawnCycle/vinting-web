@@ -2,9 +2,9 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
 
-* {
+/* * {
   transition: ease 0.3s all;
-}
+} */
 :root {
   --bg-color-main: #fff;
   --bg-color-secondary: #f6f6f6;
@@ -85,8 +85,8 @@ body {
   }
 
   .content {
-    margin-left: 75px;
-    transition: margin-left 0.3s ease;
+    margin-left: 70px;
+    /* transition: margin-left 0.3s ease; */
   }
 
   .app-layout.no-navbar .content {

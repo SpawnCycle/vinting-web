@@ -6,7 +6,7 @@
 - [ ] Home
 - [ ] Upload
 - [ ] Search
-- [ ] Favorites
+- [x] Favorites
 - [ ] Profile
 - [x] My listings
 - [x] ProductPage
@@ -78,3 +78,4 @@ CSINÁLD MEG:
 - [x] tableten nagyobb legyen a navbar
 - [x] product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk+törl ha saját
 - [ ] be/kijelentkezés lekezelése
+- [ ] be/kiszivezés lekezelése
