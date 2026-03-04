@@ -1,17 +1,20 @@
-*{ margin: 0; padding: 0; }
+* {
+  margin: 0;
+  padding: 0;
+}
 
-.product-card{
+.product-card {
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  position: relative; /* A kedvenc gomb miatt */
+  position: relative; /* a kedvenc gomb miatt */
   background-color: var(--bg-color-secondary);
   border: 1px solid rgba(166, 201, 205, 0.14);
   min-width: 0;
 }
 
-.product-card:hover{
+.product-card:hover {
   transform: translateY(-5px);
 }
 
@@ -31,7 +34,6 @@
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: 0 0 20px 20px;
-  
 }
 
 .product-info {
@@ -51,9 +53,13 @@
   font-weight: 200;
   font-size: 0.9rem;
 }
-.product-price{ font-size: 1rem; color: var(--text-color-secondary); text-decoration: none;}
+.product-price {
+  font-size: 1rem;
+  color: var(--text-color-secondary);
+  text-decoration: none;
+}
 
-.product-brand{
+.product-brand {
   font-family: "UbuntuCondensed", sans-serif;
   font-weight: 400;
   color: var(--text-color-secondary);
@@ -71,13 +77,13 @@
 }
 
 @media (max-width: 600px) {
-    .product-brand{
-      font-size: 1.1rem;
-    }
-    .product-info h2 {
-      font-size: 1.1rem;
-    }
-    .product-extra{
-      font-size: 0.8rem;
-    }
+  .product-brand {
+    font-size: 1.1rem;
+  }
+  .product-info h2 {
+    font-size: 1.1rem;
+  }
+  .product-extra {
+    font-size: 0.8rem;
+  }
 }

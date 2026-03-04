@@ -9,6 +9,7 @@ import {
   CgMoon,
   CgSun,
   CgLogOut,
+  CgSearch,
 } from "react-icons/cg";
 import { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
@@ -73,6 +74,18 @@ export default function Navbar() {
           />
           <span className={`nav-text ${isActive("/") ? "active" : ""}`}>
             Home page
+          </span>
+        </Link>
+        <Link
+          to="/search"
+          className="nav-item"
+          onClick={() => setIsOpen(false)}
+        >
+          <CgSearch
+            className={`nav-icon ${isActive("/search") ? "active" : ""}`}
+          />
+          <span className={`nav-text ${isActive("/search") ? "active" : ""}`}>
+            Search
           </span>
         </Link>
 

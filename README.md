@@ -5,7 +5,7 @@
 - [x] Welcome
 - [ ] Home
 - [ ] Upload
-- [ ] Search
+- [x] Search
 - [x] Favorites
 - [ ] Profile
 - [x] My listings
@@ -22,9 +22,11 @@
 - [x] Delete Button
 - [x] Back button
 - [x] Image Carousel
-- [ ] Filters ??
+- [x] Filters ??
 - [x] Login PopUp
 - [x] Reg popUp
+- [ ] Logout popUp
+- [ ] Cat button ( home » search )
 
 **Type: Product**
 
@@ -79,3 +81,6 @@ CSINÁLD MEG:
 - [x] product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk+törl ha saját
 - [ ] be/kijelentkezés lekezelése
 - [ ] be/kiszivezés lekezelése
+- [x] navbar + search ikon
+- [ ] prod/id/edit - korlatozasa
+- [ ] logout popUp
