@@ -179,7 +179,7 @@ export default function SearchPage() {
         <div className="search-bar-row">
           <input
             className="search-input"
-            placeholder="Search for products..."
+            placeholder="Search for brands, products..."
             value={queryInput}
             onChange={(e) => setQueryInput(e.target.value)}
             onKeyDown={(e) => {
@@ -244,11 +244,13 @@ export default function SearchPage() {
         <div className="grid-area">
           {loading ? (
             <p>Loading...</p>
-          ) : (
+          ) : products.length > 0 ? (
             <ProductGrid
               products={products}
               returnTo={location.pathname + location.search}
             />
+          ) : (
+            <h2>Sorry, no products found.</h2>
           )}
         </div>
       </div>

@@ -26,7 +26,7 @@
 - [x] Login PopUp
 - [x] Reg popUp
 - [ ] Logout popUp
-- [ ] Cat button ( home » search )
+- [x] Cat button ( home » search )
 
 **Type: Product**
 

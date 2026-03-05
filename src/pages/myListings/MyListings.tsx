@@ -78,12 +78,14 @@ export default function MyListings() {
         </button>
       </div>
 
-      <ProductGrid
-        products={myProducts}
-        showFavoriteButton={false}
-        returnTo="/profile/my-listings" //{returnTo ?? "/profile"}
-        parentReturnTo={location.state?.returnTo}
-      />
+      <div style={{ padding: "30px" }}>
+        <ProductGrid
+          products={myProducts}
+          showFavoriteButton={false}
+          returnTo="/profile/my-listings" //{returnTo ?? "/profile"}
+          parentReturnTo={location.state?.returnTo}
+        />
+      </div>
     </div>
   );
 }

@@ -70,6 +70,7 @@ export async function getProducts(
       data = data.filter(
         (p) =>
           p.title.toLowerCase().includes(q) ||
+          p.brand.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q),
       );
     }

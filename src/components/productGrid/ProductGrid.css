@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 0.8fr));
   gap: 20px;
-  padding: 20px;
+  /* padding: 20px; */
 }
 .product-grid > a {
   display: block;

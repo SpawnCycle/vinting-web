@@ -84,11 +84,13 @@ export default function FavoritesPage() {
           <p>Start exploring and save items you love.</p>
         </div>
       ) : (
-        <ProductGrid
-          products={products}
-          showFavoriteButton={true}
-          returnTo="/favorites"
-        />
+        <div style={{ padding: "50px 30px" }}>
+          <ProductGrid
+            products={products}
+            showFavoriteButton={true}
+            returnTo="/favorites"
+          />
+        </div>
       )}
     </div>
   );
