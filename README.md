@@ -3,7 +3,7 @@
 **Pages**
 
 - [x] Welcome
-- [ ] Home
+- [x] Home
 - [ ] Upload
 - [x] Search
 - [x] Favorites

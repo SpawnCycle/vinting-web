@@ -25,9 +25,9 @@
 }
 
 .category-image {
-  height: 200%;
+  height: 170%;
   margin: 0 10px;
-  transform: translateY(14px);
+  /* transform: translateY(14px); */
   object-fit: contain;
   pointer-events: none;
 }
