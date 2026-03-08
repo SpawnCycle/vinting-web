@@ -1,9 +1,17 @@
+import { createProduct } from "@/api/productsApi";
+import ProductForm from "@/components/productForm/ProductForm";
+import type { Product } from "@/types/Product";
+
 export default function Upload() {
   return (
-    <h1>
-      <div className="bg-red-500 p-10 text-white rounded-lg shadow-lg">
-        TEST
-      </div>
-    </h1>
+    <div className="form-container">
+      <ProductForm
+        title="Upload a new product"
+        submitLabel="Upload product"
+        onSubmit={async (data) => {
+          await createProduct(data as Product);
+        }}
+      />
+    </div>
   );
 }

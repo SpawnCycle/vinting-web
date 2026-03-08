@@ -1,10 +1,16 @@
+.form-container {
+  background: var(--bg-color-secondary);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .content {
   width: 100%;
 }
 .edit-page {
   /*max-width: 900px;*/
   width: 60vw;
-  margin: 40px auto;
+  margin: 40px 0;
   padding: 20px;
   display: block;
 }

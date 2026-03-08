@@ -134,3 +134,7 @@ export async function deleteProduct(productId: number) {
   console.log("delete: ", productId);
   return null;
 }
+export async function createProduct(product: Product) {
+  console.log("create: ", product);
+  return null;
+}
