@@ -208,9 +208,10 @@
 
 @media (max-width: 900px) {
   .edit-page {
-    width: auto;
+    width: 100%;
     margin: 0;
     padding: 15px;
+    margin-bottom: 80px;
   }
 
   .edit-card {

@@ -79,6 +79,10 @@ export default function ProductForm({
           <input
             value={form.title ?? ""}
             onChange={(e) => updateField("title", e.target.value)}
+            style={{
+              backgroundColor: "var(--bg-color-main)",
+              border: "1px solid var(--bg-color-secondary)",
+            }}
           />
         </div>
 
@@ -98,6 +102,10 @@ export default function ProductForm({
           <input
             value={form.brand ?? ""}
             onChange={(e) => updateField("brand", e.target.value)}
+            style={{
+              backgroundColor: "var(--bg-color-main)",
+              border: "1px solid var(--bg-color-secondary)",
+            }}
           />
         </div>
 
@@ -232,6 +240,10 @@ export default function ProductForm({
               type="number"
               value={form.price ?? ""}
               onChange={(e) => updateField("price", Number(e.target.value))}
+              style={{
+                backgroundColor: "var(--bg-color-main)",
+                border: "1px solid var(--bg-color-secondary)",
+              }}
             />
           </div>
 

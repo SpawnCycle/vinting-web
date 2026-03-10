@@ -53,6 +53,11 @@ body {
     color 0.3s;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 @font-face {
   font-family: "Agdasima-Regular";
   src: url("./assets/fonts/Agdasima-Regular.ttf") format("truetype");

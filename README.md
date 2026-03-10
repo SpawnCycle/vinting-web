@@ -4,13 +4,14 @@
 
 - [x] Welcome
 - [x] Home
-- [ ] Upload
+- [x] Upload
 - [x] Search
 - [x] Favorites
-- [ ] Profile
+- [x] Profile
 - [x] My listings
 - [x] ProductPage
 - [x] Edit Page
+- [ ] ( Admin Page??? )
 
 **Components**
 
@@ -25,7 +26,7 @@
 - [x] Filters ??
 - [x] Login PopUp
 - [x] Reg popUp
-- [ ] Logout popUp
+- [x] Logout popUp
 - [x] Cat button ( home » search )
 
 **Type: Product**
@@ -80,7 +81,9 @@ CSINÁLD MEG:
 - [x] tableten nagyobb legyen a navbar
 - [x] product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk+törl ha saját
 - [ ] be/kijelentkezés lekezelése
-- [ ] be/kiszivezés lekezelése
 - [x] navbar + search ikon
 - [ ] prod/id/edit - korlatozasa
-- [ ] logout popUp
+- [x] logout popUp
+- [ ] mindenhol ahol használ usert, api-ra kötni
+- [ ] prod api bekötése -> mock off
+- [ ] favs api bekötése -> funkc lekezelése

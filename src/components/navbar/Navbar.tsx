@@ -173,17 +173,52 @@ export default function Navbar() {
                 <span className="nav-text">Logout</span>
               </button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
+            <AlertDialogContent
+              style={{
+                border: "0.5px solid var(--bg-color-third)",
+                borderRadius: "10px",
+              }}
+            >
+              <AlertDialogHeader
+                style={{
+                  padding: "10px",
+                  backgroundColor: "var(--bg-color-main)",
+                  color: "var(--text-color-main)",
+                  borderRadius: "10px 10px 0 0 ",
+                }}
+              >
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account from our servers.
+                  This action cannot be undone. You will be logged out of your
+                  account on this device.
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => handleLogout()}>
+              <AlertDialogFooter
+                style={{
+                  padding: "10px",
+                  backgroundColor: "var(--bg-color-secondary)",
+                  borderRadius: "0 0 10px 10px",
+                }}
+              >
+                <AlertDialogCancel
+                  style={{
+                    background: "var(--button-bg-secondary)",
+                    color: "var(--button-text-secondary)",
+                    padding: "5px 10px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => handleLogout()}
+                  style={{
+                    background: "var(--button-bg-main)",
+                    color: "var(--button-text-main)",
+                    padding: "5px 10px",
+                    borderRadius: "10px",
+                  }}
+                >
                   Logout
                 </AlertDialogAction>
               </AlertDialogFooter>
