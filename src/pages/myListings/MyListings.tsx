@@ -7,12 +7,12 @@ import { getProducts } from "../../api/productsApi";
 import type { Product, ProductStatus } from "../../types/Product";
 
 import "./MyListings.css";
-
-//code
-
-const MY_USER_ID = 101;
+import { useAuth } from "@/context/AuthContext";
 
 export default function MyListings() {
+  const { user } = useAuth();
+  const MY_USER_ID = user?.id;
+
   const [products, setProducts] = useState<Product[]>([]);
   const [filterStatus, setFilterStatus] = useState<ProductStatus>("Active");
   const [loading, setLoading] = useState(true);

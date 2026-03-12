@@ -11,15 +11,17 @@ import EditButton from "@/components/editButton/EditButton";
 import BackButton from "@/components/backButton/BackButton";
 import { CgProfile } from "react-icons/cg";
 import DeleteButton from "@/components/deleteButton/DeleteButton";
+import { useAuth } from "@/context/AuthContext";
 
 type LocationState = {
   returnTo?: string;
   parentReturnTo?: string;
 };
 
-const MY_USER_ID = 101;
-
 export default function ProductPage() {
+  const { user } = useAuth();
+  const MY_USER_ID = user?.id;
+
   const location = useLocation() as { state?: LocationState };
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
@@ -72,12 +74,12 @@ export default function ProductPage() {
                 <DeleteButton productId={product.id} />
               </div>
             ) : null
-          ) : (
+          ) : MY_USER_ID ? (
             <FavoriteButton
               productId={product.id}
               initialFavorite={product.isFavorite}
             />
-          )}
+          ) : null}
 
           <span className="product-brand">{product.brand}</span>
 

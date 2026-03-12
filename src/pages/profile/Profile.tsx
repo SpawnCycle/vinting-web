@@ -5,11 +5,13 @@ import { getProducts } from "../../api/productsApi";
 
 import { FiEdit2, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import "./Profile.css";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Profile() {
   const { theme, toggleTheme } = useTheme();
 
-  const USER_ID = 101;
+  const { user } = useAuth();
+  const USER_ID = user?.id;
 
   const [products, setProducts] = useState<any[]>([]);
   const [favoritesCount, setFavoritesCount] = useState(0);
@@ -18,8 +20,8 @@ export default function Profile() {
   const [editingPassword, setEditingPassword] = useState(false);
 
   //majd apiról
-  const [name, setName] = useState("Random User");
-  const [email, setEmail] = useState("user@email.com");
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
   const [password, setPassword] = useState("password");
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export default function Profile() {
     <div className="profile-page">
       {/* header */}
       <div className="profile-header">
-        <h1>Welcome back, User &#x1F44B;</h1> {/* később felhnév */}
+        <h1>Welcome back, {user?.name} &#x1F44B;</h1>
         <p>Manage your profile, listings and preferences.</p>
       </div>
 

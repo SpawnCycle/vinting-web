@@ -43,7 +43,10 @@ export default function Home() {
             />
           </div>
           <div className="hero-buttons">
-            <button className="btn-primary" onClick={() => navigate("/search")}>
+            <button
+              className="btn-primary"
+              onClick={() => navigate(`/search?q=${query}`)}
+            >
               Browse items
             </button>
             <button

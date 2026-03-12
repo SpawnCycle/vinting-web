@@ -2,8 +2,13 @@ import { CgAddR, CgPlayListSearch, CgSearch } from "react-icons/cg";
 import "./Welcome.css";
 import { useState } from "react";
 import AuthModal from "@/components/auth/AuthModal";
+import { useAuth } from "@/context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 export default function Welcome() {
+  const { user } = useAuth();
+  if (user) return <Navigate to="/" replace />;
+
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"login" | "register">("login");
 

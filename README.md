@@ -80,10 +80,15 @@ CSINÁLD MEG:
 - [x] navbár nagyképernyős elrendezését is -alakul, szinte jó
 - [x] tableten nagyobb legyen a navbar
 - [x] product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk+törl ha saját
-- [ ] be/kijelentkezés lekezelése
+- [ ] be/kijelentkezés lekezelése -> kb megvan
+- [ ] whoami mock -> api
 - [x] navbar + search ikon
-- [ ] prod/id/edit - korlatozasa
+- [x] prod/id/edit - korlatozasa
 - [x] logout popUp
-- [ ] mindenhol ahol használ usert, api-ra kötni
+- [ ] mindenhol ahol használ usert, api-ra kötni -> kb megvan
 - [ ] prod api bekötése -> mock off
 - [ ] favs api bekötése -> funkc lekezelése
+
+**Jegyzet**
+
+- Auth bekötve, bejelentkezés nélköl csak welcome és prodpage, bejelentkezve minden, kivéve welcome. Felhasználó adatait használják az oldalak
