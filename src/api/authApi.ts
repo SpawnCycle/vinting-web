@@ -39,6 +39,7 @@ export async function login(data: { email: string; password: string }) {
 
 //logout
 export async function logout() {
+  console.log("logout");
   await fetch("/api/users/logout", {
     method: "POST",
     credentials: "include",
@@ -47,5 +48,10 @@ export async function logout() {
 
 //whoami (mock)
 export async function whoami() {
-  return mockUser;
+  const res = await fetch("/api/users/whoami", {
+    method: "POST",
+    credentials: "include",
+  });
+  console.log("whoami: ", res.json());
+  return res.json();
 }

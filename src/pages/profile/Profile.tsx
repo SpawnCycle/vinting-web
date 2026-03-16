@@ -6,6 +6,7 @@ import { getProducts } from "../../api/productsApi";
 import { FiEdit2, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import "./Profile.css";
 import { useAuth } from "@/context/AuthContext";
+import { logout } from "@/api/authApi";
 
 export default function Profile() {
   const { theme, toggleTheme } = useTheme();
@@ -221,7 +222,7 @@ export default function Profile() {
           </section>
 
           {/* logout */}
-          <button className="logout-btn">
+          <button className="logout-btn" onClick={() => logout()}>
             <FiLogOut className="logout-icon" />
             <span>Logout</span>
           </button>
