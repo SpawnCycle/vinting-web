@@ -1,16 +1,16 @@
 import "./ProductCard.css";
 import FavoriteButton from "../favoriteButton/FavoriteButton";
 import type { Product } from "../../types/Product";
+import { useAuth } from "@/context/AuthContext";
+import { use } from "react";
 
 interface ProductCardProps {
   product: Product;
-  showFavoriteButton?: boolean;
 }
 
-export default function ProductCard({
-  product,
-  showFavoriteButton = true,
-}: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
+  const { user } = useAuth();
+
   const formatPrice = (value: number): string =>
     new Intl.NumberFormat("hu-HU", {
       style: "currency",
@@ -33,12 +33,12 @@ export default function ProductCard({
         </div>
       </div>
 
-      {showFavoriteButton && (
+      {user?.id !== product.sellerId ? (
         <FavoriteButton
           productId={product.id}
           initialFavorite={product.isFavorite} //backend boolean
         />
-      )}
+      ) : null}
     </div>
   );
 }
