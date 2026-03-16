@@ -71,10 +71,7 @@ export default function Welcome() {
 
           {/* image wrapper */}
           <div className="hero-image-wrapper">
-            <img
-              src="../../../public/images/összegezve_1.png"
-              alt="3 cards preview"
-            />
+            <img src="/images/welcome.png" alt="3 cards preview" />
           </div>
         </section>
 

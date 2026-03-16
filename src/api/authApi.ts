@@ -27,11 +27,14 @@ export async function signup(data: {
 
 //login
 export async function login(data: { email: string; password: string }) {
+  const body = new URLSearchParams();
+  body.append("email", data.email);
+  body.append("password", data.password);
+
   const res = await fetch("/api/users/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     credentials: "include",
-    body: JSON.stringify(data),
+    body: body,
   });
 
   if (!res.ok) throw new Error("Login failed");
@@ -39,7 +42,6 @@ export async function login(data: { email: string; password: string }) {
 
 //logout
 export async function logout() {
-  console.log("logout");
   await fetch("/api/users/logout", {
     method: "POST",
     credentials: "include",
@@ -49,9 +51,11 @@ export async function logout() {
 //whoami (mock)
 export async function whoami() {
   const res = await fetch("/api/users/whoami", {
-    method: "POST",
+    method: "GET",
     credentials: "include",
   });
-  console.log("whoami: ", res.json());
-  return res.json();
+
+  const data = await res.json();
+
+  return data;
 }

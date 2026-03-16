@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { getProducts } from "../../api/productsApi";
 
 import { FiEdit2, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import "./Profile.css";
 import { useAuth } from "@/context/AuthContext";
-import { logout } from "@/api/authApi";
+import { logout, whoami } from "@/api/authApi";
 
 export default function Profile() {
   const { theme, toggleTheme } = useTheme();
 
   const { user } = useAuth();
   const USER_ID = user?.id;
+  const { setUser } = useAuth();
 
   const [products, setProducts] = useState<any[]>([]);
   const [favoritesCount, setFavoritesCount] = useState(0);
@@ -53,6 +54,8 @@ export default function Profile() {
     console.log("save password", password);
     setEditingPassword(false);
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="profile-page">
@@ -222,7 +225,13 @@ export default function Profile() {
           </section>
 
           {/* logout */}
-          <button className="logout-btn" onClick={() => logout()}>
+          <button
+            className="logout-btn"
+            onClick={() => {
+              logout();
+              setUser(null);
+            }}
+          >
             <FiLogOut className="logout-icon" />
             <span>Logout</span>
           </button>

@@ -25,7 +25,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { logout } from "@/api/authApi";
+import { logout, whoami } from "@/api/authApi";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const location = useLocation();
@@ -62,8 +63,10 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navigate = useNavigate();
+  const { setUser } = useAuth();
   const handleLogout = () => {
     logout();
+    setUser(null);
   };
 
   return (
