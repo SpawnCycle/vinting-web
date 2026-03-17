@@ -4,11 +4,15 @@ import { useTheme } from "../../context/ThemeContext";
 import { getProducts } from "../../api/productsApi";
 
 import { FiEdit2, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 import "./Profile.css";
 import { useAuth } from "@/context/AuthContext";
 import { logout, whoami } from "@/api/authApi";
+import { useToast } from "@/context/ToastContext";
 
 export default function Profile() {
+  const { showToast } = useToast();
+
   const { theme, toggleTheme } = useTheme();
 
   const { user } = useAuth();
@@ -20,6 +24,8 @@ export default function Profile() {
 
   const [editingProfile, setEditingProfile] = useState(false);
   const [editingPassword, setEditingPassword] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   //majd apiról
   const [name, setName] = useState(user?.name);
@@ -41,18 +47,41 @@ export default function Profile() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+    }
+  }, [user]);
+
   const activeListings = products.filter((p) => p.status === "Active").length;
   const soldListings = products.filter((p) => p.status === "Sold").length;
   const previewProducts = products.slice(0, 3);
 
   const handleSaveProfile = () => {
-    console.log("save", name, email);
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+    }
+
     setEditingProfile(false);
+
+    showToast(
+      "Feature unavailable",
+      "Sorry, profile editing is not available yet.",
+      "system",
+    );
   };
 
   const handleSavePassword = () => {
-    console.log("save password", password);
+    setPassword("password"); //placeholder
+    setShowPassword(false);
     setEditingPassword(false);
+    showToast(
+      "Feature unavailable",
+      "Sorry, changing your password is not available yet.",
+      "system",
+    );
   };
 
   const navigate = useNavigate();
@@ -201,20 +230,40 @@ export default function Profile() {
 
               <FiEdit2
                 className="edit-icon"
-                onClick={() => setEditingPassword(!editingPassword)}
+                onClick={() => {
+                  if (!editingPassword) {
+                    setPassword(""); // edit indításakor törlődik
+                  } else {
+                    setPassword("password"); // edit bezárásakor visszaáll
+                  }
+
+                  setEditingPassword(!editingPassword);
+                }}
               />
             </div>
 
             <p className="section-desc">Change your account password.</p>
 
             <div className="form-group">
-              <input
-                type="password"
-                disabled={!editingPassword}
-                placeholder="New password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="password-field">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  disabled={!editingPassword}
+                  placeholder="New password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <span
+                  className={`password-toggle ${!editingPassword ? "disabled" : ""}`}
+                  onClick={() => {
+                    if (!editingPassword) return;
+                    setShowPassword(!showPassword);
+                  }}
+                >
+                  {showPassword ? <LuEyeClosed /> : <LuEye />}
+                </span>
+              </div>
 
               {editingPassword && (
                 <button className="btn-primary" onClick={handleSavePassword}>

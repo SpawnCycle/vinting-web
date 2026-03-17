@@ -12,6 +12,7 @@ import BackButton from "@/components/backButton/BackButton";
 import { CgProfile } from "react-icons/cg";
 import DeleteButton from "@/components/deleteButton/DeleteButton";
 import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/context/ToastContext";
 
 type LocationState = {
   returnTo?: string;
@@ -19,6 +20,7 @@ type LocationState = {
 };
 
 export default function ProductPage() {
+  const { showToast } = useToast();
   const { user } = useAuth();
   const MY_USER_ID = user?.id;
 
@@ -30,6 +32,14 @@ export default function ProductPage() {
   const [sellerProducts, setSellerProducts] = useState<Product[]>([]);
 
   const returnTo = location.state?.returnTo;
+
+  function handleBuy() {
+    showToast(
+      "Feature unavailable",
+      "Sorry, purchasing products is not available yet.",
+      "system",
+    );
+  }
 
   useEffect(() => {
     async function loadProduct() {
@@ -125,6 +135,17 @@ export default function ProductPage() {
                 }}
               >
                 Seller #{product.sellerId}
+              </button>
+            </div>
+          )}
+
+          {/* buy */}
+          {product.sellerId !== MY_USER_ID && (
+            <div className="product-buy">
+              <p className="buy-hint">Interested in this product?</p>
+
+              <button className="buy-button" onClick={handleBuy}>
+                Buy it now
               </button>
             </div>
           )}

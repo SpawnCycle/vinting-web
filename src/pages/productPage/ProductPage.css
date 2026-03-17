@@ -155,6 +155,36 @@
   line-height: 1rem;
 }
 
+/* buy */
+
+.product-buy {
+  margin-top: 20px;
+}
+
+.buy-hint {
+  font-size: 13px;
+  color: var(--text-color-secondary);
+  margin-bottom: 8px;
+}
+
+.buy-button {
+  padding: 12px 20px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: var(--button-bg-main);
+  color: var(--button-text-main);
+
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.buy-button:hover {
+  opacity: 0.9;
+}
+
 /* more prod. */
 .product-page .related-section {
   margin-top: 48px;

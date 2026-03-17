@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signup } from "@/api/authApi";
 import { useToast } from "@/context/ToastContext";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 interface RegisterProps {
   switchToLogin: () => void;
@@ -10,6 +11,7 @@ export default function Register({ switchToLogin }: RegisterProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { showToast } = useToast();
 
@@ -53,12 +55,21 @@ export default function Register({ switchToLogin }: RegisterProps) {
         onChange={(e) => setEmail(e.target.value)}
       />
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div className="auth-password-field">
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <span
+          className="auth-password-toggle"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <LuEyeClosed /> : <LuEye />}
+        </span>
+      </div>
 
       <button className="auth-primary" onClick={handleRegister}>
         Create Account

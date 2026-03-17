@@ -137,6 +137,34 @@
   color: var(--text-color-main);
 }
 
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  cursor: pointer;
+  color: var(--text-color-third);
+
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle.disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
 .btn-primary {
   background: var(--button-bg-main);
   color: var(--button-text-main);
