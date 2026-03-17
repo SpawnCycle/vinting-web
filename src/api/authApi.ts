@@ -1,11 +1,13 @@
-/* Login & Reg apik */
+/* Mock */
 const mockUser = {
   id: 1,
-  name: "Test User",
-  email: "test@user.hu",
+  name: "Dev User",
+  email: "dev@user.hu",
+  role: "admin",
   created_at: "2020-01-01",
   modified_at: "2020-01-01",
 };
+const useBackend = import.meta.env.VITE_USE_BACKEND === "true";
 
 //reg
 export async function signup(data: {
@@ -50,6 +52,8 @@ export async function logout() {
 
 //whoami (mock)
 export async function whoami() {
+  if (!useBackend) return mockUser;
+
   const res = await fetch("/api/users/whoami", {
     method: "GET",
     credentials: "include",

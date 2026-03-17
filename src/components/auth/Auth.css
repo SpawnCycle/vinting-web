@@ -63,6 +63,10 @@
   cursor: pointer;
 }
 
+.auth-error {
+  color: red;
+}
+
 @keyframes popIn {
   from {
     opacity: 0;
