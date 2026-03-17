@@ -6,11 +6,14 @@ import type { Product } from "../../types/Product";
 import { getProducts } from "../../api/productsApi";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/context/ToastContext";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState<string>("");
   const navigate = useNavigate();
+
+  const { showToast } = useToast();
 
   useEffect(() => {
     getProducts().then(setProducts);
