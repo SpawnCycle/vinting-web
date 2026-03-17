@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { signup } from "@/api/authApi";
+import { useToast } from "@/context/ToastContext";
 
 interface RegisterProps {
   switchToLogin: () => void;
@@ -10,6 +11,7 @@ export default function Register({ switchToLogin }: RegisterProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const { showToast } = useToast();
 
   async function handleRegister() {
     try {
@@ -22,8 +24,14 @@ export default function Register({ switchToLogin }: RegisterProps) {
       });
 
       switchToLogin();
+      showToast("Registration successful", "You can now log in.", "success");
     } catch (err) {
       setError("Registration failed");
+      showToast(
+        "Registration failed",
+        "Something went wrong. Please try again.",
+        "error",
+      );
     }
   }
 

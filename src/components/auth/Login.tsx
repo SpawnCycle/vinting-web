@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login, whoami } from "@/api/authApi";
 import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/context/ToastContext";
 
 interface LoginProps {
   switchToRegister: () => void;
@@ -8,6 +9,7 @@ interface LoginProps {
 
 export default function Login({ switchToRegister }: LoginProps) {
   const { setUser } = useAuth();
+  const { showToast } = useToast();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,9 +25,11 @@ export default function Login({ switchToRegister }: LoginProps) {
       });
 
       const user = await whoami();
+      showToast("Login successful", "Welcome back!", "success");
       setUser(user);
     } catch (err) {
       setError("Login failed");
+      showToast("Login failed", "Invalid email or password.", "error");
     }
   }
 
