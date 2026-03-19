@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 
 import "./index.css";
 import App from "./App";
+import { LoadingProvider } from "./context/LoadingContext";
 
 const rootElement = document.getElementById("root");
 
@@ -12,6 +13,8 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <App />
-  </StrictMode>
+    <LoadingProvider>
+      <App />
+    </LoadingProvider>
+  </StrictMode>,
 );

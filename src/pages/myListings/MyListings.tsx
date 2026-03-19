@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import ProductGrid from "../../components/productGrid/ProductGrid";
 import BackButton from "@/components/backButton/BackButton";
@@ -19,6 +19,8 @@ export default function MyListings() {
   //const location = useLocation();
   const location = useLocation();
   const returnTo = location.state?.returnTo;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadMyListings() {
@@ -78,12 +80,30 @@ export default function MyListings() {
         </button>
       </div>
 
-      <div style={{ padding: "30px" }}>
-        <ProductGrid
-          products={myProducts}
-          returnTo="/profile/my-listings" //{returnTo ?? "/profile"}
-          parentReturnTo={location.state?.returnTo}
-        />
+      <div className="prod-cont">
+        {myProducts.length === 0 ? (
+          <>
+            {filterStatus === "Active" ? (
+              <p>You don’t have any active listings</p>
+            ) : (
+              <p>You haven’t sold anything yet.</p>
+            )}
+            <button
+              className="upload-button"
+              onClick={() => {
+                navigate("/upload");
+              }}
+            >
+              Upload a product
+            </button>
+          </>
+        ) : (
+          <ProductGrid
+            products={myProducts}
+            returnTo="/profile/my-listings"
+            parentReturnTo={location.state?.returnTo}
+          />
+        )}
       </div>
     </div>
   );

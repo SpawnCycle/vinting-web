@@ -1,4 +1,4 @@
-export const PRODUCT_STATUSES = ["Active", "Sold", "Deleted"] as const;
+export const PRODUCT_STATUSES = ["Active", "Sold"] as const;
 
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 

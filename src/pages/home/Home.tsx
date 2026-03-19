@@ -6,14 +6,20 @@ import type { Product } from "../../types/Product";
 import { getProducts } from "../../api/productsApi";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@/context/ToastContext";
+{
+  /* loader test */
+}
+import { useLoading } from "@/context/LoadingContext";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState<string>("");
   const navigate = useNavigate();
 
-  const { showToast } = useToast();
+  const { setLoading } = useLoading();
+  {
+    /* loader test */
+  }
 
   useEffect(() => {
     getProducts().then(setProducts);
@@ -57,6 +63,17 @@ export default function Home() {
               onClick={() => navigate("/upload")}
             >
               Upload item
+            </button>
+
+            {/* loader test */}
+            <button
+              onClick={async () => {
+                setLoading(true);
+                await new Promise((resolve) => setTimeout(resolve, 3000));
+                setLoading(false);
+              }}
+            >
+              Loader test
             </button>
           </div>
         </div>

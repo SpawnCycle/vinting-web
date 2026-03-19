@@ -26,11 +26,14 @@ export default function Profile() {
   const [editingPassword, setEditingPassword] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfPassword, setShowConfPassword] = useState(false);
 
   //majd apiról
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
   const [password, setPassword] = useState("password");
+  const [confPassword, setConfPassword] = useState("password");
+  const [passwordError, setPasswordError] = useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -74,14 +77,32 @@ export default function Profile() {
   };
 
   const handleSavePassword = () => {
-    setPassword("password"); //placeholder
-    setShowPassword(false);
-    setEditingPassword(false);
-    showToast(
-      "Feature unavailable",
-      "Sorry, changing your password is not available yet.",
-      "system",
-    );
+    if (password.length == 0) {
+      showToast(
+        "Passwords required",
+        "Please enter a new password before saving.",
+        "error",
+      );
+    } else if (password !== confPassword) {
+      showToast(
+        "Passwords don't match",
+        "Try again - both fields need to be the same",
+        "error",
+      );
+      setPasswordError(true);
+    } else {
+      setPassword("password"); //placeholder
+      setConfPassword("password"); //placeholder
+      setPasswordError(false);
+      setShowPassword(false);
+      setShowConfPassword(false);
+      setEditingPassword(false);
+      showToast(
+        "Feature unavailable",
+        "Sorry, changing your password is not available yet.",
+        "system",
+      );
+    }
   };
 
   const navigate = useNavigate();
@@ -233,8 +254,10 @@ export default function Profile() {
                 onClick={() => {
                   if (!editingPassword) {
                     setPassword(""); // edit indításakor törlődik
+                    setConfPassword("");
                   } else {
                     setPassword("password"); // edit bezárásakor visszaáll
+                    setConfPassword("password");
                   }
 
                   setEditingPassword(!editingPassword);
@@ -245,6 +268,7 @@ export default function Profile() {
             <p className="section-desc">Change your account password.</p>
 
             <div className="form-group">
+              {/* new password */}
               <div className="password-field">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -253,7 +277,7 @@ export default function Profile() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-
+                {/* eye */}
                 <span
                   className={`password-toggle ${!editingPassword ? "disabled" : ""}`}
                   onClick={() => {
@@ -264,6 +288,30 @@ export default function Profile() {
                   {showPassword ? <LuEyeClosed /> : <LuEye />}
                 </span>
               </div>
+              {/* confirm password  */}
+              <div className="password-field">
+                <input
+                  type={showConfPassword ? "text" : "password"}
+                  disabled={!editingPassword}
+                  placeholder="The new password again"
+                  value={confPassword}
+                  onChange={(e) => setConfPassword(e.target.value)}
+                />
+                {/* eye */}
+                <span
+                  className={`password-toggle ${!editingPassword ? "disabled" : ""}`}
+                  onClick={() => {
+                    if (!editingPassword) return;
+                    setShowConfPassword(!showConfPassword);
+                  }}
+                >
+                  {showConfPassword ? <LuEyeClosed /> : <LuEye />}
+                </span>
+              </div>
+              {/* error */}
+              {passwordError && (
+                <p style={{ color: "red" }}>Passwords don't match</p>
+              )}
 
               {editingPassword && (
                 <button className="btn-primary" onClick={handleSavePassword}>
