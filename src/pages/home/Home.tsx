@@ -65,7 +65,7 @@ export default function Home() {
               Upload item
             </button>
 
-            {/* loader test */}
+            {/* loader test 
             <button
               onClick={async () => {
                 setLoading(true);
@@ -74,7 +74,7 @@ export default function Home() {
               }}
             >
               Loader test
-            </button>
+            </button>*/}
           </div>
         </div>
 
