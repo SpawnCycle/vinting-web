@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { signup } from "@/api/authApi";
+import { signup, whoami } from "@/api/authApi";
 import { useToast } from "@/context/ToastContext";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
+import { useAuth } from "@/context/AuthContext";
 
 interface RegisterProps {
   switchToLogin: () => void;
@@ -14,6 +15,7 @@ export default function Register({ switchToLogin }: RegisterProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { showToast } = useToast();
+  const { setUser } = useAuth();
 
   async function handleRegister() {
     try {
@@ -25,8 +27,14 @@ export default function Register({ switchToLogin }: RegisterProps) {
         password,
       });
 
-      switchToLogin();
-      showToast("Registration successful", "You can now log in.", "success");
+      //switchToLogin();
+      await showToast(
+        "Registration successful",
+        "You are also logged in.",
+        "success",
+      );
+      const user = await whoami();
+      setUser(user);
     } catch (err) {
       setError("Registration failed");
       showToast(
@@ -34,6 +42,7 @@ export default function Register({ switchToLogin }: RegisterProps) {
         "Something went wrong. Please try again.",
         "error",
       );
+      console.log(err);
     }
   }
 
