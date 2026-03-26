@@ -1,8 +1,7 @@
 import "./ProductCard.css";
 import FavoriteButton from "../favoriteButton/FavoriteButton";
-import type { Product } from "../../types/Product";
+import type { ProductUI as Product } from "@/types/Product/ProductUI";
 import { useAuth } from "@/context/AuthContext";
-import { use } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -25,7 +24,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       <div className="product-info">
-        <p className="product-brand">{product.brand}</p>
+        <p className="product-brand">{product.brand}&nbsp;</p>
         <h2>{product.title}</h2>
         <div className="product-extra">
           <p className="product-condition">{product.condition}</p>

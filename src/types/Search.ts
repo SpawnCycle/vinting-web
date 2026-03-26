@@ -1,16 +1,8 @@
-import type {
-  ProductGender,
-  ProductSize,
-  ProductColor,
-  ProductCategory,
-  ProductCondition,
-} from "./Product";
-
-export interface FiltersState {
-  gender: ProductGender | null;
-  sizes: ProductSize[];
-  colors: ProductColor[];
-  categories: ProductCategory[];
-  conditions: ProductCondition[];
-  sort: "newest" | "price-low" | "price-high";
-}
+export type FiltersState = {
+  gender: string | null;
+  sizes: string[];
+  colors: string[];
+  categories: string[];
+  conditions: string[];
+  sort: "newest" | "price_asc" | "price_desc";
+};

@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-
 import ProductGrid from "../../components/productGrid/ProductGrid";
 import BackButton from "@/components/backButton/BackButton";
-import { getProducts } from "../../api/productsApi";
-import type { Product, ProductStatus } from "../../types/Product";
+import type { ProductUI as Product } from "../../types/Product/ProductUI";
 
 import "./MyListings.css";
 import { useAuth } from "@/context/AuthContext";
+import { getProductByUser } from "@/api/productsApi";
 
 export default function MyListings() {
   const { user } = useAuth();
   const MY_USER_ID = user?.id;
 
   const [products, setProducts] = useState<Product[]>([]);
-  const [filterStatus, setFilterStatus] = useState<ProductStatus>("Active");
+  const [filterStatus, setFilterStatus] = useState(true);
   const [loading, setLoading] = useState(true);
-  //const location = useLocation();
   const location = useLocation();
   const returnTo = location.state?.returnTo;
 
@@ -24,15 +22,16 @@ export default function MyListings() {
 
   useEffect(() => {
     async function loadMyListings() {
-      const data = await getProducts({ sellerId: MY_USER_ID });
-      setProducts(data);
+      if (!MY_USER_ID) return;
+      const data = await getProductByUser(MY_USER_ID);
+      setProducts(data || []);
       setLoading(false);
     }
 
     loadMyListings();
   }, []);
 
-  const myProducts = products.filter((p) => p.status === filterStatus);
+  const myProducts = products.filter((p) => p.isAvailable === filterStatus);
 
   //biztos ami tuti
   if (loading) {
@@ -50,15 +49,15 @@ export default function MyListings() {
         <button
           style={{
             backgroundColor:
-              filterStatus === "Active"
+              filterStatus === true
                 ? "var(--button-bg-main)"
                 : "var(--button-bg-secondary)",
             color:
-              filterStatus === "Active"
+              filterStatus === true
                 ? "var(--button-text-main)"
                 : "var(--button-text-secondary)",
           }}
-          onClick={() => setFilterStatus("Active")}
+          onClick={() => setFilterStatus(true)}
         >
           Active
         </button>
@@ -66,15 +65,15 @@ export default function MyListings() {
         <button
           style={{
             backgroundColor:
-              filterStatus === "Sold"
+              filterStatus === false
                 ? "var(--button-bg-main)"
                 : "var(--button-bg-secondary)",
             color:
-              filterStatus === "Sold"
+              filterStatus === false
                 ? "var(--button-text-main)"
                 : "var(--button-text-secondary)",
           }}
-          onClick={() => setFilterStatus("Sold")}
+          onClick={() => setFilterStatus(false)}
         >
           Sold
         </button>
@@ -83,7 +82,7 @@ export default function MyListings() {
       <div className="prod-cont">
         {myProducts.length === 0 ? (
           <>
-            {filterStatus === "Active" ? (
+            {filterStatus === false ? (
               <p className="DontHave">You don’t have any active listings</p>
             ) : (
               <p className="DontHave">You haven’t sold anything yet.</p>

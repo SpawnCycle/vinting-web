@@ -1,0 +1,266 @@
+/* CONTAINER */
+.form-container {
+  background: var(--bg-color-secondary);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
+}
+
+.edit-page {
+  width: 60vw;
+  margin: 40px 0;
+  padding: 20px;
+}
+
+.edit-card {
+  background: var(--bg-color-main);
+  color: var(--text-color-main);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* FORM */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-secondary);
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--bg-color-secondary);
+}
+
+/* ROWS (50-50 layout) */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* TAGS */
+.tag-row {
+  display: flex;
+  gap: 8px;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tag-chip {
+  background: var(--bg-color-secondary);
+  padding: 5px 10px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.tag-chip svg {
+  cursor: pointer;
+}
+
+/* COLOR SELECTOR */
+.color-dropdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.color-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--bg-color-secondary);
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-size: 14px;
+}
+
+.color-option:hover {
+  border-color: #999;
+}
+
+.color-option.selected {
+  border: 1px solid #111;
+  background: var(--bg-color-secondary);
+}
+
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+/* IMAGES */
+.image-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.image-thumb {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.image-thumb img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+.image-thumb button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-add {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  background: var(--bg-color-secondary);
+  color: var(--text-color-main);
+  border: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: 0.2s ease;
+}
+
+.image-add > svg {
+  width: 22px;
+  height: 22px;
+}
+
+.image-add:hover {
+  background: #e8e8e8;
+  border-color: #999;
+}
+
+/* BUTTONS */
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.mainBtn {
+  background: var(--button-bg-main);
+  color: var(--button-text-main);
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.secBtn {
+  background: var(--button-bg-secondary);
+  color: var(--button-text-secondary);
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-option {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--bg-color-secondary);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.category-option.selected {
+  background: var(--bg-color-secondary);
+  border: 1px solid #111;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .edit-page {
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    margin-bottom: 80px;
+  }
+
+  .edit-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .edit-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}

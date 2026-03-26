@@ -1,8 +1,12 @@
 import { useParams, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { getProducts } from "../../api/productsApi";
-import type { Product } from "../../types/Product";
+import {
+  getProductById,
+  getProductByUser,
+  getProducts,
+} from "../../api/productsApi";
+import type { ProductUI as Product } from "../../types/Product/ProductUI";
 import "./ProductPage.css";
 
 import ImageCarousel from "@/components/imageCarousel/ImageCarousel";
@@ -43,8 +47,7 @@ export default function ProductPage() {
 
   useEffect(() => {
     async function loadProduct() {
-      const productResult = await getProducts({ id: productId });
-      const foundProduct = productResult[0] ?? null;
+      const foundProduct = await getProductById(productId);
 
       if (!foundProduct) {
         setProduct(null);
@@ -53,11 +56,9 @@ export default function ProductPage() {
 
       setProduct(foundProduct);
 
-      const related = await getProducts({
-        sellerId: foundProduct.sellerId,
-      });
+      const related = await getProductByUser(foundProduct.sellerId);
 
-      setSellerProducts(related.filter((p) => p.id !== foundProduct.id));
+      setSellerProducts(related?.filter((p) => p.id !== foundProduct.id) || []);
     }
 
     loadProduct();
@@ -78,13 +79,13 @@ export default function ProductPage() {
         {/* info */}
         <div className="product-info">
           {product.sellerId === MY_USER_ID ? (
-            product.status === "Active" ? (
-              <div className="action-buttons">
-                <EditButton productId={product.id} returnTo={returnTo} />
-                <DeleteButton productId={product.id} />
-              </div>
-            ) : null
-          ) : MY_USER_ID ? (
+            /* product.isActive === true ? */ //LEKEZELNI HOGY AKTIV / ELADOTT !!!!!!!!!!
+            <div className="action-buttons">
+              <EditButton productId={product.id} returnTo={returnTo} />
+              <DeleteButton productId={product.id} />
+            </div>
+          ) : /* : null */
+          MY_USER_ID ? (
             <FavoriteButton
               productId={product.id}
               initialFavorite={product.isFavorite}
@@ -103,14 +104,13 @@ export default function ProductPage() {
           <div className="product-tags">
             <span className="tag">Size: {product.size}</span>
             <span className="tag">Condition: {product.condition}</span>
-            <span className="tag">Category: {product.category}</span>
-            <span className="tag">Gender: {product.gender}</span>
-
-            {product.colors.map((color) => (
-              <span key={color} className="tag color-tag">
-                {color}
+            {product.categories?.map((cat) => (
+              <span key={cat} className="tag">
+                Category: {cat}
               </span>
             ))}
+            <span className="tag">Gender: {product.gender}</span>
+            <span className="tag">{product.color}</span>
           </div>
 
           {/* DESCRIPTION */}
@@ -118,6 +118,17 @@ export default function ProductPage() {
             <h3>Description</h3>
             <p>{product.description}</p>
           </div>
+
+          {/* TAG LIST (hashtags) */}
+          {product.tags && product.tags.length > 0 && (
+            <div className="product-tag-list">
+              {product.tags.map((tag) => (
+                <span key={tag.id} className="product-tag-item">
+                  #{tag.name}
+                </span>
+              ))}
+            </div>
+          )}
 
           {/* SELLER */}
           {product.sellerId !== MY_USER_ID && (
@@ -134,7 +145,7 @@ export default function ProductPage() {
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
-                Seller #{product.sellerId}
+                {product.sellerName}
               </button>
             </div>
           )}
@@ -161,7 +172,7 @@ export default function ProductPage() {
               <h3>Products from the same user</h3>
             </>
           ) : (
-            <h2>Your other listings</h2>
+            <h2>Your further listings</h2>
           )}
 
           <div className="related-grid">

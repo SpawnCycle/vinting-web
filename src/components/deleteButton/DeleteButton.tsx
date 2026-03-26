@@ -1,4 +1,5 @@
 import { deleteProduct } from "@/api/productsApi";
+import { useToast } from "@/context/ToastContext";
 import { CgTrash } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 
@@ -7,12 +8,16 @@ type DeleteButtonProps = {
 };
 
 export default function DeleteButton({ productId }: DeleteButtonProps) {
-  const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const deleteProd = async () => {
     try {
       await deleteProduct(productId);
-      navigate(-1);
+      showToast(
+        "Feature unavailable",
+        "Sorry, deleting products is not available yet.",
+        "system",
+      );
     } catch (err) {
       console.error(err);
     }
@@ -23,7 +28,6 @@ export default function DeleteButton({ productId }: DeleteButtonProps) {
       className="favorite-btn delete"
       onClick={() => {
         deleteProd();
-        navigate(-1);
       }}
       aria-label="Delete product"
       style={{ position: "relative" }}

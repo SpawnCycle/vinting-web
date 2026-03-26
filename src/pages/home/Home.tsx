@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProductGrid from "../../components/productGrid/ProductGrid";
 import CategoryCard from "@/components/categoryCard/CategoryCrad";
 import { categories } from "../../components/categoryCard/Categories";
-import type { Product } from "../../types/Product";
+import type { ProductUI as Product } from "../../types/Product/ProductUI";
 import { getProducts } from "../../api/productsApi";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";

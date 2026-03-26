@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { getProducts } from "../../api/productsApi";
+import { getProductByUser, getProducts } from "../../api/productsApi";
 
 import { FiEdit2, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
@@ -37,18 +37,17 @@ export default function Profile() {
 
   useEffect(() => {
     async function loadData() {
-      const userProducts = await getProducts({
-        sellerId: USER_ID,
-      });
+      if (!USER_ID) return;
+      const userProducts = await getProductByUser(USER_ID); ///sajátok lekérése!!!!!!
 
-      setProducts(userProducts);
+      setProducts(userProducts || []);
 
-      // favorites mock (később API)
-      setFavoritesCount(8);
+      // favorites mock (később API?)
+      setFavoritesCount(0);
     }
 
     loadData();
-  }, []);
+  }, [USER_ID]);
 
   useEffect(() => {
     if (user) {
@@ -57,8 +56,8 @@ export default function Profile() {
     }
   }, [user]);
 
-  const activeListings = products.filter((p) => p.status === "Active").length;
-  const soldListings = products.filter((p) => p.status === "Sold").length;
+  const activeListings = products.filter((p) => p.isAvailable === true).length;
+  const soldListings = products.filter((p) => p.isAvailable === false).length;
   const previewProducts = products.slice(0, 3);
 
   const handleSaveProfile = () => {
@@ -184,7 +183,6 @@ export default function Profile() {
               {previewProducts.map((p) => (
                 <div className="mini-product" key={p.id}>
                   <img src={p.images?.[0]} />
-                  <span>{p.brand}</span>
                 </div>
               ))}
 

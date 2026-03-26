@@ -1,12 +1,13 @@
+import { useCategories } from "@/hooks/useCategories";
+
 import {
   PRODUCT_GENDERS,
   PRODUCT_SIZES,
   PRODUCT_COLORS,
-  PRODUCT_CATEGORIES,
   PRODUCT_CONDITIONS,
-} from "../../types/Product";
+} from "@/types/Product/productEnums";
 
-import type { FiltersState } from "../../types/Search";
+import type { FiltersState } from "@/types/Search";
 
 import "./FilterPanel.css";
 
@@ -17,9 +18,12 @@ interface Props {
 }
 
 export default function FilterPanel({ filters, setFilters, close }: Props) {
-  const toggleMulti = <T,>(key: keyof FiltersState, value: T) => {
+  const { categories, loading } = useCategories();
+
+  // egyszerűsített - string alapú
+  const toggleMulti = (key: keyof FiltersState, value: string) => {
     setFilters((prev) => {
-      const list = prev[key] as T[];
+      const list = prev[key] as string[];
 
       const updated = list.includes(value)
         ? list.filter((v) => v !== value)
@@ -36,7 +40,7 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         <button onClick={close}>×</button>
       </div>
 
-      {/* gender (single select radio) */}
+      {/* Gender (single select) */}
       <div className="filter-section">
         <h4>Gender</h4>
         <div className="filter-radio-group">
@@ -58,7 +62,7 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         </div>
       </div>
 
-      {/* sitze (multi select) */}
+      {/* Size */}
       <div className="filter-section">
         <h4>Size</h4>
         <div className="size-grid">
@@ -78,7 +82,7 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         </div>
       </div>
 
-      {/* color (pill) */}
+      {/* Color */}
       <div className="filter-section">
         <h4>Color</h4>
         <div className="color-list">
@@ -98,24 +102,29 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         </div>
       </div>
 
-      {/* cat */}
+      {/* Category */}
       <div className="filter-section">
         <h4>Category</h4>
-        <div className="checkbox-group">
-          {PRODUCT_CATEGORIES.map((c) => (
-            <label key={c}>
-              <input
-                type="checkbox"
-                checked={filters.categories.includes(c)}
-                onChange={() => toggleMulti("categories", c)}
-              />
-              {c}
-            </label>
-          ))}
-        </div>
+
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="checkbox-group">
+            {categories.map((c) => (
+              <label key={c.id}>
+                <input
+                  type="checkbox"
+                  checked={filters.categories.includes(c.name)}
+                  onChange={() => toggleMulti("categories", c.name)}
+                />
+                {c.name}
+              </label>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* cond */}
+      {/* Condition */}
       <div className="filter-section">
         <h4>Condition</h4>
         <div className="checkbox-group">
@@ -132,6 +141,7 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         </div>
       </div>
 
+      {/* Clear */}
       <button
         className="filter-clear"
         onClick={() =>

@@ -1,25 +1,19 @@
+/* CONTAINER */
 .form-container {
   background: var(--bg-color-secondary);
   width: 100%;
   display: flex;
   justify-content: center;
 }
+
 .content {
   width: 100%;
 }
+
 .edit-page {
-  /*max-width: 900px;*/
   width: 60vw;
   margin: 40px 0;
   padding: 20px;
-  display: block;
-}
-
-.edit-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
 }
 
 .edit-card {
@@ -33,6 +27,7 @@
   gap: 20px;
 }
 
+/* FORM */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -49,7 +44,6 @@
 .form-group select {
   padding: 10px 12px;
   border-radius: 8px;
-  /*border: 1px solid #ddd;*/
   border: 1px solid var(--bg-color-secondary);
   font-size: 14px;
   transition: 0.2s;
@@ -59,10 +53,10 @@
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  /*border-color: #111;*/
   border-color: var(--bg-color-secondary);
 }
 
+/* ROWS (50-50 layout) */
 .form-row {
   display: flex;
   gap: 20px;
@@ -72,40 +66,34 @@
   flex: 1;
 }
 
-.edit-actions {
+/* TAGS */
+.tag-row {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 25px;
+  gap: 8px;
 }
 
-.btn-primary {
-  background: #111;
-  background: var(--button-bg-main);
-  color: white;
-  color: var(--button-text-main);
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tag-chip {
+  background: var(--bg-color-secondary);
+  padding: 5px 10px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.tag-chip svg {
   cursor: pointer;
 }
 
-.btn-secondary {
-  background: #eee;
-  background: var(--button-bg-secondary);
-  color: var(--button-text-secondary);
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-}
+/* COLOR SELECTOR */
 .color-dropdown {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -116,15 +104,16 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 10px;
   border: 1px solid var(--bg-color-secondary);
+  cursor: pointer;
   transition: 0.2s ease;
+  font-size: 14px;
 }
 
-.color-option input {
-  display: none;
+.color-option:hover {
+  border-color: #999;
 }
 
 .color-option.selected {
@@ -133,18 +122,18 @@
 }
 
 .color-dot {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: 1px solid #ccc;
 }
 
+/* IMAGES */
 .image-scroll {
   display: flex;
   gap: 12px;
   overflow-x: auto;
   padding-bottom: 6px;
-  scrollbar-width: thin;
 }
 
 .image-thumb {
@@ -160,7 +149,7 @@
   border: 1px solid #ddd;
 }
 
-.image-remove {
+.image-thumb button {
   position: absolute;
   top: 6px;
   right: 6px;
@@ -170,22 +159,19 @@
   border: none;
   background: rgba(0, 0, 0, 0.7);
   color: white;
+  cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.image-remove:hover {
-  background: black;
 }
 
 .image-add {
   width: 90px;
   height: 90px;
   border-radius: 12px;
-  background: #f2f2f2;
+  background: var(--bg-color-secondary);
+  color: var(--text-color-main);
   border: 1px dashed #ccc;
   display: flex;
   align-items: center;
@@ -194,11 +180,10 @@
   flex: 0 0 auto;
   transition: 0.2s ease;
 }
-[data-theme="dark"] .image-add {
-  background-color: var(--bg-color-secondary);
-}
-[data-theme="dark"] .image-add:hover {
-  background-color: var(--bg-color-third);
+
+.image-add > svg {
+  width: 22px;
+  height: 22px;
 }
 
 .image-add:hover {
@@ -206,6 +191,52 @@
   border-color: #999;
 }
 
+/* BUTTONS */
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.mainBtn {
+  background: var(--button-bg-main);
+  color: var(--button-text-main);
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.secBtn {
+  background: var(--button-bg-secondary);
+  color: var(--button-text-secondary);
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-option {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--bg-color-secondary);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.category-option.selected {
+  background: var(--bg-color-secondary);
+  border: 1px solid #111;
+}
+
+/* MOBILE */
 @media (max-width: 900px) {
   .edit-page {
     width: 100%;

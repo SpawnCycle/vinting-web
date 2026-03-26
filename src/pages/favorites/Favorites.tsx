@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductGrid from "@/components/productGrid/ProductGrid";
-/* import BackButton from "@/components/backButton/BackButton";*/
 import { getProducts } from "@/api/productsApi";
-import type { Product } from "@/types/Product";
+import type { ProductUI as Product } from "@/types/Product/ProductUI";
 import "./Favorites.css";
 
 type FilterType = "all" | "clothing" | "shoes" | "accessories";
@@ -18,16 +17,18 @@ export default function FavoritesPage() {
       let favorites = allProducts.filter((p) => p.isFavorite);
 
       if (activeFilter === "shoes") {
-        favorites = favorites.filter((p) => p.category === "Shoes");
+        favorites = favorites.filter((p) => p.categories.includes("Shoes"));
       }
 
       if (activeFilter === "accessories") {
-        favorites = favorites.filter((p) => p.category === "Accessory");
+        favorites = favorites.filter((p) => p.categories.includes("Accessory"));
       }
 
       if (activeFilter === "clothing") {
         favorites = favorites.filter(
-          (p) => p.category !== "Shoes" && p.category !== "Accessory",
+          (p) =>
+            !p.categories.includes("Shoes") &&
+            !p.categories.includes!("Accessory"),
         );
       }
 

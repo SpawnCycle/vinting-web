@@ -5,7 +5,7 @@ import ProductGrid from "../../components/productGrid/ProductGrid";
 import FilterPanel from "./FilterPanel";
 import "./SearchPage.css";
 
-import type { Product } from "../../types/Product";
+import type { ProductUI } from "../../types/Product/ProductUI";
 import type { FiltersState } from "../../types/Search";
 import { getProducts } from "../../api/productsApi";
 
@@ -22,13 +22,14 @@ export default function SearchPage() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // URL » STATE
   const parseFiltersFromURL = (): FiltersState => {
     return {
-      gender: (searchParams.get("gender") as any) || null,
-      sizes: searchParams.getAll("size") as any,
-      colors: searchParams.getAll("color") as any,
-      categories: searchParams.getAll("category") as any,
-      conditions: searchParams.getAll("condition") as any,
+      gender: searchParams.get("gender") || null,
+      sizes: searchParams.getAll("size"),
+      colors: searchParams.getAll("color"),
+      categories: searchParams.getAll("category"),
+      conditions: searchParams.getAll("condition"),
       sort: (searchParams.get("sort") as FiltersState["sort"]) || "newest",
     };
   };
@@ -38,11 +39,11 @@ export default function SearchPage() {
   const [queryInput, setQueryInput] = useState(searchParams.get("q") ?? "");
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductUI[]>([]);
   const [loading, setLoading] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // state > URL
+  // STATE » URL
   useEffect(() => {
     const params = new URLSearchParams();
 
@@ -74,26 +75,28 @@ export default function SearchPage() {
           search: query || undefined,
           gender: filters.gender || undefined,
           color: filters.colors.length ? filters.colors : undefined,
-          size: filters.sizes.length ? filters.sizes[0] : undefined,
-          category: filters.categories.length
-            ? filters.categories[0]
+          size: filters.sizes[0] || undefined,
+          categories: filters.categories.length
+            ? filters.categories
             : undefined,
-          status: "Active" as const,
+          condition: filters.conditions.length ? filters.conditions : undefined,
         };
 
         const data = await getProducts(apiFilters);
 
         let processed = data;
 
+        // condition (frontend filter)
         if (filters.conditions.length > 0) {
           processed = processed.filter((p) =>
             filters.conditions.includes(p.condition),
           );
         }
 
-        if (filters.sort === "price-low") {
+        // sorting
+        if (filters.sort === "price_asc") {
           processed = [...processed].sort((a, b) => a.price - b.price);
-        } else if (filters.sort === "price-high") {
+        } else if (filters.sort === "price_desc") {
           processed = [...processed].sort((a, b) => b.price - a.price);
         } else {
           processed = [...processed].sort((a, b) => b.id - a.id);
@@ -132,6 +135,7 @@ export default function SearchPage() {
     setQueryInput("");
   };
 
+  // selected tags
   const selectedTags = useMemo(() => {
     const tags: {
       label: string;
@@ -197,6 +201,7 @@ export default function SearchPage() {
             Filters
           </button>
 
+          {/* sort */}
           <select
             className="sort-select"
             value={filters.sort}
@@ -208,8 +213,8 @@ export default function SearchPage() {
             }
           >
             <option value="newest">Newest</option>
-            <option value="price-low">Price: Low → High</option>
-            <option value="price-high">Price: High → Low</option>
+            <option value="price_asc">Price: Low → High</option>
+            <option value="price_desc">Price: High → Low</option>
           </select>
         </div>
 
