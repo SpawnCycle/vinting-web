@@ -219,13 +219,14 @@ export async function getProductByUser(
   id: number,
 ): Promise<ProductUI[] | null> {
   if (!USE_BACKEND) {
+    //MOCK (amennyiben nem backendről fut)
     const res = await fetch("/data/products.json");
     const data: ProductUI[] = await res.json();
 
     return data.filter((p) => p.sellerId === id) ?? null;
   }
 
-  //BACKEND:
+  //BACKEND esetén:
   const res = await fetch(`/api/users/${id}/products`);
 
   if (!res.ok) {

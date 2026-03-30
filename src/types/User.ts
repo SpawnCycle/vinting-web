@@ -4,4 +4,5 @@ export type User = {
   email: string;
   created_at: string;
   modified_at: string;
+  roles: string[];
 };

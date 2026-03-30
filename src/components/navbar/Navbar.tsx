@@ -37,7 +37,8 @@ export default function Navbar() {
   if (
     location.pathname === "/welcome" ||
     location.pathname === "/profile/my-listings" ||
-    location.pathname.startsWith("/product/")
+    location.pathname.startsWith("/product/") ||
+    location.pathname.startsWith("/admin")
   ) {
     return null;
   }

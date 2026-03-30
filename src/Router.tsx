@@ -11,6 +11,7 @@ import ProductPage from "./pages/productPage/ProductPage";
 import EditProductPage from "./pages/editProduct/EditProduct";
 import Search from "./pages/searchPage/SearchPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import AdminPage from "./pages/admin/AdminPage";
 
 export default function AppRouter() {
   return (
@@ -72,6 +73,14 @@ export default function AppRouter() {
             element={
               <ProtectedRoute>
                 <EditProductPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requiredRole="Admin">
+                <AdminPage />
               </ProtectedRoute>
             }
           />

@@ -1,0 +1,168 @@
+.categories {
+  margin-bottom: 50px;
+}
+
+.categories-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.categories-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.categories-add {
+  display: flex;
+  gap: 10px;
+}
+
+.categories-add input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--bg-color-third);
+  background: var(--bg-color-main);
+  color: var(--text-color-main);
+  min-width: 220px;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--button-bg-main);
+  color: var(--button-text-main);
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.table-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--bg-color-third);
+  background: var(--bg-color-main);
+}
+
+.categories-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.categories-table thead {
+  background: var(--bg-color-secondary);
+}
+
+.categories-table th {
+  text-align: left;
+  padding: 14px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-color-secondary);
+  letter-spacing: 0.4px;
+}
+
+.categories-table td {
+  padding: 14px;
+  border-top: 1px solid var(--bg-color-third);
+  font-size: 14px;
+}
+
+.categories-table tbody tr:nth-child(even) {
+  background: var(--bg-color-secondary);
+}
+
+.categories-table tbody tr:hover {
+  background: var(--bg-color-third);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.icon-btn:hover {
+  background: var(--bg-color-secondary);
+  border-color: var(--bg-color-third);
+}
+
+.icon-btn.danger {
+  color: #ef4444;
+}
+
+.icon-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.edit-input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-third);
+  background: var(--bg-color-main);
+  width: 100%;
+}
+
+.save-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--bg-color-third);
+  background: var(--bg-color-secondary);
+  color: var(--text-color-main);
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.save-btn:hover {
+  background: var(--bg-color-third);
+}
+
+.empty {
+  text-align: center;
+  padding: 24px;
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .categories-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .categories-add {
+    width: 100%;
+  }
+
+  .categories-add input {
+    flex: 1;
+    width: 100%;
+  }
+
+  .categories-add {
+    display: flex;
+  }
+
+  .add-btn {
+    white-space: nowrap;
+  }
+}

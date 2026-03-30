@@ -3,7 +3,7 @@ const mockUser = {
   id: 404,
   name: "Dev User",
   email: "dev@user.hu",
-  role: "admin",
+  role: ["Admin"],
   created_at: "2020-01-01",
   modified_at: "2020-01-01",
 };
