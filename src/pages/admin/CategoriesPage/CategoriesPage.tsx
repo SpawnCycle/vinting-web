@@ -133,7 +133,10 @@ export default function CategoriesPage() {
   return (
     <div className="categories">
       <div className="categories-header">
-        <h2>Categories</h2>
+        <div className="categories-header-title">
+          <h2>Categories</h2>
+          <p className="num-categories">{categories.length} categories found</p>
+        </div>
 
         <div className="categories-add">
           <input

@@ -42,6 +42,7 @@ export default function UsersPage() {
   return (
     <div>
       <h2 className="admin-title">Users</h2>
+      <p className="num-users">{users.length} users found</p>
 
       <div className="users-table-wrapper">
         <table className="users-table">

@@ -13,13 +13,15 @@ export default function AdminPage() {
     return (saved as Tab) || "users";
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <div className="admin-layout">
       {/* SIDEBAR */}
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
-          <h2>Vinting</h2>
+          <img src="/images/logo_800x800.png" alt="Vinting Logo" />
+          <h2>VINTING</h2>
         </div>
 
         <nav className="sidebar-nav">
@@ -62,8 +64,8 @@ export default function AdminPage() {
           <button className="menu-btn" onClick={() => setSidebarOpen(true)}>
             <CgMenu />
           </button>
-
           <h1>Admin Panel</h1>
+          <hr />
         </div>
 
         <div className="admin-container">
