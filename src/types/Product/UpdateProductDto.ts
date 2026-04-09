@@ -12,5 +12,5 @@ export interface UpdateProductDto {
   images: number[];
   has_stock: boolean;
   color: string;
-  stock_available: number;
+  stock: number;
 }

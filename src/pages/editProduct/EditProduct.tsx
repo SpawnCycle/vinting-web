@@ -174,7 +174,7 @@ export default function EditProduct() {
         images: [...existingImages.map((img) => img.id), ...uploadedIds],
         has_stock: form.hasStock,
         color: form.color,
-        stock_available: form.stockAvailable,
+        stock: form.stockAvailable,
       };
 
       await updateProduct(dto);
@@ -250,9 +250,8 @@ export default function EditProduct() {
               {categories.map((c) => (
                 <div
                   key={c.id}
-                  className={`category-option ${
-                    form.categories.includes(c.name) ? "selected" : ""
-                  }`}
+                  className={`category-option ${form.categories.includes(c.name) ? "selected" : ""
+                    }`}
                   onClick={() => toggleCategory(c.name)}
                 >
                   {c.name}
@@ -320,9 +319,8 @@ export default function EditProduct() {
               {PRODUCT_COLORS.map((c) => (
                 <div
                   key={c}
-                  className={`color-option ${
-                    form.color === c ? "selected" : ""
-                  }`}
+                  className={`color-option ${form.color === c ? "selected" : ""
+                    }`}
                   onClick={() => update("color", c)}
                 >
                   <div
