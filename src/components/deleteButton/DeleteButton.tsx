@@ -9,17 +9,26 @@ type DeleteButtonProps = {
 
 export default function DeleteButton({ productId }: DeleteButtonProps) {
   const { showToast } = useToast();
+  const navigate = useNavigate();
 
   const deleteProd = async () => {
     try {
       await deleteProduct(productId);
-      showToast(
-        "Feature unavailable",
-        "Sorry, deleting products is not available yet.",
-        "system",
+
+      await showToast(
+        "Product deleted",
+        "The product was successfully deleted.",
+        "success",
       );
+      await navigate(-1);
     } catch (err) {
       console.error(err);
+
+      showToast(
+        "Delete failed",
+        "We couldn’t delete the product. Please try again.",
+        "error",
+      );
     }
   };
 

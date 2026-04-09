@@ -34,6 +34,7 @@ export default function Upload() {
     size: PRODUCT_SIZES[0],
     color: PRODUCT_COLORS[0],
     price: 0,
+    stock: 1,
   });
 
   const [images, setImages] = useState<File[]>([]);
@@ -274,6 +275,21 @@ export default function Upload() {
                   update(
                     "price",
                     e.target.value === "" ? 0 : Number(e.target.value),
+                  )
+                }
+                style={{ background: "var(--bg-color-main)" }}
+              />
+            </div>
+            <div className="form-group">
+              <label>Pieces to list</label>
+              <input
+                type="number"
+                min="1"
+                max="30"
+                onChange={(e) =>
+                  update(
+                    "stock",
+                    e.target.value === "" ? 1 : Number(e.target.value),
                   )
                 }
                 style={{ background: "var(--bg-color-main)" }}

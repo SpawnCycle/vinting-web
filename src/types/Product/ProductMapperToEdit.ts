@@ -25,5 +25,6 @@ export function mapProductToEdit(dto: ProductDto) {
     })),
 
     has_stock: dto.has_stock,
+    stock_available: dto.available_stock,
   };
 }

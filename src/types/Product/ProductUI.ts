@@ -23,4 +23,6 @@ export interface ProductUI {
   sellerName: string;
   isFavorite?: boolean;
   isAvailable: boolean; // has_stock-ból
+  stockAvailable: number; // available_stock-ból
+  stockStarting: number; // starting_stock-ból
 }

@@ -80,6 +80,7 @@ export default function EditProduct() {
         color: p.color,
         price: p.price,
         hasStock: p.has_stock,
+        stockAvailable: p.stock_available,
       });
 
       setExistingImages(p.images);
@@ -173,6 +174,7 @@ export default function EditProduct() {
         images: [...existingImages.map((img) => img.id), ...uploadedIds],
         has_stock: form.hasStock,
         color: form.color,
+        stock_available: form.stockAvailable,
       };
 
       await updateProduct(dto);
@@ -333,7 +335,7 @@ export default function EditProduct() {
             </div>
           </div>
 
-          {/* PRICE */}
+          {/* PRICE & STOCK */}
           <div className="form-row">
             <div className="form-group">
               <label>Price</label>
@@ -350,18 +352,34 @@ export default function EditProduct() {
               />
             </div>
             <div className="form-group">
-              <label>Status</label>
-
-              <select
-                value={form.hasStock ? "active" : "sold"}
+              <label>Pieces Available</label>
+              <input
+                type="number"
+                min="1"
+                max="30"
+                value={form.stockAvailable === 0 ? "" : form.stockAvailable}
                 onChange={(e) =>
-                  update("hasStock", e.target.value === "active")
+                  update(
+                    "stockAvailable",
+                    e.target.value === "" ? 1 : Number(e.target.value),
+                  )
                 }
-              >
-                <option value="active">Active</option>
-                <option value="sold">Sold</option>
-              </select>
+                style={{ background: "var(--bg-color-main)" }}
+              />
             </div>
+          </div>
+
+          {/* STATUS */}
+          <div className="form-group">
+            <label>Status</label>
+
+            <select
+              value={form.hasStock ? "active" : "sold"}
+              onChange={(e) => update("hasStock", e.target.value === "active")}
+            >
+              <option value="active">Active</option>
+              <option value="sold">Sold</option>
+            </select>
           </div>
 
           {/* IMAGES */}

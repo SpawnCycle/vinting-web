@@ -27,5 +27,7 @@ export function mapProduct(dto: ProductDto): ProductUI {
       : [],
     tags: Array.isArray(dto.tags) ? dto.tags : [],
     isAvailable: dto.has_stock,
+    stockAvailable: dto.available_stock,
+    stockStarting: dto.starting_stock,
   };
 }

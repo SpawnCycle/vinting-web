@@ -17,4 +17,5 @@ export interface CreateProductForm {
   price: number;
   images: File[];
   tags: number[];
+  stock: number;
 }

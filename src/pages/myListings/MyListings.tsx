@@ -83,9 +83,9 @@ export default function MyListings() {
         {myProducts.length === 0 ? (
           <>
             {filterStatus === false ? (
-              <p className="DontHave">You don’t have any active listings</p>
-            ) : (
               <p className="DontHave">You haven’t sold anything yet.</p>
+            ) : (
+              <p className="DontHave">You don’t have any active listings.</p>
             )}
             <button
               className="upload-button"

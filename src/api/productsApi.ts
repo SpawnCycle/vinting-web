@@ -271,6 +271,7 @@ export async function createProduct(form: CreateProductForm) {
     categories: categoryIds,
     tags: form.tags ?? [],
     images: imageIds,
+    stock: form.stock,
   };
 
   const res = await fetch("/api/products/", {
@@ -307,6 +308,13 @@ export async function updateProduct(dto: UpdateProductDto): Promise<void> {
 }
 
 export async function deleteProduct(productId: number) {
-  console.log("delete: ", productId);
-  return null;
+  const res = await fetch(`/api/products/${productId}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    console.error("DELETE ERROR:", err);
+    throw new Error("Product deletion failed");
+  }
 }

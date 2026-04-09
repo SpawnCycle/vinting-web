@@ -28,6 +28,8 @@ export interface ProductDto {
   }[];
   has_stock: boolean;
   color: string;
+  available_stock: number;
+  starting_stock: number;
 }
 export interface ProductPagination {
   data: ProductDto[];

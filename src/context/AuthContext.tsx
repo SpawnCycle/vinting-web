@@ -22,7 +22,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   async function init() {
     try {
       const u = await whoami();
-      setUser(u);
+      if ("code" in u) {
+        setUser(null);
+      } else {
+        setUser(u);
+      }
     } catch {
       setUser(null);
     }
