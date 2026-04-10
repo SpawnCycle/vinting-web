@@ -4,5 +4,6 @@ export type FiltersState = {
   colors: string[];
   categories: string[];
   conditions: string[];
-  sort: "newest" | "price_asc" | "price_desc";
+  sort_by: "date" | "price";
+  asc: boolean;
 };

@@ -9,13 +9,17 @@ import type { ProductUI } from "../../types/Product/ProductUI";
 import type { FiltersState } from "../../types/Search";
 import { getProducts } from "../../api/productsApi";
 
+// Only in use in the ordering dropdown (see `select.sort-select`)
+type SortByType = "date_asc" | "date_desc" | "price_asc" | "price_desc";
+
 const defaultFilters: FiltersState = {
   gender: null,
   sizes: [],
   colors: [],
   categories: [],
   conditions: [],
-  sort: "newest",
+  sort_by: "date",
+  asc: false,
 };
 
 export default function SearchPage() {
@@ -24,17 +28,22 @@ export default function SearchPage() {
 
   // URL » STATE
   const parseFiltersFromURL = (): FiltersState => {
+    let asc_str = searchParams.get("asc");
+    let asc = asc_str !== null && asc_str === "true";
     return {
       gender: searchParams.get("gender") || null,
       sizes: searchParams.getAll("size"),
       colors: searchParams.getAll("color"),
       categories: searchParams.getAll("category"),
       conditions: searchParams.getAll("condition"),
-      sort: (searchParams.get("sort") as FiltersState["sort"]) || "newest",
+      sort_by:
+        (searchParams.get("sort_by") as FiltersState["sort_by"]) || "date",
+      asc,
     };
   };
 
   const [filters, setFilters] = useState<FiltersState>(parseFiltersFromURL());
+  const [selectedSortBy, setSelectedSortBy] = useState<SortByType>("date_desc");
 
   const [queryInput, setQueryInput] = useState(searchParams.get("q") ?? "");
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
@@ -53,10 +62,8 @@ export default function SearchPage() {
     filters.colors.forEach((c) => params.append("color", c));
     filters.categories.forEach((c) => params.append("category", c));
     filters.conditions.forEach((c) => params.append("condition", c));
-
-    if (filters.sort !== "newest") {
-      params.set("sort", filters.sort);
-    }
+    params.set("sort_by", filters.sort_by);
+    params.set("asc", filters.asc.toString());
 
     if (query) {
       params.set("q", query);
@@ -80,6 +87,8 @@ export default function SearchPage() {
             ? filters.categories
             : undefined,
           condition: filters.conditions.length ? filters.conditions : undefined,
+          sort_by: filters.sort_by,
+          asc: filters.asc,
         };
 
         const data = await getProducts(apiFilters);
@@ -91,15 +100,6 @@ export default function SearchPage() {
           processed = processed.filter((p) =>
             filters.conditions.includes(p.condition),
           );
-        }
-
-        // sorting
-        if (filters.sort === "price_asc") {
-          processed = [...processed].sort((a, b) => a.price - b.price);
-        } else if (filters.sort === "price_desc") {
-          processed = [...processed].sort((a, b) => b.price - a.price);
-        } else {
-          processed = [...processed].sort((a, b) => b.id - a.id);
         }
 
         setProducts(processed);
@@ -204,15 +204,50 @@ export default function SearchPage() {
           {/* sort */}
           <select
             className="sort-select"
-            value={filters.sort}
-            onChange={(e) =>
-              setFilters((prev) => ({
-                ...prev,
-                sort: e.target.value as FiltersState["sort"],
-              }))
-            }
+            value={selectedSortBy}
+            onChange={(e) => {
+              setSelectedSortBy(e.target.value as SortByType);
+              setFilters((prev) => {
+                let sort_type = e.target.value as SortByType;
+                let sort = "date" as FiltersState["sort_by"];
+                let asc = false;
+                switch (sort_type) {
+                  default:
+                  case "date_desc":
+                    {
+                      sort = "date";
+                      asc = false;
+                    }
+                    break;
+                  case "date_asc":
+                    {
+                      sort = "date";
+                      asc = true;
+                    }
+                    break;
+                  case "price_asc":
+                    {
+                      sort = "price";
+                      asc = true;
+                    }
+                    break;
+                  case "price_desc":
+                    {
+                      sort = "price";
+                      asc = false;
+                    }
+                    break;
+                }
+                return {
+                  ...prev,
+                  sort_by: sort,
+                  asc,
+                };
+              });
+            }}
           >
-            <option value="newest">Newest</option>
+            <option value="date_desc">Newest</option>
+            <option value="date_asc">Oldest</option>
             <option value="price_asc">Price: Low → High</option>
             <option value="price_desc">Price: High → Low</option>
           </select>

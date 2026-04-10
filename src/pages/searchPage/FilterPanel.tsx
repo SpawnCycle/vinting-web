@@ -151,7 +151,8 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
             colors: [],
             categories: [],
             conditions: [],
-            sort: "newest",
+            sort_by: "date",
+            asc: false,
           })
         }
       >

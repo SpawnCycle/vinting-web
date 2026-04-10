@@ -17,6 +17,8 @@ export type ProductFilters = {
   condition?: string[];
   gender?: string;
   size?: string;
+  sort_by?: string;
+  asc?: boolean;
 };
 
 export async function getProducts(
@@ -95,6 +97,14 @@ export async function getProducts(
 
   if (filters?.search) {
     params.append("query", `%${filters.search}%`);
+  }
+
+  if (filters?.sort_by) {
+    params.append("sort_by", filters.sort_by);
+  }
+
+  if (filters?.asc) {
+    params.append("asc", filters.asc.toString());
   }
 
   const res = await fetch(`/api/products?${params.toString()}`);
