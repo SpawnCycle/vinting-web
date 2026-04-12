@@ -3,26 +3,51 @@ import ProductGrid from "../../components/productGrid/ProductGrid";
 import CategoryCard from "@/components/categoryCard/CategoryCrad";
 import { categories } from "../../components/categoryCard/Categories";
 import type { ProductUI as Product } from "../../types/Product/ProductUI";
-import { getProducts } from "../../api/productsApi";
+import { getProducts, getProductsPaginated } from "../../api/productsApi";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 {
   /* loader test */
 }
 import { useLoading } from "@/context/LoadingContext";
+import { useToast } from "@/context/ToastContext";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState<string>("");
   const navigate = useNavigate();
 
-  const { setLoading } = useLoading();
+  const { loading, setLoading } = useLoading();
+  const { showToast } = useToast();
   {
     /* loader test */
   }
 
   useEffect(() => {
-    getProducts().then(setProducts);
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+
+        const res = await getProductsPaginated({
+          orderBy: "date",
+          asc: false,
+          itemsPerPage: 30,
+        });
+
+        setProducts(res.products);
+      } catch (err) {
+        console.error(err);
+        showToast(
+          "Failed to load products",
+          "Please try again later.",
+          "error",
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   return (
@@ -103,7 +128,7 @@ export default function Home() {
       {/* most liked ones */}
 
       <section className="home-trending">
-        <h2>Trending now</h2>
+        <h2>New Arrivals</h2>
 
         <ProductGrid products={products.slice(0, 30)} returnTo={"/"} />
       </section>

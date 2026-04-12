@@ -111,6 +111,14 @@ export default function ProductPage() {
             ))}
             <span className="tag">Gender: {product.gender}</span>
             <span className="tag">{product.color}</span>
+            <span
+              className={`tag stock ${product.stockAvailable === 0 ? "out" : ""}`}
+            >
+              🛒{" "}
+              {product.stockAvailable > 0
+                ? `${product.stockAvailable} in stock`
+                : "Out of stock"}
+            </span>
           </div>
 
           {/* DESCRIPTION */}
@@ -151,7 +159,7 @@ export default function ProductPage() {
           )}
 
           {/* buy */}
-          {product.sellerId !== MY_USER_ID && (
+          {product.sellerId !== MY_USER_ID && product.isAvailable && (
             <div className="product-buy">
               <p className="buy-hint">Interested in this product?</p>
 

@@ -20,6 +20,7 @@ const proxySettings =
 // https://vite.dev/config/
 export default defineConfig({
   build: {
+    minify: false, // ← add hozzá
     outDir,
     emptyOutDir: true,
   },

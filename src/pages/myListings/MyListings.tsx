@@ -31,7 +31,15 @@ export default function MyListings() {
     loadMyListings();
   }, []);
 
-  const myProducts = products.filter((p) => p.isAvailable === filterStatus);
+  const myProducts = products.filter((p) => {
+    if (filterStatus === true) {
+      // Aktív: isAvailable true - akár részben eladott, akár teljes készlet
+      return p.isAvailable === true;
+    } else {
+      // Eladott: isAvailable false vagy részben már elkelt
+      return p.isAvailable === false || p.stockStarting > p.stockAvailable;
+    }
+  });
 
   //biztos ami tuti
   if (loading) {

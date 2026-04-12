@@ -17,8 +17,11 @@ export type ProductFilters = {
   condition?: string[];
   gender?: string;
   size?: string;
-  sort_by?: string;
+
+  orderBy?: string;
   asc?: boolean;
+  page?: number;
+  itemsPerPage?: number;
 };
 
 export async function getProducts(
@@ -99,8 +102,8 @@ export async function getProducts(
     params.append("query", `%${filters.search}%`);
   }
 
-  if (filters?.sort_by) {
-    params.append("sort_by", filters.sort_by);
+  if (filters?.orderBy) {
+    params.append("order_by", filters.orderBy);
   }
 
   if (filters?.asc) {
@@ -194,6 +197,22 @@ export async function getProductsPaginated(filters?: ProductFilters): Promise<{
 
   if (filters?.search) {
     params.append("query", `%${filters.search}%`);
+  }
+
+  if (filters?.orderBy) {
+    params.append("order_by", filters.orderBy);
+  }
+
+  if (filters?.asc) {
+    params.append("asc", String(filters.asc));
+  }
+
+  if (filters?.page) {
+    params.append("page", String(filters.page));
+  }
+
+  if (filters?.itemsPerPage) {
+    params.append("page_size", String(filters.itemsPerPage));
   }
 
   const res = await fetch(`/api/products?${params.toString()}`);

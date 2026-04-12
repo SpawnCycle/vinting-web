@@ -37,6 +37,7 @@ export default function EditProduct() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [form, setForm] = useState<any>(null);
+  const [originalStock, setOriginalStock] = useState<number>(0);
 
   const [existingImages, setExistingImages] = useState<
     { id: number; url: string }[]
@@ -82,6 +83,7 @@ export default function EditProduct() {
         hasStock: p.has_stock,
         stockAvailable: p.stock_available,
       });
+      setOriginalStock(p.stock_available);
 
       setExistingImages(p.images);
       setPreview(p.images.map((i) => i.url));
@@ -174,6 +176,8 @@ export default function EditProduct() {
         images: [...existingImages.map((img) => img.id), ...uploadedIds],
         has_stock: form.hasStock,
         color: form.color,
+
+        stock_available: form.stockAvailable,
         stock: form.stockAvailable,
       };
 
@@ -250,8 +254,9 @@ export default function EditProduct() {
               {categories.map((c) => (
                 <div
                   key={c.id}
-                  className={`category-option ${form.categories.includes(c.name) ? "selected" : ""
-                    }`}
+                  className={`category-option ${
+                    form.categories.includes(c.name) ? "selected" : ""
+                  }`}
                   onClick={() => toggleCategory(c.name)}
                 >
                   {c.name}
@@ -319,8 +324,9 @@ export default function EditProduct() {
               {PRODUCT_COLORS.map((c) => (
                 <div
                   key={c}
-                  className={`color-option ${form.color === c ? "selected" : ""
-                    }`}
+                  className={`color-option ${
+                    form.color === c ? "selected" : ""
+                  }`}
                   onClick={() => update("color", c)}
                 >
                   <div
@@ -359,25 +365,23 @@ export default function EditProduct() {
                 onChange={(e) =>
                   update(
                     "stockAvailable",
-                    e.target.value === "" ? 1 : Number(e.target.value),
+                    e.target.value === "" ? "" : Number(e.target.value),
                   )
                 }
+                onBlur={(e) => {
+                  const newStock = Number(e.target.value);
+                  if (!e.target.value || newStock < originalStock) {
+                    showToast(
+                      "Cannot reduce stock",
+                      "You can only increase the number of available pieces, not decrease it.",
+                      "error",
+                    );
+                    update("stockAvailable", originalStock);
+                  }
+                }}
                 style={{ background: "var(--bg-color-main)" }}
               />
             </div>
-          </div>
-
-          {/* STATUS */}
-          <div className="form-group">
-            <label>Status</label>
-
-            <select
-              value={form.hasStock ? "active" : "sold"}
-              onChange={(e) => update("hasStock", e.target.value === "active")}
-            >
-              <option value="active">Active</option>
-              <option value="sold">Sold</option>
-            </select>
           </div>
 
           {/* IMAGES */}

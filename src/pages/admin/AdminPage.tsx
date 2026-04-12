@@ -1,19 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./AdminPage.css";
 import { CgMenu } from "react-icons/cg";
 import { useAuth } from "@/context/AuthContext";
 import UsersPage from "./UsersPage/UsersPage";
 import CategoriesPage from "./CategoriesPage/CategoriesPage";
+import { Navigate } from "react-router-dom";
+import { useLoading } from "@/context/LoadingContext";
 
 type Tab = "users" | "categories";
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<Tab>(() => {
-    const saved = localStorage.getItem("admin-tab");
-    return (saved as Tab) || "users";
-  });
+  const [activeTab, setActiveTab] = useState<Tab>("users");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  const { setLoading } = useLoading();
+
+  useEffect(() => {
+    const saved = localStorage.getItem("admin-tab");
+    if (saved === "users" || saved === "categories") {
+      setActiveTab(saved);
+    }
+  }, []);
+
+  if (loading || user === null) {
+    return null; // Várj amíg mind a kettő rendben van
+  }
+
+  if (!user.roles?.includes("Admin")) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="admin-layout">

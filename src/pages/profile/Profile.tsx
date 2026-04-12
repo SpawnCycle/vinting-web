@@ -7,17 +7,18 @@ import { FiEdit2, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import "./Profile.css";
 import { useAuth } from "@/context/AuthContext";
-import { logout, whoami } from "@/api/authApi";
+import { logout } from "@/api/authApi";
 import { useToast } from "@/context/ToastContext";
 
 export default function Profile() {
+  const navigate = useNavigate();
+
   const { showToast } = useToast();
 
   const { theme, toggleTheme } = useTheme();
 
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const USER_ID = user?.id;
-  const { setUser } = useAuth();
 
   const [products, setProducts] = useState<any[]>([]);
   const [favoritesCount, setFavoritesCount] = useState(0);
@@ -38,7 +39,7 @@ export default function Profile() {
   useEffect(() => {
     async function loadData() {
       if (!USER_ID) return;
-      const userProducts = await getProductByUser(USER_ID); ///sajátok lekérése!!!!!!
+      const userProducts = await getProductByUser(USER_ID);
 
       setProducts(userProducts || []);
 
@@ -103,8 +104,6 @@ export default function Profile() {
       );
     }
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className="profile-page">
@@ -318,6 +317,13 @@ export default function Profile() {
               )}
             </div>
           </section>
+
+          {/* admin */}
+          {user?.roles?.includes("Admin") && (
+            <button className="admin-btn" onClick={() => navigate("/admin")}>
+              Go to Admin Panel
+            </button>
+          )}
 
           {/* logout */}
           <button

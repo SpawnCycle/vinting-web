@@ -25,7 +25,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { logout, whoami } from "@/api/authApi";
+import { logout } from "@/api/authApi";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
@@ -33,17 +33,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navbarRef = useRef<HTMLElement | null>(null);
   const { theme, toggleTheme } = useTheme();
-
-  if (
-    location.pathname === "/welcome" ||
-    location.pathname === "/profile/my-listings" ||
-    location.pathname.startsWith("/product/") ||
-    location.pathname.startsWith("/admin")
-  ) {
-    return null;
-  }
-
-  const isActive = (path: string) => location.pathname === path;
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
@@ -63,8 +54,17 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const navigate = useNavigate();
-  const { setUser } = useAuth();
+  if (
+    location.pathname === "/welcome" ||
+    location.pathname === "/profile/my-listings" ||
+    location.pathname.startsWith("/product/") ||
+    location.pathname.startsWith("/admin")
+  ) {
+    return null;
+  }
+
+  const isActive = (path: string) => location.pathname === path;
+
   const handleLogout = () => {
     logout();
     setUser(null);
@@ -81,6 +81,7 @@ export default function Navbar() {
             Home page
           </span>
         </Link>
+
         <Link
           to="/search"
           className="nav-item"
@@ -189,7 +190,7 @@ export default function Navbar() {
                   padding: "10px",
                   backgroundColor: "var(--bg-color-main)",
                   color: "var(--text-color-main)",
-                  borderRadius: "10px 10px 0 0 ",
+                  borderRadius: "10px 10px 0 0",
                 }}
               >
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

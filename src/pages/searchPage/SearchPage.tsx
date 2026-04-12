@@ -8,6 +8,7 @@ import "./SearchPage.css";
 import type { ProductUI } from "../../types/Product/ProductUI";
 import type { FiltersState } from "../../types/Search";
 import { getProducts } from "../../api/productsApi";
+import { useLoading } from "@/context/LoadingContext";
 
 // Only in use in the ordering dropdown (see `select.sort-select`)
 type SortByType = "date_asc" | "date_desc" | "price_asc" | "price_desc";
@@ -49,8 +50,8 @@ export default function SearchPage() {
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
   const [products, setProducts] = useState<ProductUI[]>([]);
-  const [loading, setLoading] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const { loading, setLoading } = useLoading();
 
   // STATE » URL
   useEffect(() => {
