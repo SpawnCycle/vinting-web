@@ -13,7 +13,10 @@ export default function MyListings() {
   const MY_USER_ID = user?.id;
 
   const [products, setProducts] = useState<Product[]>([]);
-  const [filterStatus, setFilterStatus] = useState(true);
+  const [filterStatus, setFilterStatus] = useState<boolean>(() => {
+    const saved = localStorage.getItem("my-listings-filter");
+    return saved === "false" ? false : true;
+  });
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const returnTo = location.state?.returnTo;
@@ -24,7 +27,7 @@ export default function MyListings() {
     async function loadMyListings() {
       if (!MY_USER_ID) return;
       const data = await getProductByUser(MY_USER_ID);
-      setProducts(data || []);
+      setProducts(data?.filter((p) => p.isAvailable) || []);
       setLoading(false);
     }
 
@@ -65,7 +68,10 @@ export default function MyListings() {
                 ? "var(--button-text-main)"
                 : "var(--button-text-secondary)",
           }}
-          onClick={() => setFilterStatus(true)}
+          onClick={() => {
+            setFilterStatus(true);
+            localStorage.setItem("my-listings-filter", "true");
+          }}
         >
           Active
         </button>
@@ -81,7 +87,10 @@ export default function MyListings() {
                 ? "var(--button-text-main)"
                 : "var(--button-text-secondary)",
           }}
-          onClick={() => setFilterStatus(false)}
+          onClick={() => {
+            setFilterStatus(false);
+            localStorage.setItem("my-listings-filter", "false");
+          }}
         >
           Sold
         </button>

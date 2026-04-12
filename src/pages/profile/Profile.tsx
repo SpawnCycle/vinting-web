@@ -58,7 +58,9 @@ export default function Profile() {
   }, [user]);
 
   const activeListings = products.filter((p) => p.isAvailable === true).length;
-  const soldListings = products.filter((p) => p.isAvailable === false).length;
+  const soldListings = products.filter(
+    (p) => p.isAvailable === false || p.stockAvailable < p.stockStarting,
+  ).length;
   const previewProducts = products.slice(0, 3);
 
   const handleSaveProfile = () => {

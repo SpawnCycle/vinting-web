@@ -1,0 +1,142 @@
+.orders-page {
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orders-header {
+  position: relative;
+  width: 100vw;
+  margin-bottom: 32px;
+  padding: 20px;
+}
+
+.orders-header h1 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-color-main);
+}
+
+.orders-page .back-btn {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  border-radius: 50%;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  background: var(--bg-color-secondary);
+}
+
+.orders-page .back-btn:hover {
+  background: var(--bg-color-third);
+}
+
+.orders-list {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .orders-list {
+    width: 100%;
+  }
+}
+
+.orders-page .order-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--bg-color-secondary);
+  transition: 0.2s;
+}
+
+.orders-page .order-card:hover {
+  background: var(--bg-color-third);
+}
+
+.orders-page .order-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  object-fit: cover;
+  background: var(--bg-color-third);
+}
+
+.orders-page .order-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.orders-page .order-title {
+  font-size: 13px;
+  color: var(--text-color-secondary);
+}
+
+.orders-page .order-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color-main);
+}
+
+.orders-page .order-date {
+  font-size: 13px;
+  color: var(--text-color-secondary);
+}
+
+.orders-page .order-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.orders-page .status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.orders-page .status .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+}
+
+.orders-page .status.ordered {
+  background: var(--bg-color-third);
+  color: var(--text-color-main);
+}
+
+.orders-page .status.delivered {
+  background: #e6f4ea;
+  color: #2e7d32;
+}
+
+.orders-page .amount {
+  font-size: 13px;
+  color: var(--text-color-secondary);
+}
+
+.orders-page .orders-loading {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-color-secondary);
+}

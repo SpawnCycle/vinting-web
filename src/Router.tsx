@@ -12,6 +12,8 @@ import EditProductPage from "./pages/editProduct/EditProduct";
 import Search from "./pages/searchPage/SearchPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AdminPage from "./pages/admin/AdminPage";
+import OrderPage from "./pages/order/orderPage/OrderPage";
+import MyOrders from "./pages/order/myOrders/MyOrders";
 
 export default function AppRouter() {
   return (
@@ -81,6 +83,22 @@ export default function AppRouter() {
             element={
               <ProtectedRoute requiredRole="Admin">
                 <AdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/:id"
+            element={
+              <ProtectedRoute>
+                <OrderPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/my-orders"
+            element={
+              <ProtectedRoute>
+                <MyOrders />
               </ProtectedRoute>
             }
           />

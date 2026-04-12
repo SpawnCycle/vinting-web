@@ -215,6 +215,12 @@
   opacity: 0.9;
 }
 
+.buy-hint.sold-stat {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color-main);
+}
+
 /* more prod. */
 .product-page .related-section {
   margin-top: 48px;

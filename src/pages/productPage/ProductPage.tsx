@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation } from "react-router-dom";
+import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import {
@@ -36,13 +36,19 @@ export default function ProductPage() {
   const [sellerProducts, setSellerProducts] = useState<Product[]>([]);
 
   const returnTo = location.state?.returnTo;
+  const navigate = useNavigate();
 
   function handleBuy() {
-    showToast(
-      "Feature unavailable",
-      "Sorry, purchasing products is not available yet.",
-      "system",
-    );
+    if (!product || product.stockAvailable === 0) {
+      showToast(
+        "Out of stock",
+        "This product is currently unavailable.",
+        "system",
+      );
+      return;
+    } else {
+      navigate(`/order/${product.id}`);
+    }
   }
 
   useEffect(() => {
@@ -58,7 +64,9 @@ export default function ProductPage() {
 
       const related = await getProductByUser(foundProduct.sellerId);
 
-      setSellerProducts(related?.filter((p) => p.id !== foundProduct.id) || []);
+      setSellerProducts(
+        related?.filter((p) => p.id !== foundProduct.id && p.isAvailable) || [],
+      );
     }
 
     loadProduct();
@@ -159,14 +167,22 @@ export default function ProductPage() {
           )}
 
           {/* buy */}
-          {product.sellerId !== MY_USER_ID && product.isAvailable && (
+          {product.sellerId === MY_USER_ID ? (
             <div className="product-buy">
-              <p className="buy-hint">Interested in this product?</p>
-
-              <button className="buy-button" onClick={handleBuy}>
-                Buy it now
-              </button>
+              <p className="buy-hint sold-stat">
+                {product.stockStarting - product.stockAvailable} sold of{" "}
+                {product.stockStarting} pieces
+              </p>
             </div>
+          ) : (
+            product.isAvailable && (
+              <div className="product-buy">
+                <p className="buy-hint">Interested in this product?</p>
+                <button className="buy-button" onClick={handleBuy}>
+                  Buy it now
+                </button>
+              </div>
+            )
           )}
         </div>
       </div>
