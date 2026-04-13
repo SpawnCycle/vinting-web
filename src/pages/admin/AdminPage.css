@@ -134,4 +134,11 @@ hr {
     background: rgba(0, 0, 0, 0.3);
     z-index: 999;
   }
+
+  .admin-content .orders-header {
+    width: calc(100vw - 40px);
+  }
+  .admin-content .table-wrapper {
+    max-width: calc(100vw - 40px);
+  }
 }

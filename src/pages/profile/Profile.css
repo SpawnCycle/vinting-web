@@ -328,4 +328,13 @@
   .logout-btn {
     margin-top: 20px;
   }
+
+  .listings-orders {
+    flex-direction: column;
+  }
+
+  .my-listings,
+  .my-orders {
+    width: 100%;
+  }
 }

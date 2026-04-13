@@ -13,14 +13,14 @@ export async function getMyOrders(): Promise<OrderGetDto[]> {
   return res.json();
 }
 
-export async function orderProduct(productId: number, ammount: number) {
+export async function orderProduct(productId: number, amount: number) {
   const res = await fetch(`/api/products/${productId}/order`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      ammount: ammount,
+      ammount: amount,
     }),
   });
 

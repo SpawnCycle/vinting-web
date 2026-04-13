@@ -26,12 +26,17 @@ export default function MyListings() {
   useEffect(() => {
     async function loadMyListings() {
       if (!MY_USER_ID) return;
+      console.log("Loading my listings for user ID:", MY_USER_ID);
       const data = await getProductByUser(MY_USER_ID);
-      setProducts(data?.filter((p) => p.isAvailable) || []);
+      setProducts(data || []);
       setLoading(false);
     }
 
     loadMyListings();
+    console.log("MyListings loaded. Products:", products);
+    products.forEach((p) => {
+      console.log(p.stockStarting, p.stockAvailable, p.isAvailable);
+    });
   }, []);
 
   const myProducts = products.filter((p) => {

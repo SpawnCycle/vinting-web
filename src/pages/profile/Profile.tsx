@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { getProductByUser, getProducts } from "../../api/productsApi";
+import { getProductByUser } from "../../api/productsApi";
 
 import { FiEdit2, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
@@ -14,11 +14,8 @@ import { getMyOrders } from "@/api/orderApi";
 
 export default function Profile() {
   const navigate = useNavigate();
-
   const { showToast } = useToast();
-
   const { theme, toggleTheme } = useTheme();
-
   const { user, setUser } = useAuth();
   const USER_ID = user?.id;
 
@@ -32,9 +29,8 @@ export default function Profile() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
 
-  //majd apiról
-  const [name, setName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
+  const [name, setName] = useState(user?.name ?? "");
+  const [email, setEmail] = useState(user?.email ?? "");
   const [password, setPassword] = useState("password");
   const [confPassword, setConfPassword] = useState("password");
   const [passwordError, setPasswordError] = useState(false);
@@ -44,13 +40,10 @@ export default function Profile() {
       if (!USER_ID) return;
       const userProducts = await getProductByUser(USER_ID);
       const userOrders = await getMyOrders();
-
       setProducts(userProducts || []);
       setMyOrders(userOrders || []);
-      // favorites mock (később API?)
       setFavoritesCount(0);
     }
-
     loadData();
   }, [USER_ID]);
 
@@ -66,7 +59,7 @@ export default function Profile() {
     (p) => p.isAvailable === false || p.stockAvailable < p.stockStarting,
   ).length;
   const previewProducts = products.slice(0, 3);
-  const previewOrders = myOrders; /* .slice(0, 3); */
+  const previewOrders = myOrders;
 
   const handleSaveProfile = async () => {
     if (!user) {
@@ -75,75 +68,79 @@ export default function Profile() {
     }
 
     try {
+      const updatedName = name?.trim() ? name : user.name;
+      const updatedEmail = email?.trim() ? email : user.email;
+
       await editProfile(user.id, {
         id: user.id,
-        name,
-        email,
+        name: updatedName,
+        email: updatedEmail,
       });
 
+      setUser({ ...user, name: updatedName, email: updatedEmail });
       setEditingProfile(false);
-      showToast("Success", "Profile updated", "success");
+      showToast("Success", "Profile updated successfully.", "success");
     } catch {
-      showToast("Error", "Profile update failed", "error");
+      showToast("Error", "Profile update failed. Please try again.", "error");
     }
   };
 
   const handleSavePassword = async () => {
     if (password.length === 0) {
       showToast(
-        "Passwords required",
+        "Password required",
         "Please enter a new password before saving.",
         "error",
       );
-    } else if (password !== confPassword) {
+      return;
+    }
+
+    if (password !== confPassword) {
       showToast(
         "Passwords don't match",
-        "Try again - both fields need to be the same",
+        "Try again - both fields need to be the same.",
         "error",
       );
       setPasswordError(true);
-    } else {
-      if (!user) {
-        showToast("Error", "User not loaded", "error");
-        return;
-      }
+      return;
+    }
 
-      try {
-        await editProfile(user.id, {
-          id: user.id,
-          password,
-        });
+    if (!user) {
+      showToast("Error", "User not loaded", "error");
+      return;
+    }
 
-        setPassword("password"); //placeholder
-        setConfPassword("password"); //placeholder
-        setPasswordError(false);
-        setShowPassword(false);
-        setShowConfPassword(false);
-        setEditingPassword(false);
+    try {
+      await editProfile(user.id, {
+        id: user.id,
+        password,
+      });
 
-        showToast("Success", "Your password has been updated.", "success");
-      } catch (err) {
-        showToast(
-          "Update failed",
-          "Sorry, password change failed. Please try again later.",
-          "error",
-        );
-      }
+      setPassword("password");
+      setConfPassword("password");
+      setPasswordError(false);
+      setShowPassword(false);
+      setShowConfPassword(false);
+      setEditingPassword(false);
+      showToast("Success", "Your password has been updated.", "success");
+    } catch {
+      showToast(
+        "Update failed",
+        "Sorry, password change failed. Please try again later.",
+        "error",
+      );
     }
   };
 
   return (
     <div className="profile-page">
-      {/* header */}
       <div className="profile-header">
         <h1>Welcome back, {user?.name} &#x1F44B;</h1>
         <p>Manage your profile, listings and preferences.</p>
       </div>
 
       <div className="profile-layout">
-        {/* left */}
         <div className="profile-left">
-          {/* stat */}
           <section className="profile-section">
             <h3>Listing summary</h3>
             <p className="section-desc">Track your marketplace activity.</p>
@@ -153,12 +150,10 @@ export default function Profile() {
                 <span>{activeListings}</span>
                 <p>Active listings</p>
               </div>
-
               <div className="stat-card">
                 <span>{soldListings}</span>
                 <p>Sold items</p>
               </div>
-
               <div className="stat-card">
                 <span>{favoritesCount}</span>
                 <p>Favorites</p>
@@ -166,13 +161,11 @@ export default function Profile() {
             </div>
           </section>
 
-          {/* teheme */}
           <section className="profile-section">
             <h3>Theme</h3>
             <p className="section-desc">
               Choose between light and dark appearance.
             </p>
-
             <div className="theme-switch">
               <div className="theme-icons">
                 <FiSun
@@ -180,14 +173,12 @@ export default function Profile() {
                     theme === "light" ? "theme-icon active" : "theme-icon"
                   }
                 />
-
                 <FiMoon
                   className={
                     theme === "dark" ? "theme-icon active" : "theme-icon"
                   }
                 />
               </div>
-
               <button className="btn-primary" onClick={toggleTheme}>
                 {theme === "light"
                   ? "Switch to dark mode"
@@ -195,8 +186,6 @@ export default function Profile() {
               </button>
             </div>
           </section>
-
-          {/* my listings */}
 
           <div className="listings-orders">
             <div className="my-listings">
@@ -206,14 +195,12 @@ export default function Profile() {
                   <p className="section-desc">Recent items you have listed.</p>
                 </div>
               </div>
-
               <div className="mini-products">
                 {previewProducts.map((p) => (
                   <div className="mini-product" key={p.id}>
                     <img src={p.images?.[0]} />
                   </div>
                 ))}
-
                 <Link
                   to="/profile/my-listings"
                   state={{ returnTo: "/profile" }}
@@ -223,11 +210,11 @@ export default function Profile() {
                   <span>View all</span>
                 </Link>
               </div>
-
               <Link to="/profile/my-listings" state={{ returnTo: "/profile" }}>
                 <button className="btn-secondary">Go to My Listings</button>
               </Link>
             </div>
+
             <div className="my-orders">
               <div className="section-header">
                 <div className="orders-title">
@@ -240,7 +227,6 @@ export default function Profile() {
                   </button>
                 </Link>
               </div>
-
               <div className="mini-products-orders">
                 {previewOrders.map((o) => (
                   <div className="mini-product-order" key={o.id}>
@@ -253,38 +239,29 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* right */}
         <div className="profile-right">
-          {/* prof det */}
           <section className="profile-section">
             <div className="section-header">
               <h3>Profile information</h3>
-
               <FiEdit2
                 className="edit-icon"
                 onClick={() => setEditingProfile(!editingProfile)}
               />
             </div>
-
             <p className="section-desc">Update your name and email.</p>
-
             <div className="form-group">
               <label>Name</label>
-
               <input
                 disabled={!editingProfile}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-
               <label>Email</label>
-
               <input
                 disabled={!editingProfile}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-
               {editingProfile && (
                 <button className="btn-primary" onClick={handleSaveProfile}>
                   Save
@@ -293,31 +270,25 @@ export default function Profile() {
             </div>
           </section>
 
-          {/* password */}
           <section className="profile-section">
             <div className="section-header">
               <h3>Password</h3>
-
               <FiEdit2
                 className="edit-icon"
                 onClick={() => {
                   if (!editingPassword) {
-                    setPassword(""); // edit indításakor törlődik
+                    setPassword("");
                     setConfPassword("");
                   } else {
-                    setPassword("password"); // edit bezárásakor visszaáll
+                    setPassword("password");
                     setConfPassword("password");
                   }
-
                   setEditingPassword(!editingPassword);
                 }}
               />
             </div>
-
             <p className="section-desc">Change your account password.</p>
-
             <div className="form-group">
-              {/* new password */}
               <div className="password-field">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -326,7 +297,6 @@ export default function Profile() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                {/* eye */}
                 <span
                   className={`password-toggle ${!editingPassword ? "disabled" : ""}`}
                   onClick={() => {
@@ -337,7 +307,6 @@ export default function Profile() {
                   {showPassword ? <LuEyeClosed /> : <LuEye />}
                 </span>
               </div>
-              {/* confirm password  */}
               <div className="password-field">
                 <input
                   type={showConfPassword ? "text" : "password"}
@@ -346,7 +315,6 @@ export default function Profile() {
                   value={confPassword}
                   onChange={(e) => setConfPassword(e.target.value)}
                 />
-                {/* eye */}
                 <span
                   className={`password-toggle ${!editingPassword ? "disabled" : ""}`}
                   onClick={() => {
@@ -357,11 +325,9 @@ export default function Profile() {
                   {showConfPassword ? <LuEyeClosed /> : <LuEye />}
                 </span>
               </div>
-              {/* error */}
               {passwordError && (
                 <p style={{ color: "red" }}>Passwords don't match</p>
               )}
-
               {editingPassword && (
                 <button className="btn-primary" onClick={handleSavePassword}>
                   Save password
@@ -370,14 +336,12 @@ export default function Profile() {
             </div>
           </section>
 
-          {/* admin */}
           {user?.roles?.includes("Admin") && (
             <button className="admin-btn" onClick={() => navigate("/admin")}>
               Go to Admin Panel
             </button>
           )}
 
-          {/* logout */}
           <button
             className="logout-btn"
             onClick={() => {

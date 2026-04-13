@@ -88,7 +88,7 @@ export default function MyOrders() {
                 </div>
 
                 <div className="amount">
-                  {order.ammount} piece{order.ammount > 1 ? "s" : ""}
+                  {order.amount} piece{order.amount > 1 ? "s" : ""}
                 </div>
               </div>
             </div>

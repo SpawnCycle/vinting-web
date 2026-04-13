@@ -53,10 +53,10 @@ body {
     color 0.3s;
 }
 
-/* html,
+html,
 body {
   overscroll-behavior: none;
-} */
+}
 
 @font-face {
   font-family: "Agdasima-Regular";

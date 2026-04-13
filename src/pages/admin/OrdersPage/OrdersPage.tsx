@@ -121,7 +121,7 @@ export default function OrdersPage() {
 
                     <td>{order.user_id}</td>
 
-                    <td>{order.ammount}</td>
+                    <td>{order.amount}</td>
 
                     <td>{new Date(order.created_at).toLocaleDateString()}</td>
 

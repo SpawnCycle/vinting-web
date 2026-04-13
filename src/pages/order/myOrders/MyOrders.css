@@ -1,8 +1,32 @@
 .orders-page {
   padding: 32px 16px;
+  padding-bottom: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.orders-page::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  width: 100vw;
+  aspect-ratio: 1620 / 445;
+
+  background: url("/images/orders_darkMode.png") no-repeat center bottom;
+  background-size: contain;
+
+  z-index: -1;
+  pointer-events: none;
+}
+[data-theme="light"] .orders-page::after {
+  background-image: url("/images/orders_lightMode.png");
 }
 
 .orders-header {

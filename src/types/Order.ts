@@ -3,7 +3,7 @@ export type OrderGetDto = {
   created_at: string;
   modified_at: string;
   user_id: number;
-  ammount: number;
+  amount: number;
   arrived_at: string | null;
   product: {
     id: number;
