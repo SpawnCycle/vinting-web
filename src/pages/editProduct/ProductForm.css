@@ -128,6 +128,17 @@
   border: 1px solid #ccc;
 }
 
+.color-dot.colorful {
+  background:
+    radial-gradient(
+      circle at center,
+      white 0%,
+      rgba(255, 255, 255, 0.7) 5%,
+      transparent 70%
+    ),
+    conic-gradient(#ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #b983ff, #ff6b6b);
+}
+
 /* IMAGES */
 .image-scroll {
   display: flex;
@@ -234,6 +245,16 @@
 .category-option.selected {
   background: var(--bg-color-secondary);
   border: 1px solid #111;
+}
+
+.note {
+  color: rgb(147, 29, 0);
+}
+sup {
+  color: rgb(147, 29, 0);
+  font-size: 20px;
+  position: relative;
+  top: -1px;
 }
 
 /* MOBILE */

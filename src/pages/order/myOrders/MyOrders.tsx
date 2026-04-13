@@ -43,6 +43,7 @@ export default function MyOrders() {
 
       <div className="orders-list">
         {orders.map((order) => {
+          /* const isDeleted = !!order.deleted_at; */
           const isDelivered = !!order.arrived_at;
 
           return (
@@ -59,13 +60,27 @@ export default function MyOrders() {
                 <div className="order-date">
                   Order date: {formatDate(order.created_at)}
                 </div>
+                {isDelivered && (
+                  <div className="order-date">
+                    Delivery date:{" "}
+                    {formatDate(
+                      order.arrived_at ? order.arrived_at : "0000-00-00",
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="order-right">
                 <div
+                  /* className={`status ${ isDeleted ? "deleted" : isDelivered ? "delivered" : "ordered"}`} */
                   className={`status ${isDelivered ? "delivered" : "ordered"}`}
                 >
                   <span className="dot" />
+                  {/* {isDeleted
+                    ? "Deleted"
+                    : isDelivered
+                      ? "Delivered"
+                      : "Ordered"} */}
                   {isDelivered ? "Delivered" : "Ordered"}
                 </div>
 

@@ -126,7 +126,9 @@ export default function Upload() {
         <div className="edit-card">
           {/* TITLE */}
           <div className="form-group">
-            <label>Title</label>
+            <label>
+              Title <sup>*</sup>
+            </label>
             <input
               value={form.title}
               onChange={(e) => update("title", e.target.value)}
@@ -136,7 +138,9 @@ export default function Upload() {
 
           {/* DESCRIPTION */}
           <div className="form-group">
-            <label>Description</label>
+            <label>
+              Description <sup>*</sup>
+            </label>
             <textarea
               rows={4}
               value={form.description}
@@ -173,8 +177,9 @@ export default function Upload() {
 
           {/* CATEGORIES */}
           <div className="form-group">
-            <label>Categories</label>
-
+            <label>
+              Categories <sup>*</sup>
+            </label>
             <div className="category-grid">
               {categories.map((c) => (
                 <div
@@ -202,7 +207,9 @@ export default function Upload() {
             </div>
 
             <div className="form-group">
-              <label>Gender</label>
+              <label>
+                Gender <sup>*</sup>
+              </label>
               <select
                 value={form.gender}
                 onChange={(e) => update("gender", e.target.value)}
@@ -217,7 +224,9 @@ export default function Upload() {
           {/* SIZE & CONDITION */}
           <div className="form-row">
             <div className="form-group">
-              <label>Size</label>
+              <label>
+                Size <sup>*</sup>
+              </label>
               <select
                 value={form.size}
                 onChange={(e) => update("size", e.target.value)}
@@ -229,7 +238,9 @@ export default function Upload() {
             </div>
 
             <div className="form-group">
-              <label>Condition</label>
+              <label>
+                Condition <sup>*</sup>
+              </label>
               <select
                 value={form.condition}
                 onChange={(e) => update("condition", e.target.value)}
@@ -243,8 +254,9 @@ export default function Upload() {
 
           {/* COLORS */}
           <div className="form-group">
-            <label>Colors</label>
-
+            <label>
+              Colors <sup>*</sup>
+            </label>
             <div className="color-dropdown">
               {PRODUCT_COLORS.map((c) => (
                 <div
@@ -255,8 +267,14 @@ export default function Upload() {
                   onClick={() => update("color", c)}
                 >
                   <div
-                    className="color-dot"
-                    style={{ background: c.toLowerCase() }}
+                    className={`color-dot ${
+                      c.toLowerCase() === "colorful" ? "colorful" : ""
+                    }`}
+                    style={
+                      c.toLowerCase() !== "colorful"
+                        ? { background: c.toLowerCase() }
+                        : {}
+                    }
                   />
                   {c}
                 </div>
@@ -267,7 +285,9 @@ export default function Upload() {
           {/* PRICE */}
           <div className="form-row">
             <div className="form-group">
-              <label>Price</label>
+              <label>
+                Price <sup>*</sup>
+              </label>
               <input
                 type="number"
                 value={form.price === 0 ? "" : form.price}
@@ -299,8 +319,12 @@ export default function Upload() {
 
           {/* IMAGES */}
           <div className="form-group">
-            <label>Images</label>
-
+            <label>
+              Images <sup>*</sup>
+            </label>
+            <p className="note">
+              (You can only upload PNG images no larger than 2MB)
+            </p>
             <div className="image-scroll">
               {preview.map((img, i) => (
                 <div className="image-thumb" key={i}>
@@ -327,6 +351,12 @@ export default function Upload() {
               />
             </div>
           </div>
+
+          <p className="note">
+            All fields marked with <sup>*</sup> are required. <br />
+            Fields with predefined options have a default value, so please make
+            sure to change it to your preferred choice.
+          </p>
         </div>
         <div className="edit-actions">
           <button className="secBtn" onClick={() => navigate(-1)}>

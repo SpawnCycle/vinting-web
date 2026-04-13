@@ -63,3 +63,25 @@ export async function whoami() {
 
   return data;
 }
+
+//edit profile
+export async function editProfile(
+  id: number,
+  data: {
+    id: number;
+    name?: string;
+    email?: string;
+    password?: string;
+  },
+) {
+  const res = await fetch(`/api/users/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) throw new Error("Profile update failed");
+
+  return res.json();
+}

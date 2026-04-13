@@ -130,6 +130,14 @@
   color: #2e7d32;
 }
 
+.status.ordered .status.deleted {
+  background: rgb(255, 200, 200);
+  color: rgb(142, 32, 32);
+}
+.status.ordered .status.deleted .dot {
+  background: rgb(142, 32, 32);
+}
+
 .orders-page .amount {
   font-size: 13px;
   color: var(--text-color-secondary);

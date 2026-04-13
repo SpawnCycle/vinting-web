@@ -7,7 +7,7 @@ import { FiEdit2, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import "./Profile.css";
 import { useAuth } from "@/context/AuthContext";
-import { logout } from "@/api/authApi";
+import { editProfile, logout } from "@/api/authApi";
 import { useToast } from "@/context/ToastContext";
 
 export default function Profile() {
@@ -63,23 +63,28 @@ export default function Profile() {
   ).length;
   const previewProducts = products.slice(0, 3);
 
-  const handleSaveProfile = () => {
-    if (user) {
-      setName(user.name);
-      setEmail(user.email);
+  const handleSaveProfile = async () => {
+    if (!user) {
+      showToast("Error", "User not loaded", "error");
+      return;
     }
 
-    setEditingProfile(false);
+    try {
+      await editProfile(user.id, {
+        id: user.id,
+        name,
+        email,
+      });
 
-    showToast(
-      "Feature unavailable",
-      "Sorry, profile editing is not available yet.",
-      "system",
-    );
+      setEditingProfile(false);
+      showToast("Success", "Profile updated", "success");
+    } catch {
+      showToast("Error", "Profile update failed", "error");
+    }
   };
 
-  const handleSavePassword = () => {
-    if (password.length == 0) {
+  const handleSavePassword = async () => {
+    if (password.length === 0) {
       showToast(
         "Passwords required",
         "Please enter a new password before saving.",
@@ -93,17 +98,32 @@ export default function Profile() {
       );
       setPasswordError(true);
     } else {
-      setPassword("password"); //placeholder
-      setConfPassword("password"); //placeholder
-      setPasswordError(false);
-      setShowPassword(false);
-      setShowConfPassword(false);
-      setEditingPassword(false);
-      showToast(
-        "Feature unavailable",
-        "Sorry, changing your password is not available yet.",
-        "system",
-      );
+      if (!user) {
+        showToast("Error", "User not loaded", "error");
+        return;
+      }
+
+      try {
+        await editProfile(user.id, {
+          id: user.id,
+          password,
+        });
+
+        setPassword("password"); //placeholder
+        setConfPassword("password"); //placeholder
+        setPasswordError(false);
+        setShowPassword(false);
+        setShowConfPassword(false);
+        setEditingPassword(false);
+
+        showToast("Success", "Your password has been updated.", "success");
+      } catch (err) {
+        showToast(
+          "Update failed",
+          "Sorry, password change failed. Please try again later.",
+          "error",
+        );
+      }
     }
   };
 

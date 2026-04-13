@@ -87,17 +87,19 @@ export default function ProductPage() {
         {/* info */}
         <div className="product-info">
           {product.sellerId === MY_USER_ID ? (
-            /* product.isActive === true ? */ //LEKEZELNI HOGY AKTIV / ELADOTT !!!!!!!!!!
             <div className="action-buttons">
-              <EditButton productId={product.id} returnTo={returnTo} />
+              {product.isAvailable && (
+                <EditButton productId={product.id} returnTo={returnTo} />
+              )}
               <DeleteButton productId={product.id} />
             </div>
-          ) : /* : null */
-          MY_USER_ID ? (
-            <FavoriteButton
-              productId={product.id}
-              initialFavorite={product.isFavorite}
-            />
+          ) : MY_USER_ID ? (
+            product.isAvailable && (
+              <FavoriteButton
+                productId={product.id}
+                initialFavorite={product.isFavorite}
+              />
+            )
           ) : null}
 
           <span className="product-brand">{product.brand}</span>

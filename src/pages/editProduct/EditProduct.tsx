@@ -201,7 +201,9 @@ export default function EditProduct() {
         <div className="edit-card">
           {/* TITLE */}
           <div className="form-group">
-            <label>Title</label>
+            <label>
+              Title <sup>*</sup>
+            </label>
             <input
               value={form.title}
               onChange={(e) => update("title", e.target.value)}
@@ -211,7 +213,9 @@ export default function EditProduct() {
 
           {/* DESCRIPTION */}
           <div className="form-group">
-            <label>Description</label>
+            <label>
+              Description <sup>*</sup>
+            </label>
             <textarea
               rows={4}
               value={form.description}
@@ -342,7 +346,9 @@ export default function EditProduct() {
           {/* PRICE & STOCK */}
           <div className="form-row">
             <div className="form-group">
-              <label>Price</label>
+              <label>
+                Price <sup>*</sup>
+              </label>
               <input
                 type="number"
                 value={form.price === 0 ? "" : form.price}
@@ -356,7 +362,9 @@ export default function EditProduct() {
               />
             </div>
             <div className="form-group">
-              <label>Pieces Available</label>
+              <label>
+                Pieces Available <sup>*</sup>
+              </label>
               <input
                 type="number"
                 min="1"
@@ -386,7 +394,13 @@ export default function EditProduct() {
 
           {/* IMAGES */}
           <div className="form-group">
-            <label>Images</label>
+            <label>
+              Images <sup>*</sup>
+            </label>
+
+            <p className="note">
+              (You can only upload PNG images no larger than 2MB)
+            </p>
 
             <div className="image-scroll">
               {preview.map((img, i) => (
@@ -416,6 +430,12 @@ export default function EditProduct() {
               />
             </div>
           </div>
+
+          <p className="note">
+            Please make sure all required fields (marked with <sup>*</sup>) are
+            filled in. <br />
+            Do not leave any manually entered fields empty while editing.
+          </p>
         </div>
 
         <div className="edit-actions">
