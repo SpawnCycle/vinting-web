@@ -222,6 +222,66 @@
   width: 100%;
   margin-bottom: 10px;
 }
+
+.listings-orders {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--bg-color-main);
+}
+
+.listings-orders .section-header {
+  margin-bottom: 24px;
+}
+
+.my-listings,
+.my-orders {
+  width: calc(50% - 12px);
+  height: 350px;
+  background: var(--bg-color-secondary);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.my-orders {
+  overflow-y: scroll;
+}
+
+.my-orders .orders-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.my-orders .section-desc {
+  margin: 0;
+}
+
+.my-orders button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mini-products-orders {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.mini-product-order {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  background-color: var(--bg-color-third);
+  border-radius: 8px;
+}
+.mini-product-order img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
 /* mob */
 
 @media (max-width: 900px) {

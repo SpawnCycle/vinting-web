@@ -9,6 +9,8 @@ import "./Profile.css";
 import { useAuth } from "@/context/AuthContext";
 import { editProfile, logout } from "@/api/authApi";
 import { useToast } from "@/context/ToastContext";
+import { CgArrowRight } from "react-icons/cg";
+import { getMyOrders } from "@/api/orderApi";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ export default function Profile() {
   const USER_ID = user?.id;
 
   const [products, setProducts] = useState<any[]>([]);
+  const [myOrders, setMyOrders] = useState<any[]>([]);
   const [favoritesCount, setFavoritesCount] = useState(0);
 
   const [editingProfile, setEditingProfile] = useState(false);
@@ -40,9 +43,10 @@ export default function Profile() {
     async function loadData() {
       if (!USER_ID) return;
       const userProducts = await getProductByUser(USER_ID);
+      const userOrders = await getMyOrders();
 
       setProducts(userProducts || []);
-
+      setMyOrders(userOrders || []);
       // favorites mock (később API?)
       setFavoritesCount(0);
     }
@@ -62,6 +66,7 @@ export default function Profile() {
     (p) => p.isAvailable === false || p.stockAvailable < p.stockStarting,
   ).length;
   const previewProducts = products.slice(0, 3);
+  const previewOrders = myOrders; /* .slice(0, 3); */
 
   const handleSaveProfile = async () => {
     if (!user) {
@@ -192,35 +197,60 @@ export default function Profile() {
           </section>
 
           {/* my listings */}
-          <section className="profile-section">
-            <div className="section-header">
-              <div>
-                <h3>My listings</h3>
-                <p className="section-desc">Recent items you have listed.</p>
-              </div>
-            </div>
 
-            <div className="mini-products">
-              {previewProducts.map((p) => (
-                <div className="mini-product" key={p.id}>
-                  <img src={p.images?.[0]} />
+          <div className="listings-orders">
+            <div className="my-listings">
+              <div className="section-header">
+                <div>
+                  <h3>My listings</h3>
+                  <p className="section-desc">Recent items you have listed.</p>
                 </div>
-              ))}
+              </div>
 
-              <Link
-                to="/profile/my-listings"
-                state={{ returnTo: "/profile" }}
-                className="mini-product"
-              >
-                <div className="more-card">...</div>
-                <span>View all</span>
+              <div className="mini-products">
+                {previewProducts.map((p) => (
+                  <div className="mini-product" key={p.id}>
+                    <img src={p.images?.[0]} />
+                  </div>
+                ))}
+
+                <Link
+                  to="/profile/my-listings"
+                  state={{ returnTo: "/profile" }}
+                  className="mini-product"
+                >
+                  <div className="more-card">...</div>
+                  <span>View all</span>
+                </Link>
+              </div>
+
+              <Link to="/profile/my-listings" state={{ returnTo: "/profile" }}>
+                <button className="btn-secondary">Go to My Listings</button>
               </Link>
             </div>
+            <div className="my-orders">
+              <div className="section-header">
+                <div className="orders-title">
+                  <h3>My orders</h3>
+                  <p className="section-desc">Track your purchases.</p>
+                </div>
+                <Link to="/profile/my-orders">
+                  <button className="btn-secondary">
+                    View all <CgArrowRight />
+                  </button>
+                </Link>
+              </div>
 
-            <Link to="/profile/my-listings" state={{ returnTo: "/profile" }}>
-              <button className="btn-secondary">Go to My Listings</button>
-            </Link>
-          </section>
+              <div className="mini-products-orders">
+                {previewOrders.map((o) => (
+                  <div className="mini-product-order" key={o.id}>
+                    <img src={o.product?.images[0].url} />
+                    <p>{o.product.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* right */}

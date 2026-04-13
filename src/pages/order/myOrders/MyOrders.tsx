@@ -50,7 +50,10 @@ export default function MyOrders() {
             <div key={order.id} className="order-card">
               <img src={order.product.images[0].url} alt={order.product.name} />
 
-              <div className="order-info">
+              <div
+                className="order-info"
+                onClick={() => navigate(`/product/${order.product.id}`)}
+              >
                 <div className="order-title">
                   {order.product.brand || "Unknown"}
                 </div>
