@@ -7,11 +7,13 @@ import "./SearchPage.css";
 
 import type { ProductUI } from "../../types/Product/ProductUI";
 import type { FiltersState } from "../../types/Search";
-import { getProducts } from "../../api/productsApi";
+import { getProductsPaginated } from "../../api/productsApi";
 import { useLoading } from "@/context/LoadingContext";
+import { useToast } from "@/context/ToastContext";
 
-// Only in use in the ordering dropdown (see `select.sort-select`)
 type SortByType = "date_asc" | "date_desc" | "price_asc" | "price_desc";
+
+const ITEMS_PER_PAGE = 4;
 
 const defaultFilters: FiltersState = {
   gender: null,
@@ -27,10 +29,9 @@ export default function SearchPage() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // URL » STATE
   const parseFiltersFromURL = (): FiltersState => {
-    let asc_str = searchParams.get("asc");
-    let asc = asc_str !== null && asc_str === "true";
+    const asc_str = searchParams.get("asc");
+    const asc = asc_str !== null && asc_str === "true";
     return {
       gender: searchParams.get("gender") || null,
       sizes: searchParams.getAll("size"),
@@ -51,27 +52,37 @@ export default function SearchPage() {
 
   const [products, setProducts] = useState<ProductUI[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const { loading, setLoading } = useLoading();
 
-  // STATE » URL
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(searchParams.get("page")) || 1,
+  );
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalItems, setTotalItems] = useState<number>(0);
+
+  const { loading, setLoading } = useLoading();
+  const { showToast } = useToast();
+
+  // STATE » URL — page-et is beleírjuk
   useEffect(() => {
     const params = new URLSearchParams();
 
     if (filters.gender) params.set("gender", filters.gender);
-
     filters.sizes.forEach((s) => params.append("size", s));
     filters.colors.forEach((c) => params.append("color", c));
     filters.categories.forEach((c) => params.append("category", c));
     filters.conditions.forEach((c) => params.append("condition", c));
     params.set("sort_by", filters.sort_by);
     params.set("asc", filters.asc.toString());
-
-    if (query) {
-      params.set("q", query);
-    }
+    if (query) params.set("q", query);
+    params.set("page", String(currentPage));
 
     setSearchParams(params, { replace: true });
-  }, [filters, query, setSearchParams]);
+  }, [filters, query, currentPage, setSearchParams]);
+
+  // filter vagy query változik > visszaállítjuk az 1. oldalra
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, query]);
 
   // fetch
   useEffect(() => {
@@ -90,13 +101,17 @@ export default function SearchPage() {
           condition: filters.conditions.length ? filters.conditions : undefined,
           sort_by: filters.sort_by,
           asc: filters.asc,
+          page: currentPage,
+          itemsPerPage: ITEMS_PER_PAGE,
         };
 
-        const data = await getProducts(apiFilters);
+        const {
+          products: data,
+          pages,
+          items,
+        } = await getProductsPaginated(apiFilters);
 
         let processed = data;
-
-        // condition (frontend filter)
         if (filters.conditions.length > 0) {
           processed = processed.filter((p) =>
             filters.conditions.includes(p.condition),
@@ -104,26 +119,24 @@ export default function SearchPage() {
         }
 
         setProducts(processed);
+        setTotalPages(pages);
+        setTotalItems(items);
       } catch (err) {
         console.error("Fetch failed:", err);
+        showToast("Failed to load products", "Please try again.", "system");
       }
 
       setLoading(false);
     };
 
     fetchProducts();
-  }, [filters, query]);
+  }, [filters, query, currentPage]);
 
-  // tag remove
   const removeTag = (type: keyof FiltersState, value?: string) => {
     if (type === "gender") {
-      setFilters((prev) => ({
-        ...prev,
-        gender: null,
-      }));
+      setFilters((prev) => ({ ...prev, gender: null }));
       return;
     }
-
     setFilters((prev) => ({
       ...prev,
       [type]: (prev[type] as string[]).filter((v) => v !== value),
@@ -136,43 +149,22 @@ export default function SearchPage() {
     setQueryInput("");
   };
 
-  // selected tags
   const selectedTags = useMemo(() => {
-    const tags: {
-      label: string;
-      type: keyof FiltersState;
-      value?: string;
-    }[] = [];
+    const tags: { label: string; type: keyof FiltersState; value?: string }[] =
+      [];
 
-    if (filters.gender) {
-      tags.push({
-        label: filters.gender,
-        type: "gender",
-      });
-    }
-
+    if (filters.gender) tags.push({ label: filters.gender, type: "gender" });
     filters.sizes.forEach((s) =>
       tags.push({ label: s, type: "sizes", value: s }),
     );
-
     filters.colors.forEach((c) =>
       tags.push({ label: c, type: "colors", value: c }),
     );
-
     filters.categories.forEach((c) =>
-      tags.push({
-        label: c,
-        type: "categories",
-        value: c,
-      }),
+      tags.push({ label: c, type: "categories", value: c }),
     );
-
     filters.conditions.forEach((c) =>
-      tags.push({
-        label: c,
-        type: "conditions",
-        value: c,
-      }),
+      tags.push({ label: c, type: "conditions", value: c }),
     );
 
     return tags;
@@ -202,48 +194,35 @@ export default function SearchPage() {
             Filters
           </button>
 
-          {/* sort */}
           <select
             className="sort-select"
             value={selectedSortBy}
             onChange={(e) => {
               setSelectedSortBy(e.target.value as SortByType);
               setFilters((prev) => {
-                let sort_type = e.target.value as SortByType;
+                const sort_type = e.target.value as SortByType;
                 let sort = "date" as FiltersState["sort_by"];
                 let asc = false;
                 switch (sort_type) {
                   default:
                   case "date_desc":
-                    {
-                      sort = "date";
-                      asc = false;
-                    }
+                    sort = "date";
+                    asc = false;
                     break;
                   case "date_asc":
-                    {
-                      sort = "date";
-                      asc = true;
-                    }
+                    sort = "date";
+                    asc = true;
                     break;
                   case "price_asc":
-                    {
-                      sort = "price";
-                      asc = true;
-                    }
+                    sort = "price";
+                    asc = true;
                     break;
                   case "price_desc":
-                    {
-                      sort = "price";
-                      asc = false;
-                    }
+                    sort = "price";
+                    asc = false;
                     break;
                 }
-                return {
-                  ...prev,
-                  sort_by: sort,
-                  asc,
-                };
+                return { ...prev, sort_by: sort, asc };
               });
             }}
           >
@@ -267,6 +246,11 @@ export default function SearchPage() {
             </button>
           </div>
         )}
+
+        {/* Találatok száma */}
+        {!loading && (
+          <p className="results-count">{totalItems} products found</p>
+        )}
       </div>
 
       <div className="search-body">
@@ -286,10 +270,45 @@ export default function SearchPage() {
           {loading ? (
             <p>Loading...</p>
           ) : products.length > 0 ? (
-            <ProductGrid
-              products={products}
-              returnTo={location.pathname + location.search}
-            />
+            <>
+              <ProductGrid
+                products={products}
+                returnTo={location.pathname + location.search}
+              />
+
+              {/* pages */}
+              {totalPages > 1 && (
+                <div className="pagination">
+                  <button
+                    className="page-btn"
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage((p) => p - 1)}
+                  >
+                    ‹
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        className={`page-btn ${currentPage === page ? "active" : ""}`}
+                        onClick={() => setCurrentPage(page)}
+                      >
+                        {page}
+                      </button>
+                    ),
+                  )}
+
+                  <button
+                    className="page-btn"
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage((p) => p + 1)}
+                  >
+                    ›
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <h2>Sorry, no products found.</h2>
           )}

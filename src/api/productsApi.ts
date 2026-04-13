@@ -200,7 +200,7 @@ export async function getProductsPaginated(filters?: ProductFilters): Promise<{
   }
 
   if (filters?.orderBy) {
-    params.append("order_by", filters.orderBy);
+    params.append("order_by", filters.orderBy); //sort_by????
   }
 
   if (filters?.asc) {

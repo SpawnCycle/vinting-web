@@ -9,7 +9,7 @@
   margin-bottom: 20px;
   gap: 12px;
   flex-wrap: wrap;
-  width: calc(100vw - 240px - 60px);
+  width: 100%;
 }
 
 .admin-content .orders-header h2 {
@@ -30,7 +30,8 @@
 }
 
 .admin-content .table-wrapper {
-  max-width: calc(100vw - 240px - 60px);
+  width: 100%;
+  overflow-x: auto;
   border-radius: 16px;
   overflow: scroll;
   border: 1px solid var(--bg-color-third);

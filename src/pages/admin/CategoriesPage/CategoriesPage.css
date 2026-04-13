@@ -11,6 +11,11 @@
   flex-wrap: wrap;
 }
 
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .categories-header h2 {
   font-size: 22px;
   font-weight: 600;
