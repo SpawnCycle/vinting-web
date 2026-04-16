@@ -83,5 +83,6 @@ export async function editProfile(
 
   if (!res.ok) throw new Error("Profile update failed");
 
+  if (res.status === 204) return null;
   return res.json();
 }
