@@ -47,6 +47,10 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
+.product-page .product-card:hover {
+  transform: translateY(0);
+}
+
 /* image */
 .product-page .product-image-placeholder {
   width: 100%;
