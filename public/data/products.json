@@ -16,7 +16,7 @@
       "/images/product_5.jpg"
     ],
     "status": "Active",
-    "sellerId": 101
+    "sellerId": 1
   },
   {
     "id": 2,
@@ -34,7 +34,8 @@
       "/images/product_6.jpg"
     ],
     "status": "Active",
-    "sellerId": 202
+    "sellerId": 202,
+    "isFavorite": true
   },
   {
     "id": 3,
@@ -70,7 +71,8 @@
       "/images/product_9.jpg"
     ],
     "status": "Active",
-    "sellerId": 404
+    "sellerId": 404,
+    "isFavorite": true
   },
   {
     "id": 5,
@@ -126,7 +128,7 @@
       "/images/product_8.jpg"
     ],
     "status": "Active",
-    "sellerId": 101
+    "sellerId": 1
   },
   {
     "id": 8,
@@ -145,7 +147,8 @@
       "/images/product_9.jpg"
     ],
     "status": "Active",
-    "sellerId": 202
+    "sellerId": 202,
+    "isFavorite": true
   },
   {
     "id": 9,
@@ -201,7 +204,7 @@
       "/images/product_2.jpg"
     ],
     "status": "Active",
-    "sellerId": 101
+    "sellerId": 1
   },
   {
     "id": 12,
@@ -220,7 +223,8 @@
       "/images/product_2.jpg"
     ],
     "status": "Active",
-    "sellerId": 202
+    "sellerId": 202,
+    "isFavorite": true
   },
   {
     "id": 13,
@@ -238,7 +242,8 @@
       "/images/product_1.jpg"
     ],
     "status": "Active",
-    "sellerId": 303
+    "sellerId": 303,
+    "isFavorite": true
   },
   {
     "id": 14,
@@ -274,7 +279,7 @@
       "/images/product_7.jpg"
     ],
     "status": "Active",
-    "sellerId": 101
+    "sellerId": 1
   },
 
   {
@@ -293,7 +298,8 @@
       "/images/product_9.jpg"
     ],
     "status": "Active",
-    "sellerId": 808
+    "sellerId": 808,
+    "isFavorite": true
   },
   {
     "id": 17,
@@ -311,7 +317,8 @@
       "/images/product_1.jpg"
     ],
     "status": "Active",
-    "sellerId": 1001
+    "sellerId": 1001,
+    "isFavorite": true
   },
   {
     "id": 18,
@@ -404,7 +411,7 @@
       "/images/product_6.jpg"
     ],
     "status": "Sold",
-    "sellerId": 101
+    "sellerId": 1
   },
   {
     "id": 23,
@@ -590,7 +597,7 @@
       "/images/product_9.jpg"
     ],
     "status": "Active",
-    "sellerId": 101
+    "sellerId": 1
   },
   {
     "id": 33,
@@ -608,7 +615,7 @@
       "/images/product_3.jpg"
     ],
     "status": "Sold",
-    "sellerId": 101
+    "sellerId": 1
   },
   {
     "id": 34,
@@ -627,7 +634,7 @@
       "/images/product_8.jpg"
     ],
     "status": "Active",
-    "sellerId": 101
+    "sellerId": 1
   },
   {
     "id": 35,
@@ -645,7 +652,7 @@
       "/images/product_2.jpg"
     ],
     "status": "Sold",
-    "sellerId": 101
+    "sellerId": 1
   },
 
   {

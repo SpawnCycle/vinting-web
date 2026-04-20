@@ -3,14 +3,15 @@
 **Pages**
 
 - [x] Welcome
-- [ ] Home
-- [ ] Upload
-- [ ] Search
-- [ ] Favorites
-- [ ] Profile
+- [x] Home
+- [x] Upload
+- [x] Search
+- [x] Favorites
+- [x] Profile
 - [x] My listings
 - [x] ProductPage
 - [x] Edit Page
+- [ ] ( Admin Page??? )
 
 **Components**
 
@@ -22,9 +23,13 @@
 - [x] Delete Button
 - [x] Back button
 - [x] Image Carousel
-- [ ] Filters ??
+- [x] Filters ??
 - [x] Login PopUp
 - [x] Reg popUp
+- [x] Logout popUp
+- [x] Cat button ( home » search )
+- [x] Toast
+- [x] Loader
 
 **Type: Product**
 
@@ -77,4 +82,18 @@ CSINÁLD MEG:
 - [x] navbár nagyképernyős elrendezését is -alakul, szinte jó
 - [x] tableten nagyobb legyen a navbar
 - [x] product page befejezni: teló nézet, tags&desc háttere, képek, like ha másé, szerk+törl ha saját
-- [ ] be/kijelentkezés lekezelése
+- [x] be/kijelentkezés lekezelése
+- [x] whoami mock
+- [x] navbar + search ikon
+- [x] prod/id/edit - korlatozasa
+- [x] logout popUp
+- [x] mindenhol ahol használ usert, api-ra kötni
+- [ ] prod api bekötése -> mock off
+- [ ] favs api bekötése -> funkc lekezelése (lehet nem lesz)
+- [x] loader
+- [ ] loader bekötése
+
+**Jegyzet**
+
+- Auth bekötve, bejelentkezés nélkül csak welcome és prodpage, bejelentkezve minden, kivéve welcome. Felhasználó adatait használják az oldalak
+- Van loader amit ki/be lehet kapcsolni bárhol - kérésekhez bekötni !

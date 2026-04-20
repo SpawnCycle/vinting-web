@@ -1,36 +1,53 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import ProductGrid from "../../components/productGrid/ProductGrid";
 import BackButton from "@/components/backButton/BackButton";
-import { getProducts } from "../../api/productsApi";
-import type { Product, ProductStatus } from "../../types/Product";
+import type { ProductUI as Product } from "../../types/Product/ProductUI";
 
 import "./MyListings.css";
-
-//code
-
-const MY_USER_ID = 101;
+import { useAuth } from "@/context/AuthContext";
+import { getProductByUser } from "@/api/productsApi";
 
 export default function MyListings() {
+  const { user } = useAuth();
+  const MY_USER_ID = user?.id;
+
   const [products, setProducts] = useState<Product[]>([]);
-  const [filterStatus, setFilterStatus] = useState<ProductStatus>("Active");
+  const [filterStatus, setFilterStatus] = useState<boolean>(() => {
+    const saved = localStorage.getItem("my-listings-filter");
+    return saved === "false" ? false : true;
+  });
   const [loading, setLoading] = useState(true);
-  //const location = useLocation();
   const location = useLocation();
   const returnTo = location.state?.returnTo;
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     async function loadMyListings() {
-      const data = await getProducts({ sellerId: MY_USER_ID });
-      setProducts(data);
+      if (!MY_USER_ID) return;
+      console.log("Loading my listings for user ID:", MY_USER_ID);
+      const data = await getProductByUser(MY_USER_ID);
+      setProducts(data || []);
       setLoading(false);
     }
 
     loadMyListings();
+    console.log("MyListings loaded. Products:", products);
+    products.forEach((p) => {
+      console.log(p.stockStarting, p.stockAvailable, p.isAvailable);
+    });
   }, []);
 
-  const myProducts = products.filter((p) => p.status === filterStatus);
+  const myProducts = products.filter((p) => {
+    if (filterStatus === true) {
+      // Aktív: isAvailable true - akár részben eladott, akár teljes készlet
+      return p.isAvailable === true;
+    } else {
+      // Eladott: isAvailable false vagy részben már elkelt
+      return p.isAvailable === false || p.stockStarting > p.stockAvailable;
+    }
+  });
 
   //biztos ami tuti
   if (loading) {
@@ -48,15 +65,18 @@ export default function MyListings() {
         <button
           style={{
             backgroundColor:
-              filterStatus === "Active"
+              filterStatus === true
                 ? "var(--button-bg-main)"
                 : "var(--button-bg-secondary)",
             color:
-              filterStatus === "Active"
+              filterStatus === true
                 ? "var(--button-text-main)"
                 : "var(--button-text-secondary)",
           }}
-          onClick={() => setFilterStatus("Active")}
+          onClick={() => {
+            setFilterStatus(true);
+            localStorage.setItem("my-listings-filter", "true");
+          }}
         >
           Active
         </button>
@@ -64,26 +84,48 @@ export default function MyListings() {
         <button
           style={{
             backgroundColor:
-              filterStatus === "Sold"
+              filterStatus === false
                 ? "var(--button-bg-main)"
                 : "var(--button-bg-secondary)",
             color:
-              filterStatus === "Sold"
+              filterStatus === false
                 ? "var(--button-text-main)"
                 : "var(--button-text-secondary)",
           }}
-          onClick={() => setFilterStatus("Sold")}
+          onClick={() => {
+            setFilterStatus(false);
+            localStorage.setItem("my-listings-filter", "false");
+          }}
         >
           Sold
         </button>
       </div>
 
-      <ProductGrid
-        products={myProducts}
-        showFavoriteButton={false}
-        returnTo="/profile/my-listings" //{returnTo ?? "/profile"}
-        parentReturnTo={location.state?.returnTo}
-      />
+      <div className="prod-cont">
+        {myProducts.length === 0 ? (
+          <>
+            {filterStatus === false ? (
+              <p className="DontHave">You haven’t sold anything yet.</p>
+            ) : (
+              <p className="DontHave">You don’t have any active listings.</p>
+            )}
+            <button
+              className="upload-button"
+              onClick={() => {
+                navigate("/upload");
+              }}
+            >
+              Upload a product
+            </button>
+          </>
+        ) : (
+          <ProductGrid
+            products={myProducts}
+            returnTo="/profile/my-listings"
+            parentReturnTo={location.state?.returnTo}
+          />
+        )}
+      </div>
     </div>
   );
 }

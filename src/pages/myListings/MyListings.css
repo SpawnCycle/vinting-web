@@ -52,6 +52,28 @@
 .favorite-btn button {
   display: none;
 }
+.prod-cont {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.DontHave {
+  text-align: center;
+  margin-top: 50px;
+}
+.upload-button {
+  width: auto;
+  margin: 30px auto;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+  font-size: 1rem;
+  background-color: var(--button-bg-main);
+  color: var(--button-text-main);
+}
 
 @media (min-width: 600px) {
   .status-buttons {

@@ -2,8 +2,13 @@ import { CgAddR, CgPlayListSearch, CgSearch } from "react-icons/cg";
 import "./Welcome.css";
 import { useState } from "react";
 import AuthModal from "@/components/auth/AuthModal";
+import { useAuth } from "@/context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 export default function Welcome() {
+  const { user } = useAuth();
+  if (user) return <Navigate to="/" replace />;
+
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"login" | "register">("login");
 
@@ -20,7 +25,6 @@ export default function Welcome() {
   return (
     <div className="welcome-page">
       <div className="welcome-content">
-        {/* header */}
         <header className="welcome-header">
           <div className="logo">
             <img src="/images/logo_800x800.png" alt="vinting logo" />
@@ -37,7 +41,6 @@ export default function Welcome() {
           </div>
         </header>
 
-        {/* hero */}
         <section className="hero">
           {/* background bloooooob */}
           <div className="color-blob" />
@@ -64,13 +67,11 @@ export default function Welcome() {
             </div>
           </div>
 
-          {/* image wrapper */}
           <div className="hero-image-wrapper">
-            <img src="/images/összegezve_1.png" alt="3 cards preview" />
+            <img src="/images/welcome.png" alt="3 cards preview" />
           </div>
         </section>
 
-        {/* features */}
         <section className="features">
           <div className="feature-card">
             <div className="feature-icon">

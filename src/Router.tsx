@@ -9,6 +9,11 @@ import Profile from "./pages/profile/Profile";
 import MyListings from "./pages/myListings/MyListings";
 import ProductPage from "./pages/productPage/ProductPage";
 import EditProductPage from "./pages/editProduct/EditProduct";
+import Search from "./pages/searchPage/SearchPage";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import AdminPage from "./pages/admin/AdminPage";
+import OrderPage from "./pages/order/orderPage/OrderPage";
+import MyOrders from "./pages/order/myOrders/MyOrders";
 
 export default function AppRouter() {
   return (
@@ -16,13 +21,87 @@ export default function AppRouter() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/welcome" element={<Welcome />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/my-listings" element={<MyListings />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <ProtectedRoute>
+                <Search />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/upload"
+            element={
+              <ProtectedRoute>
+                <Upload />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute>
+                <Favorites />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/my-listings"
+            element={
+              <ProtectedRoute>
+                <MyListings />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/product/:id/edit" element={<EditProductPage />} />
+          <Route
+            path="/product/:id/edit"
+            element={
+              <ProtectedRoute>
+                <EditProductPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requiredRole="Admin">
+                <AdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/:id"
+            element={
+              <ProtectedRoute>
+                <OrderPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/my-orders"
+            element={
+              <ProtectedRoute>
+                <MyOrders />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,7 +1,7 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import Login from "./Login";
 import Register from "./Register";
-import "./auth.css";
+import "./Auth.css";
 
 interface AuthModalProps {
   isOpen: boolean;

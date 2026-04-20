@@ -2,9 +2,9 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
 
-* {
+/* * {
   transition: ease 0.3s all;
-}
+} */
 :root {
   --bg-color-main: #fff;
   --bg-color-secondary: #f6f6f6;
@@ -53,6 +53,11 @@ body {
     color 0.3s;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 @font-face {
   font-family: "Agdasima-Regular";
   src: url("./assets/fonts/Agdasima-Regular.ttf") format("truetype");
@@ -85,8 +90,8 @@ body {
   }
 
   .content {
-    margin-left: 75px;
-    transition: margin-left 0.3s ease;
+    margin-left: 64px;
+    /* transition: margin-left 0.3s ease; */
   }
 
   .app-layout.no-navbar .content {

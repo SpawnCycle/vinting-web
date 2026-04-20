@@ -9,6 +9,7 @@ import {
   CgMoon,
   CgSun,
   CgLogOut,
+  CgSearch,
 } from "react-icons/cg";
 import { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
@@ -24,22 +25,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import { logout } from "@/api/authApi";
+import { useAuth } from "@/context/AuthContext";
+import { RiAdminLine } from "react-icons/ri";
 
 export default function Navbar() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const navbarRef = useRef<HTMLElement | null>(null);
   const { theme, toggleTheme } = useTheme();
-
-  if (
-    location.pathname === "/welcome" ||
-    location.pathname === "/profile/my-listings" ||
-    location.pathname.startsWith("/product/")
-  ) {
-    return null;
-  }
-
-  const isActive = (path: string) => location.pathname === path;
+  const navigate = useNavigate();
+  const { user, setUser } = useAuth();
 
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
@@ -59,9 +55,22 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const navigate = useNavigate();
+  if (
+    location.pathname === "/welcome" ||
+    location.pathname === "/profile/my-listings" ||
+    location.pathname.startsWith("/product/") ||
+    location.pathname.startsWith("/order/") ||
+    location.pathname.startsWith("/profile/my-orders") ||
+    location.pathname.startsWith("/admin")
+  ) {
+    return null;
+  }
+
+  const isActive = (path: string) => location.pathname === path;
+
   const handleLogout = () => {
-    navigate("/welcome");
+    logout();
+    setUser(null);
   };
 
   return (
@@ -73,6 +82,19 @@ export default function Navbar() {
           />
           <span className={`nav-text ${isActive("/") ? "active" : ""}`}>
             Home page
+          </span>
+        </Link>
+
+        <Link
+          to="/search"
+          className="nav-item"
+          onClick={() => setIsOpen(false)}
+        >
+          <CgSearch
+            className={`nav-icon ${isActive("/search") ? "active" : ""}`}
+          />
+          <span className={`nav-text ${isActive("/search") ? "active" : ""}`}>
+            Search
           </span>
         </Link>
 
@@ -129,6 +151,24 @@ export default function Navbar() {
         </button>
 
         <div className="bottomSection">
+          {/* Admin panel */}
+          {user?.roles.includes("Admin") && (
+            <Link
+              to="/admin"
+              className="nav-item"
+              onClick={() => setIsOpen(false)}
+            >
+              <RiAdminLine
+                className={`nav-icon ${isActive("/admin") ? "active" : ""}`}
+              />
+              <span
+                className={`nav-text ${isActive("/admin") ? "active" : ""}`}
+              >
+                Admin panel
+              </span>
+            </Link>
+          )}
+
           {/* Theme toggle */}
           <button
             className="nav-item"
@@ -160,17 +200,52 @@ export default function Navbar() {
                 <span className="nav-text">Logout</span>
               </button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
+            <AlertDialogContent
+              style={{
+                border: "0.5px solid var(--bg-color-third)",
+                borderRadius: "10px",
+              }}
+            >
+              <AlertDialogHeader
+                style={{
+                  padding: "10px",
+                  backgroundColor: "var(--bg-color-main)",
+                  color: "var(--text-color-main)",
+                  borderRadius: "10px 10px 0 0",
+                }}
+              >
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account from our servers.
+                  This action cannot be undone. You will be logged out of your
+                  account on this device.
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => handleLogout()}>
+              <AlertDialogFooter
+                style={{
+                  padding: "10px",
+                  backgroundColor: "var(--bg-color-secondary)",
+                  borderRadius: "0 0 10px 10px",
+                }}
+              >
+                <AlertDialogCancel
+                  style={{
+                    background: "var(--button-bg-secondary)",
+                    color: "var(--button-text-secondary)",
+                    padding: "5px 10px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => handleLogout()}
+                  style={{
+                    background: "var(--button-bg-main)",
+                    color: "var(--button-text-main)",
+                    padding: "5px 10px",
+                    borderRadius: "10px",
+                  }}
+                >
                   Logout
                 </AlertDialogAction>
               </AlertDialogFooter>

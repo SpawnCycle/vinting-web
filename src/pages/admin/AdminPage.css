@@ -1,0 +1,137 @@
+.admin-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: var(--bg-color-secondary);
+  color: var(--text-color-main);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar-header {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sidebar-header img {
+  width: 20px;
+  height: 20px;
+}
+
+.sidebar-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: none;
+}
+
+.sidebar-nav button,
+.sidebar-nav a {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.sidebar-nav button:not(.active):hover,
+.sidebar-nav a:not(.active):hover {
+  background: var(--bg-color-third);
+  color: var(--text-color-main);
+}
+
+.sidebar-nav .active {
+  background: var(--button-bg-main);
+  color: var(--button-text-main);
+  font-weight: 500;
+}
+
+.back-link {
+  margin-top: 20px;
+  opacity: 0.7;
+}
+
+.admin-content {
+  flex: 1;
+  margin-left: 240px;
+  background: var(--bg-color-main);
+  padding: 30px;
+}
+
+.admin-topbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-bottom: 20px;
+}
+
+hr {
+  width: 70%;
+  margin: 10px 0;
+  color: var(--text-color-secondary);
+}
+
+.admin-topbar h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.admin-container {
+  width: 100%;
+  height: 100%;
+}
+
+.menu-btn {
+  display: none;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .admin-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+  }
+}
