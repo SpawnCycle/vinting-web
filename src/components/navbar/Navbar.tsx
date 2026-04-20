@@ -27,6 +27,7 @@ import {
 } from "../ui/alert-dialog";
 import { logout } from "@/api/authApi";
 import { useAuth } from "@/context/AuthContext";
+import { RiAdminLine } from "react-icons/ri";
 
 export default function Navbar() {
   const location = useLocation();
@@ -34,7 +35,7 @@ export default function Navbar() {
   const navbarRef = useRef<HTMLElement | null>(null);
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
@@ -150,6 +151,24 @@ export default function Navbar() {
         </button>
 
         <div className="bottomSection">
+          {/* Admin panel */}
+          {user?.roles.includes("Admin") && (
+            <Link
+              to="/admin"
+              className="nav-item"
+              onClick={() => setIsOpen(false)}
+            >
+              <RiAdminLine
+                className={`nav-icon ${isActive("/admin") ? "active" : ""}`}
+              />
+              <span
+                className={`nav-text ${isActive("/admin") ? "active" : ""}`}
+              >
+                Admin panel
+              </span>
+            </Link>
+          )}
+
           {/* Theme toggle */}
           <button
             className="nav-item"

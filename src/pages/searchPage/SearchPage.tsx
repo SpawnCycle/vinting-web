@@ -62,7 +62,14 @@ export default function SearchPage() {
   const { loading, setLoading } = useLoading();
   const { showToast } = useToast();
 
-  // STATE » URL — page-et is beleírjuk
+  const handleSetFilters: React.Dispatch<React.SetStateAction<FiltersState>> = (
+    action,
+  ) => {
+    setCurrentPage(1);
+    setFilters(action);
+  };
+
+  // STATE » URL
   useEffect(() => {
     const params = new URLSearchParams();
 
@@ -79,11 +86,6 @@ export default function SearchPage() {
     setSearchParams(params, { replace: true });
   }, [filters, query, currentPage, setSearchParams]);
 
-  // filter vagy query változik > visszaállítjuk az 1. oldalra
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filters, query]);
-
   // fetch
   useEffect(() => {
     const fetchProducts = async () => {
@@ -93,12 +95,14 @@ export default function SearchPage() {
         const apiFilters = {
           search: query || undefined,
           gender: filters.gender || undefined,
-          color: filters.colors.length ? filters.colors : undefined,
-          size: filters.sizes[0] || undefined,
+          colors: filters.colors.length ? filters.colors : undefined,
+          sizes: filters.sizes.length ? filters.sizes : undefined,
           categories: filters.categories.length
             ? filters.categories
             : undefined,
-          condition: filters.conditions.length ? filters.conditions : undefined,
+          conditions: filters.conditions.length
+            ? filters.conditions
+            : undefined,
           sort_by: filters.sort_by,
           asc: filters.asc,
           page: currentPage,
@@ -111,14 +115,7 @@ export default function SearchPage() {
           items,
         } = await getProductsPaginated(apiFilters);
 
-        let processed = data;
-        if (filters.conditions.length > 0) {
-          processed = processed.filter((p) =>
-            filters.conditions.includes(p.condition),
-          );
-        }
-
-        setProducts(processed);
+        setProducts(data);
         setTotalPages(pages);
         setTotalItems(items);
       } catch (err) {
@@ -130,21 +127,21 @@ export default function SearchPage() {
     };
 
     fetchProducts();
-  }, [filters, query, currentPage]);
+  }, [filters, query, currentPage]); // csak egy fetch effect van
 
   const removeTag = (type: keyof FiltersState, value?: string) => {
     if (type === "gender") {
-      setFilters((prev) => ({ ...prev, gender: null }));
+      handleSetFilters((prev) => ({ ...prev, gender: null }));
       return;
     }
-    setFilters((prev) => ({
+    handleSetFilters((prev) => ({
       ...prev,
       [type]: (prev[type] as string[]).filter((v) => v !== value),
     }));
   };
 
   const clearAll = () => {
-    setFilters(defaultFilters);
+    handleSetFilters(defaultFilters);
     setQuery("");
     setQueryInput("");
   };
@@ -181,6 +178,7 @@ export default function SearchPage() {
             onChange={(e) => setQueryInput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
+                setCurrentPage(1);
                 setQuery(queryInput);
                 (e.target as HTMLInputElement).blur();
               }
@@ -198,32 +196,32 @@ export default function SearchPage() {
             className="sort-select"
             value={selectedSortBy}
             onChange={(e) => {
-              setSelectedSortBy(e.target.value as SortByType);
-              setFilters((prev) => {
-                const sort_type = e.target.value as SortByType;
-                let sort = "date" as FiltersState["sort_by"];
-                let asc = false;
-                switch (sort_type) {
-                  default:
-                  case "date_desc":
-                    sort = "date";
-                    asc = false;
-                    break;
-                  case "date_asc":
-                    sort = "date";
-                    asc = true;
-                    break;
-                  case "price_asc":
-                    sort = "price";
-                    asc = true;
-                    break;
-                  case "price_desc":
-                    sort = "price";
-                    asc = false;
-                    break;
-                }
-                return { ...prev, sort_by: sort, asc };
-              });
+              const sort_type = e.target.value as SortByType;
+              setSelectedSortBy(sort_type);
+
+              let sort = "date" as FiltersState["sort_by"];
+              let asc = false;
+              switch (sort_type) {
+                default:
+                case "date_desc":
+                  sort = "date";
+                  asc = false;
+                  break;
+                case "date_asc":
+                  sort = "date";
+                  asc = true;
+                  break;
+                case "price_asc":
+                  sort = "price";
+                  asc = true;
+                  break;
+                case "price_desc":
+                  sort = "price";
+                  asc = false;
+                  break;
+              }
+
+              handleSetFilters((prev) => ({ ...prev, sort_by: sort, asc }));
             }}
           >
             <option value="date_desc">Newest</option>
@@ -247,7 +245,6 @@ export default function SearchPage() {
           </div>
         )}
 
-        {/* Találatok száma */}
         {!loading && (
           <p className="results-count">{totalItems} products found</p>
         )}
@@ -257,7 +254,7 @@ export default function SearchPage() {
         <aside className={`filter-sidebar ${isFilterOpen ? "open" : ""}`}>
           <FilterPanel
             filters={filters}
-            setFilters={setFilters}
+            setFilters={handleSetFilters}
             close={() => setIsFilterOpen(false)}
           />
         </aside>
@@ -276,7 +273,6 @@ export default function SearchPage() {
                 returnTo={location.pathname + location.search}
               />
 
-              {/* pages */}
               {totalPages > 1 && (
                 <div className="pagination">
                   <button

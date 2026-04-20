@@ -4,7 +4,7 @@ export const categories = [
   { path: "Pants", title: "Pants", image: "/images/pants.png" },
   { path: "Shoes", title: "Shoes", image: "/images/shoes.png" },
   {
-    path: "Accessories",
+    path: "Acessories",
     title: "Accessories",
     image: "/images/accessories.png",
   },

@@ -12,13 +12,12 @@ export type ProductFilters = {
   id?: number;
   sellerId?: number;
   search?: string;
-  color?: string[];
+  colors?: string[];
   categories?: string[];
-  condition?: string[];
+  conditions?: string[];
   gender?: string;
-  size?: string;
-
-  orderBy?: string;
+  sizes?: string[];
+  sort_by?: string;
   asc?: boolean;
   page?: number;
   itemsPerPage?: number;
@@ -49,25 +48,20 @@ export async function getProducts(
       data = data.filter((p) => p.gender === filters.gender);
     }
 
-    if (filters?.size) {
-      data = data.filter((p) => p.size === filters.size);
+    if (filters?.sizes?.length) {
+      data = data.filter((p) => filters.sizes!.includes(p.size));
     }
 
-    if (filters?.color?.length) {
-      data = data.filter((p) =>
-        filters.color!.some((c) => (p as any).colors?.includes(c)),
-      );
+    if (filters?.colors?.length) {
+      data = data.filter((p) => filters.colors!.includes(p.color));
     }
 
-    if (filters?.condition?.length) {
-      data = data.filter((p) =>
-        filters.condition!.includes((p as any).condition),
-      );
+    if (filters?.conditions?.length) {
+      data = data.filter((p) => filters.conditions!.includes(p.condition));
     }
 
     if (filters?.search) {
       const q = filters.search.toLowerCase();
-
       data = data.filter(
         (p) =>
           p.title.toLowerCase().includes(q) ||
@@ -79,36 +73,20 @@ export async function getProducts(
     return data;
   }
 
-  //BACKEND
   const params = new URLSearchParams();
 
   if (filters?.gender) params.append("gender", filters.gender);
-
-  if (filters?.size) params.append("size", filters.size);
-
-  if (filters?.color?.length) {
-    filters.color.forEach((c) => {
-      params.append("color", c);
-    });
-  }
-
-  if (filters?.categories?.length) {
-    filters.categories.forEach((c) => {
-      params.append("categories", c);
-    });
-  }
-
-  if (filters?.search) {
-    params.append("query", `%${filters.search}%`);
-  }
-
-  if (filters?.orderBy) {
-    params.append("order_by", filters.orderBy);
-  }
-
-  if (filters?.asc) {
-    params.append("asc", filters.asc.toString());
-  }
+  if (filters?.sizes?.length)
+    filters.sizes.forEach((s) => params.append("size", s));
+  if (filters?.colors?.length)
+    filters.colors.forEach((c) => params.append("color", c));
+  if (filters?.categories?.length)
+    filters.categories.forEach((c) => params.append("categories", c));
+  if (filters?.conditions?.length)
+    filters.conditions.forEach((c) => params.append("condition", c));
+  if (filters?.search) params.append("query", `%${filters.search}%`);
+  if (filters?.sort_by) params.append("sort_by", filters.sort_by);
+  if (filters?.asc !== undefined) params.append("asc", String(filters.asc));
 
   const res = await fetch(`/api/products?${params.toString()}`);
   const data: ProductPagination = await res.json();
@@ -143,25 +121,20 @@ export async function getProductsPaginated(filters?: ProductFilters): Promise<{
       data = data.filter((p) => p.gender === filters.gender);
     }
 
-    if (filters?.size) {
-      data = data.filter((p) => p.size === filters.size);
+    if (filters?.sizes?.length) {
+      data = data.filter((p) => filters.sizes!.includes(p.size));
     }
 
-    if (filters?.color?.length) {
-      data = data.filter((p) =>
-        filters.color!.some((c) => (p as any).colors?.includes(c)),
-      );
+    if (filters?.colors?.length) {
+      data = data.filter((p) => filters.colors!.includes(p.color));
     }
 
-    if (filters?.condition?.length) {
-      data = data.filter((p) =>
-        filters.condition!.includes((p as any).condition),
-      );
+    if (filters?.conditions?.length) {
+      data = data.filter((p) => filters.conditions!.includes(p.condition));
     }
 
     if (filters?.search) {
       const q = filters.search.toLowerCase();
-
       data = data.filter(
         (p) =>
           p.title.toLowerCase().includes(q) ||
@@ -180,40 +153,20 @@ export async function getProductsPaginated(filters?: ProductFilters): Promise<{
   const params = new URLSearchParams();
 
   if (filters?.gender) params.append("gender", filters.gender);
-
-  if (filters?.size) params.append("size", filters.size);
-
-  if (filters?.color?.length) {
-    filters.color.forEach((c) => {
-      params.append("color", c);
-    });
-  }
-
-  if (filters?.categories?.length) {
-    filters.categories.forEach((c) => {
-      params.append("categories", c);
-    });
-  }
-
-  if (filters?.search) {
-    params.append("query", `%${filters.search}%`);
-  }
-
-  if (filters?.orderBy) {
-    params.append("order_by", filters.orderBy); //sort_by????
-  }
-
-  if (filters?.asc) {
-    params.append("asc", String(filters.asc));
-  }
-
-  if (filters?.page) {
-    params.append("page", String(filters.page));
-  }
-
-  if (filters?.itemsPerPage) {
+  if (filters?.sizes?.length)
+    filters.sizes.forEach((s) => params.append("size", s));
+  if (filters?.colors?.length)
+    filters.colors.forEach((c) => params.append("color", c));
+  if (filters?.categories?.length)
+    filters.categories.forEach((c) => params.append("categories", c));
+  if (filters?.conditions?.length)
+    filters.conditions.forEach((c) => params.append("condition", c));
+  if (filters?.search) params.append("query", `%${filters.search}%`);
+  if (filters?.sort_by) params.append("sort_by", filters.sort_by);
+  if (filters?.asc !== undefined) params.append("asc", String(filters.asc));
+  if (filters?.page) params.append("page", String(filters.page));
+  if (filters?.itemsPerPage)
     params.append("page_size", String(filters.itemsPerPage));
-  }
 
   const res = await fetch(`/api/products?${params.toString()}`);
   const data: ProductPagination = await res.json();
@@ -229,16 +182,11 @@ export async function getProductById(id: number): Promise<ProductUI | null> {
   if (!USE_BACKEND) {
     const res = await fetch("/data/products.json");
     const data: ProductUI[] = await res.json();
-
     return data.find((p) => p.id === id) ?? null;
   }
 
-  //BACKEND:
   const res = await fetch(`/api/products/${id}`);
-
-  if (!res.ok) {
-    return null;
-  }
+  if (!res.ok) return null;
 
   const data: ProductDto = await res.json();
   return mapProduct(data);
@@ -248,19 +196,13 @@ export async function getProductByUser(
   id: number,
 ): Promise<ProductUI[] | null> {
   if (!USE_BACKEND) {
-    //MOCK (amennyiben nem backendről fut)
     const res = await fetch("/data/products.json");
     const data: ProductUI[] = await res.json();
-
     return data.filter((p) => p.sellerId === id) ?? null;
   }
 
-  //BACKEND esetén:
   const res = await fetch(`/api/users/${id}/products`);
-
-  if (!res.ok) {
-    return null;
-  }
+  if (!res.ok) return null;
 
   const data: ProductDto[] = await res.json();
   return data.map(mapProduct);
@@ -273,19 +215,14 @@ export async function createProduct(form: CreateProductForm) {
   }
 
   const imageIds: number[] = [];
-
   for (const file of form.images) {
     const id = await uploadImage(file);
     imageIds.push(id);
   }
 
   const allCategories = await getCategories();
-
   const categoryIds = (form.categories ?? [])
-    .map((name) => {
-      const found = allCategories.find((c) => c.name === name);
-      return found?.id;
-    })
+    .map((name) => allCategories.find((c) => c.name === name)?.id)
     .filter((id): id is number => Boolean(id));
 
   const dto = {
@@ -305,9 +242,7 @@ export async function createProduct(form: CreateProductForm) {
 
   const res = await fetch("/api/products/", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dto),
   });
 
@@ -323,9 +258,7 @@ export async function createProduct(form: CreateProductForm) {
 export async function updateProduct(dto: UpdateProductDto): Promise<void> {
   const res = await fetch(`/api/products/${dto.id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dto),
   });
 

@@ -29,7 +29,7 @@ export default function Home() {
         setLoading(true);
 
         const res = await getProductsPaginated({
-          orderBy: "date",
+          sort_by: "date",
           asc: false,
           itemsPerPage: 30,
         });
@@ -103,9 +103,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-image">
+        {/* <div className="hero-image">
           <img src="" alt="" />
-        </div>
+        </div> */}
       </section>
 
       {/* categories */}
