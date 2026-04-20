@@ -44,6 +44,7 @@ export default function EditProduct() {
   >([]);
 
   const [newImages, setNewImages] = useState<File[]>([]);
+  const [deletedImageIds, setDeletedImageIds] = useState<number[]>([]);
   const [preview, setPreview] = useState<string[]>([]);
 
   const [allTags, setAllTags] = useState<Tag[]>([]);
@@ -141,6 +142,8 @@ export default function EditProduct() {
     setPreview((p) => p.filter((_, i) => i !== index));
 
     if (index < existingImages.length) {
+      const removed = existingImages[index];
+      setDeletedImageIds((p) => [...p, removed.id]); // ← eltároljuk a törlendő id-t
       setExistingImages((p) => p.filter((_, i) => i !== index));
     } else {
       const newIndex = index - existingImages.length;
@@ -151,6 +154,12 @@ export default function EditProduct() {
   // SUBMIT
   const submit = async () => {
     try {
+      for (const imageId of deletedImageIds) {
+        await fetch(`/api/images/${imageId}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+      }
       const uploadedIds: number[] = [];
 
       for (const file of newImages) {
