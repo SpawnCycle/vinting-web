@@ -2,6 +2,7 @@
   width: 100vw;
   min-height: 100vh;
   background: #fff;
+  color: black;
   display: flex;
   justify-content: center;
   padding: 30px;
@@ -171,8 +172,8 @@
 /* buttons */
 
 .primary-btn {
-  background: var(--button-bg-main);
-  color: var(--button-text-main);
+  background: #222429;
+  color: #fff;
   border: none;
   padding: 12px 22px;
   border-radius: 12px;
@@ -185,8 +186,8 @@
 }
 
 .secondary-btn {
-  background: var(--button-bg-secondary);
-  color: var(--button-text-secondary);
+  background: #ccc;
+  color: #000;
   border: none;
   padding: 12px 22px;
   border-radius: 12px;
