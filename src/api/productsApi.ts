@@ -154,13 +154,13 @@ export async function getProductsPaginated(filters?: ProductFilters): Promise<{
 
   if (filters?.gender) params.append("gender", filters.gender);
   if (filters?.sizes?.length)
-    filters.sizes.forEach((s) => params.append("size", s));
+    filters.sizes.forEach((s) => params.append("sizes", s));
   if (filters?.colors?.length)
-    filters.colors.forEach((c) => params.append("color", c));
+    filters.colors.forEach((c) => params.append("colors", c));
   if (filters?.categories?.length)
     filters.categories.forEach((c) => params.append("categories", c));
   if (filters?.conditions?.length)
-    filters.conditions.forEach((c) => params.append("condition", c));
+    filters.conditions.forEach((c) => params.append("conditions", c));
   if (filters?.search) params.append("query", `%${filters.search}%`);
   if (filters?.sort_by) params.append("sort_by", filters.sort_by);
   if (filters?.asc !== undefined) params.append("asc", String(filters.asc));
