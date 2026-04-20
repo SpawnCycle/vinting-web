@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import {
-  CgChevronLeft,
-  CgChevronRight,
-  CgClose,
-} from "react-icons/cg";
+import { CgChevronLeft, CgChevronRight, CgClose } from "react-icons/cg";
 import "./ImageCarousel.css";
 
 type Props = {
@@ -17,15 +13,12 @@ export default function ImageCarousel({ images = [] }: Props) {
 
   if (images.length === 0) return null;
 
-  const prev = () =>
-    setIndex(i => (i === 0 ? images.length - 1 : i - 1));
+  const prev = () => setIndex((i) => (i === 0 ? images.length - 1 : i - 1));
 
-  const next = () =>
-    setIndex(i => (i === images.length - 1 ? 0 : i + 1));
+  const next = () => setIndex((i) => (i === images.length - 1 ? 0 : i + 1));
 
   return (
     <>
-      {/* NORMAL VIEW */}
       <div className="carousel-root">
         <img
           src={images[index]}
@@ -47,43 +40,41 @@ export default function ImageCarousel({ images = [] }: Props) {
         </div>
       </div>
 
-        {/* FULLSCREEN OVERLAY */}
-        {fullscreen &&
+      {/* FULLSCREEN */}
+      {fullscreen &&
         createPortal(
-            <div
+          <div
             className="carousel-overlay"
             onClick={() => setFullscreen(false)}
-            >
+          >
             <div
-                className="carousel-overlay-content"
-                onClick={e => e.stopPropagation()}
+              className="carousel-overlay-content"
+              onClick={(e) => e.stopPropagation()}
             >
-                <img
+              <img
                 src={images[index]}
                 className="carousel-overlay-image"
                 alt=""
-                />
+              />
 
-                <button className="overlay-btn left" onClick={prev}>
+              <button className="overlay-btn left" onClick={prev}>
                 <CgChevronLeft size={32} />
-                </button>
+              </button>
 
-                <button className="overlay-btn right" onClick={next}>
+              <button className="overlay-btn right" onClick={next}>
                 <CgChevronRight size={32} />
-                </button>
+              </button>
 
-                <button
+              <button
                 className="overlay-close"
                 onClick={() => setFullscreen(false)}
-                >
+              >
                 <CgClose size={28} />
-                </button>
+              </button>
             </div>
-            </div>,
-            document.body
-        )
-        }
-
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

@@ -6,9 +6,6 @@ import type { ProductUI as Product } from "../../types/Product/ProductUI";
 import { getProducts, getProductsPaginated } from "../../api/productsApi";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-{
-  /* loader test */
-}
 import { useLoading } from "@/context/LoadingContext";
 import { useToast } from "@/context/ToastContext";
 
@@ -19,9 +16,6 @@ export default function Home() {
 
   const { loading, setLoading } = useLoading();
   const { showToast } = useToast();
-  {
-    /* loader test */
-  }
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -52,7 +46,6 @@ export default function Home() {
 
   return (
     <div className="home">
-      {/* hero */}
       <section className="home-hero">
         <div className="hero-text">
           {/* <h1>Welcome back, User{}</h1>  UserName!!! */}
@@ -108,8 +101,6 @@ export default function Home() {
         </div> */}
       </section>
 
-      {/* categories */}
-
       <section className="home-categories">
         <h2>Popular categories</h2>
 
@@ -124,8 +115,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* most liked ones */}
 
       <section className="home-trending">
         <h2>New Arrivals</h2>

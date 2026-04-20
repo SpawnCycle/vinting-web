@@ -40,12 +40,10 @@ export default function FavoritesPage() {
 
   return (
     <div className="favorites-page">
-      {/* header */}
+      ó{" "}
       <div className="favorites-header">
         <h1>Favorites</h1>
       </div>
-
-      {/* filter bar */}
       <div className="favorites-filters-container">
         <div className="favorites-filters">
           <button
@@ -77,8 +75,6 @@ export default function FavoritesPage() {
           </button>
         </div>
       </div>
-
-      {/* grid */}
       {products.length === 0 ? (
         <div className="favorites-empty">
           <h2>Nothing saved yet</h2>

@@ -13,7 +13,7 @@ import { useToast } from "@/context/ToastContext";
 
 type SortByType = "date_asc" | "date_desc" | "price_asc" | "price_desc";
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 4; //Később lehet több, tesztelés kedvéért 4
 
 const defaultFilters: FiltersState = {
   gender: null,
@@ -127,7 +127,7 @@ export default function SearchPage() {
     };
 
     fetchProducts();
-  }, [filters, query, currentPage]); // csak egy fetch effect van
+  }, [filters, query, currentPage]);
 
   const removeTag = (type: keyof FiltersState, value?: string) => {
     if (type === "gender") {

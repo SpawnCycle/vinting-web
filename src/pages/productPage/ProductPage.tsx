@@ -79,12 +79,10 @@ export default function ProductPage() {
       <BackButton />
 
       <div className="product-card">
-        {/* image */}
         <div className="product-image-placeholder">
           <ImageCarousel images={product.images} />
         </div>
 
-        {/* info */}
         <div className="product-info">
           {product.sellerId === MY_USER_ID ? (
             <div className="action-buttons">
@@ -110,7 +108,6 @@ export default function ProductPage() {
             {product.price.toLocaleString()} Ft
           </div>
 
-          {/* TAGS */}
           <div className="product-tags">
             <span className="tag">Size: {product.size}</span>
             <span className="tag">Condition: {product.condition}</span>
@@ -131,13 +128,11 @@ export default function ProductPage() {
             </span>
           </div>
 
-          {/* DESCRIPTION */}
           <div className="product-description">
             <h3>Description</h3>
             <p>{product.description}</p>
           </div>
 
-          {/* TAG LIST (hashtags) */}
           {product.tags && product.tags.length > 0 && (
             <div className="product-tag-list">
               {product.tags.map((tag) => (
@@ -148,7 +143,6 @@ export default function ProductPage() {
             </div>
           )}
 
-          {/* SELLER */}
           {product.sellerId !== MY_USER_ID && (
             <div className="product-seller">
               <span className="seller-icon">
@@ -168,7 +162,6 @@ export default function ProductPage() {
             </div>
           )}
 
-          {/* buy */}
           {product.sellerId === MY_USER_ID ? (
             <div className="product-buy">
               <p className="buy-hint sold-stat">
@@ -189,7 +182,6 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* other products by seller */}
       {sellerProducts.length > 0 && (
         <div className="related-section" id="related-section">
           {product.sellerId !== MY_USER_ID ? (

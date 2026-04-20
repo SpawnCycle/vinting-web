@@ -208,7 +208,6 @@ export default function EditProduct() {
     <div className="form-container">
       <div className="edit-page">
         <div className="edit-card">
-          {/* TITLE */}
           <div className="form-group">
             <label>
               Title <sup>*</sup>
@@ -220,7 +219,6 @@ export default function EditProduct() {
             />
           </div>
 
-          {/* DESCRIPTION */}
           <div className="form-group">
             <label>
               Description <sup>*</sup>
@@ -232,7 +230,6 @@ export default function EditProduct() {
             />
           </div>
 
-          {/* TAGS */}
           <div className="form-group">
             <label>Tags</label>
 
@@ -259,7 +256,6 @@ export default function EditProduct() {
             </div>
           </div>
 
-          {/* CATEGORIES */}
           <div className="form-group">
             <label>Categories</label>
 
@@ -278,7 +274,6 @@ export default function EditProduct() {
             </div>
           </div>
 
-          {/* BRAND & GENDER */}
           <div className="form-row">
             <div className="form-group">
               <label>Brand</label>
@@ -302,7 +297,6 @@ export default function EditProduct() {
             </div>
           </div>
 
-          {/* SIZE & CONDITION */}
           <div className="form-row">
             <div className="form-group">
               <label>Size</label>
@@ -329,7 +323,6 @@ export default function EditProduct() {
             </div>
           </div>
 
-          {/* COLORS */}
           <div className="form-group">
             <label>Colors</label>
 
@@ -352,7 +345,6 @@ export default function EditProduct() {
             </div>
           </div>
 
-          {/* PRICE & STOCK */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -401,7 +393,6 @@ export default function EditProduct() {
             </div>
           </div>
 
-          {/* IMAGES */}
           <div className="form-group">
             <label>
               Images <sup>*</sup>

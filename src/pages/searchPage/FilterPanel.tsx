@@ -20,7 +20,6 @@ interface Props {
 export default function FilterPanel({ filters, setFilters, close }: Props) {
   const { categories, loading } = useCategories();
 
-  // egyszerűsített - string alapú
   const toggleMulti = (key: keyof FiltersState, value: string) => {
     setFilters((prev) => {
       const list = prev[key] as string[];
@@ -40,7 +39,6 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         <button onClick={close}>×</button>
       </div>
 
-      {/* Gender (single select) */}
       <div className="filter-section">
         <h4>Gender</h4>
         <div className="filter-radio-group">
@@ -62,7 +60,6 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         </div>
       </div>
 
-      {/* Size */}
       <div className="filter-section">
         <h4>Size</h4>
         <div className="size-grid">
@@ -82,7 +79,6 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         </div>
       </div>
 
-      {/* Color */}
       <div className="filter-section">
         <h4>Color</h4>
         <div className="color-list">
@@ -102,7 +98,6 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         </div>
       </div>
 
-      {/* Category */}
       <div className="filter-section">
         <h4>Category</h4>
 
@@ -124,7 +119,6 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         )}
       </div>
 
-      {/* Condition */}
       <div className="filter-section">
         <h4>Condition</h4>
         <div className="checkbox-group">
@@ -141,7 +135,6 @@ export default function FilterPanel({ filters, setFilters, close }: Props) {
         </div>
       </div>
 
-      {/* Clear */}
       <button
         className="filter-clear"
         onClick={() =>

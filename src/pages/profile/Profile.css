@@ -282,7 +282,6 @@
   border-radius: 8px;
   object-fit: cover;
 }
-/* mob */
 
 @media (max-width: 900px) {
   .profile-page {

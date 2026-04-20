@@ -34,7 +34,7 @@ export default function AdminPage() {
 
   return (
     <div className="admin-layout">
-      {/* SIDEBAR */}
+      {/* sidebar */}
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
           <img src="/images/logo_800x800.png" alt="Vinting Logo" />
@@ -81,12 +81,12 @@ export default function AdminPage() {
         </nav>
       </aside>
 
-      {/* OVERLAY */}
+      {/* overlya */}
       {sidebarOpen && (
         <div className="overlay" onClick={() => setSidebarOpen(false)} />
       )}
 
-      {/* CONTENT */}
+      {/* content */}
       <main className="admin-content">
         <div className="admin-topbar">
           <button className="menu-btn" onClick={() => setSidebarOpen(true)}>

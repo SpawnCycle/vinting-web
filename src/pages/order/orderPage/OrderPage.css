@@ -2,8 +2,6 @@
   padding: 24px;
 }
 
-/* HEADER */
-
 .order-page .order-header {
   display: flex;
   align-items: center;
@@ -29,23 +27,17 @@
   background: var(--bg-color-third);
 }
 
-/* LAYOUT */
-
 .order-page .order-layout {
   display: grid;
   grid-template-columns: 1fr 320px;
   gap: 24px;
 }
 
-/* CARD */
-
 .order-page .card {
   background: var(--bg-color-secondary);
   border-radius: 16px;
   padding: 20px;
 }
-
-/* PRODUCT */
 
 .order-page .product-card {
   display: flex;
@@ -91,8 +83,6 @@
   margin-bottom: 14px;
 }
 
-/* QUANTITY */
-
 .order-page .quantity span {
   display: block;
   margin-bottom: 6px;
@@ -125,8 +115,6 @@
   font-size: 16px;
 }
 
-/* ACCORDION */
-
 .order-page .accordion {
   margin-top: 16px;
 }
@@ -143,14 +131,10 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-
-  /* 🔥 FIX: dark mode readable */
   color: var(--text-color-secondary);
   font-size: 14px;
   line-height: 1.5;
 }
-
-/* SELLER */
 
 .order-page .seller-card {
   display: flex;
@@ -179,12 +163,10 @@
 }
 
 .order-page .name {
-  font-size: 16px; /* 🔥 nagyobb lett */
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-color-main);
 }
-
-/* SUMMARY */
 
 .order-page .summary-card {
   margin-top: 16px;
@@ -202,8 +184,6 @@
   font-size: 17px;
   color: var(--text-color-main);
 }
-
-/* BUTTONS */
 
 .order-page .confirm {
   width: 100%;
@@ -226,8 +206,6 @@
   border: none;
   cursor: pointer;
 }
-
-/* MOBILE */
 
 @media (max-width: 768px) {
   .order-page .order-layout {

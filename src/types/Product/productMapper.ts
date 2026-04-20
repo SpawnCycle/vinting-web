@@ -13,7 +13,6 @@ export function mapProduct(dto: ProductDto): ProductUI {
     condition: dto.condition as ProductUI["condition"],
     gender: dto.sex as ProductUI["gender"],
 
-    // backend DTO nem adja vissza » fallback
     color: (dto as any).color ?? PRODUCT_COLORS[0],
     images: Array.isArray(dto.images)
       ? dto.images.map((img: any) => img.url)

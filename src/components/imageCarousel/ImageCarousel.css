@@ -4,7 +4,7 @@
   height: 100%;
 }
 
-/* KÉP */
+/* image */
 .carousel-image {
   width: 100%;
   height: 100%;
@@ -15,7 +15,7 @@
   cursor: zoom-in;
 }
 
-/* NYILAK */
+/* arrow */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -42,7 +42,7 @@
   right: 12px;
 }
 
-/* COUNTER */
+/* counter */
 .carousel-counter {
   position: absolute;
   bottom: 12px;
@@ -56,10 +56,6 @@
   padding: 4px 10px;
   border-radius: 999px;
 }
-
-/* =========================
-         FULLSCREEN 
-========================= */
 
 .carousel-overlay {
   position: fixed;
@@ -80,7 +76,7 @@
   justify-content: center;
 }
 
-/* NAGY KÉP */
+/* image overlay */
 .carousel-overlay-image {
   max-height: 80vh;
   max-width: 90vw;
@@ -94,7 +90,7 @@
   }
 }
 
-/* OVERLAY NYILAK */
+/* overlay arrows */
 .overlay-btn {
   position: absolute;
   top: 50%;

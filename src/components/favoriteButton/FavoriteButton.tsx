@@ -5,10 +5,7 @@ import "./FavoriteButton.css";
 import { useToast } from "@/context/ToastContext";
 
 interface FavoriteButtonProps {
-  /** kezdeti állapot - backendből jön majd */
   initialFavorite?: boolean;
-
-  /** később API-hoz */
   productId?: string | number;
 }
 
@@ -18,7 +15,7 @@ export default function FavoriteButton({
   const [isFavorite, setIsFavorite] = useState<boolean>(initialFavorite);
   const { showToast } = useToast();
 
-  // ha a backendből jövő érték változik
+  // ha a backendből jövő érték változna
   useEffect(() => {
     setIsFavorite(initialFavorite);
   }, [initialFavorite]);
@@ -37,7 +34,7 @@ export default function FavoriteButton({
 
     //  KÉSŐBB IDE JÖN AZ API HÍVÁS (ki/be kedvelés metése)
     /*
-    bla bla bla
+    ...
     */
   };
 

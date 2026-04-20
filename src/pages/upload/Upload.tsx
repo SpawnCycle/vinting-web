@@ -54,7 +54,6 @@ export default function Upload() {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  //CAT TOGGLE
   const toggleCategory = (name: string) => {
     const exists = form.categories.includes(name);
 
@@ -124,7 +123,6 @@ export default function Upload() {
     <div className="form-container">
       <div className="edit-page">
         <div className="edit-card">
-          {/* TITLE */}
           <div className="form-group">
             <label>
               Title <sup>*</sup>
@@ -135,8 +133,7 @@ export default function Upload() {
               style={{ background: "var(--bg-color-main)" }}
             />
           </div>
-
-          {/* DESCRIPTION */}
+          ó{" "}
           <div className="form-group">
             <label>
               Description <sup>*</sup>
@@ -147,8 +144,6 @@ export default function Upload() {
               onChange={(e) => update("description", e.target.value)}
             />
           </div>
-
-          {/* TAGS */}
           <div className="form-group">
             <label>Tags</label>
 
@@ -174,8 +169,6 @@ export default function Upload() {
               ))}
             </div>
           </div>
-
-          {/* CATEGORIES */}
           <div className="form-group">
             <label>
               Categories <sup>*</sup>
@@ -194,8 +187,6 @@ export default function Upload() {
               ))}
             </div>
           </div>
-
-          {/* BRAND & GENDER */}
           <div className="form-row">
             <div className="form-group">
               <label>Brand</label>
@@ -220,8 +211,6 @@ export default function Upload() {
               </select>
             </div>
           </div>
-
-          {/* SIZE & CONDITION */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -251,8 +240,6 @@ export default function Upload() {
               </select>
             </div>
           </div>
-
-          {/* COLORS */}
           <div className="form-group">
             <label>
               Colors <sup>*</sup>
@@ -281,8 +268,6 @@ export default function Upload() {
               ))}
             </div>
           </div>
-
-          {/* PRICE */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -316,8 +301,6 @@ export default function Upload() {
               />
             </div>
           </div>
-
-          {/* IMAGES */}
           <div className="form-group">
             <label>
               Images <sup>*</sup>
@@ -351,7 +334,6 @@ export default function Upload() {
               />
             </div>
           </div>
-
           <p className="note">
             All fields marked with <sup>*</sup> are required. <br />
             Fields with predefined options have a default value, so please make

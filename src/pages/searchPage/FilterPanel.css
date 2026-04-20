@@ -9,8 +9,6 @@
   z-index: 1000;
 }
 
-/* header */
-
 .filter-header {
   display: flex;
   justify-content: space-between;
@@ -34,14 +32,11 @@
   display: none; /* desktopen ne látszódjon */
 }
 
-/* X - mob */
 @media (max-width: 1023px) {
   .filter-header button {
     display: block;
   }
 }
-
-/* section */
 
 .filter-section h4 {
   font-size: 0.75rem;
@@ -51,8 +46,6 @@
   letter-spacing: 0.8px;
   color: var(--text-color-secondary);
 }
-
-/* radio (gender) */
 
 .filter-radio-group {
   display: flex;
@@ -67,8 +60,6 @@
   cursor: pointer;
   font-size: 0.9rem;
 }
-
-/* size */
 
 .size-grid {
   display: flex;
@@ -91,8 +82,6 @@
   border-color: var(--button-bg-main);
 }
 
-/* color */
-
 .color-list {
   display: flex;
   flex-wrap: wrap;
@@ -114,8 +103,6 @@
   border-color: var(--button-bg-main);
 }
 
-/* checkbox group */
-
 .checkbox-group {
   display: flex;
   flex-direction: column;
@@ -135,8 +122,6 @@ input[type="radio"] {
   accent-color: var(--button-bg-main);
 }
 
-/* clear button */
-
 .filter-clear {
   margin-top: 1rem;
   padding: 0.7rem;
@@ -147,8 +132,6 @@ input[type="radio"] {
   cursor: pointer;
   font-size: 0.85rem;
 }
-
-/* mob fix */
 
 @media (max-width: 1023px) {
   .filter-panel {
