@@ -78,15 +78,16 @@
 
 /* image overlay */
 .carousel-overlay-image {
-  max-height: 80vh;
-  max-width: 90vw;
+  width: 80vw;
+  height: 80vh;
   object-fit: contain;
+  object-position: center;
 }
 
 @media (max-width: 768px) {
   .carousel-overlay-image {
-    max-height: 90vh;
-    max-width: 90vw;
+    width: 90vw;
+    height: 80vh;
   }
 }
 
