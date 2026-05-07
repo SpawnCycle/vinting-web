@@ -78,7 +78,7 @@
 
 /* image overlay */
 .carousel-overlay-image {
-  width: 890vw;
+  width: 80vw;
   height: 80vh;
   object-fit: contain;
   object-position: center;
