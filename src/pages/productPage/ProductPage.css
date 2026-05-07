@@ -114,6 +114,7 @@
   background: var(--bg-color-third);
   border-radius: 16px;
   padding: 16px;
+  white-space: pre-wrap;
 }
 
 .product-page .product-description h3 {

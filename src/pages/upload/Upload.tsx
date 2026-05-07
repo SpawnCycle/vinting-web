@@ -133,7 +133,6 @@ export default function Upload() {
               style={{ background: "var(--bg-color-main)" }}
             />
           </div>
-          ó{" "}
           <div className="form-group">
             <label>
               Description <sup>*</sup>
